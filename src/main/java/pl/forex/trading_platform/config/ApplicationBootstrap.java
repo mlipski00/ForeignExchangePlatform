@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import pl.forex.trading_platform.service.GetOandaQutes;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,19 +50,12 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
 
         try {
             List<ClientPrice> clientPrices;
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss:SSS");
-            for (; ; ) {
-                clientPrices = context.pricing.get(accountID, instruments).getPrices();
-                System.out.println(clientPrices);
-                System.out.println("sprawdzamy czy asychronicznie " + sdf.format(Calendar.getInstance().getTime()));
-                System.out.println(clientPrices.size());
-                System.out.println(clientPrices.get(0).getAsks().get(0).getPrice());
-                System.out.println(clientPrices.get(0).getAsks().get(0).getLiquidity());
-                System.out.println(clientPrices.get(0).getBids());
-                System.out.println(clientPrices.get(0).getTime());
-                System.out.println(clientPrices.get(0).getStatus());
-                System.out.println("qoutesInterval: " + qoutesInterval);
-                Thread.sleep(qoutesInterval);
+            clientPrices = context.pricing.get(accountID, instruments).getPrices();
+
+            Thread getOandaQuotes[] = new Thread[clientPrices.size()];
+            for (int i = 0; i < clientPrices.size(); i++) {
+                    getOandaQuotes[i] = new GetOandaQutes(context,clientPrices,accountID,instruments,i, qoutesInterval);
+                    getOandaQuotes[i].start();
             }
 
         } catch (Exception e) {
