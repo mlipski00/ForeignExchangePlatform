@@ -4,8 +4,8 @@ import com.oanda.v20.Context;
 import com.oanda.v20.account.AccountID;
 import com.oanda.v20.pricing.ClientPrice;
 import com.oanda.v20.primitives.AcceptDatetimeFormat;
-import com.oanda.v20.primitives.Instrument;
 import org.apache.http.impl.client.HttpClients;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -19,22 +19,33 @@ import java.util.List;
 @Component
 public class ApplicationBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
+    @Value("${oanda.accountIDValue}")
+    private String accountIDValue;
+
+    @Value("${oanda.token}")
+    private String oandaToken;
+
+    @Value("${oanda.instrumentsList}")
+    private String[] instrumentsList;
+
+    @Value("${oanda.apiURI}")
+    private String apiURI;
+
+    @Value("${oanda.getQoutesInterval}")
+    private int qoutesInterval;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         startFetchingQuotes();
     }
 
     private void startFetchingQuotes() {
-        Instrument instrument = new Instrument();
-        instrument.setName("EUR_USD");
-        instrument.setDisplayName("EUR_USD");
-        AccountID accountID = new AccountID("101-004-8649412-001");
+        AccountID accountID = new AccountID(accountIDValue);
 
         List<String> instruments = new ArrayList<>(
-                Arrays.asList("EUR_USD"));
+                Arrays.asList(instrumentsList));
 
-        Context context = new Context("https://api-fxpractice.oanda.com/", "25c688234329e1cffa2142fe3f464edc-5a1491707829b49fe90362ae8e59bfc9", "", AcceptDatetimeFormat.RFC3339, HttpClients.createDefault());
-
+        Context context = new Context(apiURI, oandaToken, "", AcceptDatetimeFormat.RFC3339, HttpClients.createDefault());
 
         try {
             List<ClientPrice> clientPrices;
@@ -43,13 +54,14 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
                 clientPrices = context.pricing.get(accountID, instruments).getPrices();
                 System.out.println(clientPrices);
                 System.out.println("sprawdzamy czy asychronicznie " + sdf.format(Calendar.getInstance().getTime()));
+                System.out.println(clientPrices.size());
                 System.out.println(clientPrices.get(0).getAsks().get(0).getPrice());
                 System.out.println(clientPrices.get(0).getAsks().get(0).getLiquidity());
                 System.out.println(clientPrices.get(0).getBids());
                 System.out.println(clientPrices.get(0).getTime());
                 System.out.println(clientPrices.get(0).getStatus());
-
-                Thread.sleep(10000);
+                System.out.println("qoutesInterval: " + qoutesInterval);
+                Thread.sleep(qoutesInterval);
             }
 
         } catch (Exception e) {
