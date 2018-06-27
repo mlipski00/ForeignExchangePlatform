@@ -1,4 +1,4 @@
 # ForeignExchangePlatform
 Forex trading platform
 
-This repository is aimed to track currency exchange platform building using Spring, Hibernate and Angular frameworks. 
+This repository is aimed to track development process of currency exchange platform build with Spring, Hibernate and Angular frameworks. 
