@@ -11,11 +11,11 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import pl.forex.trading_platform.service.GetOandaQutes;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class ApplicationBootstrap implements ApplicationListener<ContextRefreshedEvent> {
@@ -49,17 +49,16 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
         Context context = new Context(apiURI, oandaToken, "", AcceptDatetimeFormat.RFC3339, HttpClients.createDefault());
 
         try {
-            List<ClientPrice> clientPrices;
-            clientPrices = context.pricing.get(accountID, instruments).getPrices();
+            List<ClientPrice> clientPrices = context.pricing.get(accountID, instruments).getPrices();
 
-            Thread getOandaQuotes[] = new Thread[clientPrices.size()];
+            ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(clientPrices.size());
+
             for (int i = 0; i < clientPrices.size(); i++) {
-                    getOandaQuotes[i] = new GetOandaQutes(context,clientPrices,accountID,instruments,i, qoutesInterval);
-                    getOandaQuotes[i].start();
+                scheduledThreadPoolExecutor.scheduleWithFixedDelay(new GetOandaQutes(context, clientPrices, accountID, instruments, i), 0, qoutesInterval, TimeUnit.MILLISECONDS);
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }
