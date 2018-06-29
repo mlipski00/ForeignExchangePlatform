@@ -7,6 +7,7 @@ import com.oanda.v20.primitives.AcceptDatetimeFormat;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import pl.forex.trading_platform.service.GetOandaQutes;
@@ -18,6 +19,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @Component
+@PropertySource("classpath:oandaApi.properties")
 public class ApplicationBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     @Value("${oanda.accountIDValue}")
