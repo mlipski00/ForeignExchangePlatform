@@ -3,6 +3,7 @@ package pl.forex.trading_platform.service;
 import com.oanda.v20.Context;
 import com.oanda.v20.account.AccountID;
 import com.oanda.v20.pricing.ClientPrice;
+import pl.forex.trading_platform.domain.Quotation;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

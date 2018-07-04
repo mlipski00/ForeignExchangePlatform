@@ -1,4 +1,4 @@
-package pl.forex.trading_platform.config;
+package pl.forex.trading_platform.bootstrap;
 
 import com.oanda.v20.Context;
 import com.oanda.v20.account.AccountID;
