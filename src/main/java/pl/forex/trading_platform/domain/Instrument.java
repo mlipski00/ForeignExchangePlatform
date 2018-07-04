@@ -17,7 +17,7 @@ public class Instrument {
     private Long id;
     private String description;
 
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "instrument")
-    private Set<Quotation> quotations = new HashSet<>();
+    public Instrument(String description) {
+        this.description = description;
+    }
 }
