@@ -14,15 +14,13 @@ public class GetOandaQutes implements Runnable {
     private List<ClientPrice> clientPrices;
     private AccountID accountID;
     private List<String> instruments;
-    private int iterator;
     private SimpleDateFormat sdf;
 
-    public GetOandaQutes(Context context, List<ClientPrice> clientPrices, AccountID accountID, List<String> instruments, int iterator) {
+    public GetOandaQutes(Context context, List<ClientPrice> clientPrices, AccountID accountID, List<String> instruments) {
         this.context = context;
         this.clientPrices = clientPrices;
         this.accountID = accountID;
         this.instruments = instruments;
-        this.iterator = iterator;
         this.sdf = new SimpleDateFormat("HH:mm:ss:SSS");
     }
 
@@ -30,11 +28,11 @@ public class GetOandaQutes implements Runnable {
         try {
             clientPrices = context.pricing.get(accountID, instruments).getPrices();
             System.out.println(clientPrices);
-            System.out.println(clientPrices.get(iterator).getInstrument());
+            System.out.println(clientPrices.get(0).getInstrument());
             System.out.println("Real fetch time: " + sdf.format(Calendar.getInstance().getTime()));
-            System.out.println(clientPrices.size() + "|current iteration " + iterator);
-            System.out.println(clientPrices.get(iterator).getAsks().get(0).getPrice());
-            System.out.println(clientPrices.get(iterator).getAsks().get(0).getLiquidity());
+            System.out.println(clientPrices.size() + "|current iteration " + instruments.get(0));
+            System.out.println(clientPrices.get(0).getAsks().get(0).getPrice());
+            System.out.println(clientPrices.get(0).getAsks().get(0).getLiquidity());
             System.out.println("Active threads: " + Thread.activeCount());
         } catch (Exception e) {
             System.out.println(e.getMessage());
