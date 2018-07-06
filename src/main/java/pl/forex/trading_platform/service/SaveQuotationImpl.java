@@ -11,12 +11,20 @@ import java.util.Optional;
 
 @Service
 public class SaveQuotationImpl implements SaveQuotation {
-    @Autowired
-    private static InstrumentRepository instrumentRepository;
 
-    @Autowired
+
+    private InstrumentRepository instrumentRepository;
+
+
     private QuotationRepository quotationRepository;
-
+    @Autowired
+    public void setInstrumentRepository(InstrumentRepository instrumentRepository) {
+        this.instrumentRepository = instrumentRepository;
+    }
+    @Autowired
+    public void setQuotationRepository(QuotationRepository quotationRepository) {
+        this.quotationRepository = quotationRepository;
+    }
 
     @Override
     public void saveQuotation(ClientPrice clientPrice) {

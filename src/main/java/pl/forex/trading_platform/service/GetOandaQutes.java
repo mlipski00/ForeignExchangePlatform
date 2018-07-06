@@ -3,16 +3,10 @@ package pl.forex.trading_platform.service;
 import com.oanda.v20.Context;
 import com.oanda.v20.account.AccountID;
 import com.oanda.v20.pricing.ClientPrice;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import pl.forex.trading_platform.domain.Instrument;
-import pl.forex.trading_platform.domain.Quotation;
-import pl.forex.trading_platform.repository.InstrumentRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Optional;
 
 public class GetOandaQutes implements Runnable {
 
