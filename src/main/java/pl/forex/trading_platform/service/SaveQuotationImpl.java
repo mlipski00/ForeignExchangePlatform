@@ -38,15 +38,9 @@ public class SaveQuotationImpl implements SaveQuotation {
     @Override
     public void saveQuotation(ClientPrice clientPrice) {
         try {
-            instrumentDao.save(new Instrument(String.valueOf(clientPrice.getInstrument())));
+            //instrumentDao.save(new Instrument(String.valueOf(clientPrice.getInstrument())));
 
-            int i;
-            if (String.valueOf(clientPrice.getInstrument()).equals("EUR_USD")) {
-                i = 1;
-            } else {
-                i = 2;
-            }
-            Optional<Instrument> optionalInstrument = Optional.ofNullable(instrumentDao.findById(i));
+            Optional<Instrument> optionalInstrument = Optional.ofNullable(new Instrument(String.valueOf(clientPrice.getInstrument())));
 
             Instrument instrumentToSave = optionalInstrument.get();
             instrumentDao.save(instrumentToSave);
