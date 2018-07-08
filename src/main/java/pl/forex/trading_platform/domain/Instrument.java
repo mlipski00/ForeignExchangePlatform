@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(exclude = {"quotation"})
@@ -14,6 +15,9 @@ public class Instrument {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
+
+    @OneToMany
+    private List<Quotation> quotationList;
 
     public Instrument(String description) {
         this.description = description;
