@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import pl.forex.trading_platform.domain.Instrument;
 import pl.forex.trading_platform.repository.InstrumentRepository;
 
@@ -22,10 +23,14 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        setInstruments();
+
+    }
+
+    //@Transactional
+    private void setInstruments() {
         for (int i = 0; i < instrumentsList.length; i++) {
             instrumentRepository.save(new Instrument(instrumentsList[i]));
         }
     }
-
-
 }

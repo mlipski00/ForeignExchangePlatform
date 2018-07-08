@@ -56,7 +56,9 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
             ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(clientPrices.size());
 
             for (int i = 0; i < clientPrices.size(); i++) {
-                scheduledThreadPoolExecutor.scheduleWithFixedDelay(new GetOandaQutes(context, clientPrices, accountID, Arrays.asList(instruments.get(i))), 0, qoutesInterval, TimeUnit.MILLISECONDS);
+                GetOandaQutes getOandaQutes = new GetOandaQutes();
+                getOandaQutes.setOandaQutes(context, clientPrices, accountID, Arrays.asList(instruments.get(i)));
+                scheduledThreadPoolExecutor.scheduleWithFixedDelay(getOandaQutes, 0, qoutesInterval, TimeUnit.MILLISECONDS);
             }
 
         } catch (Exception e) {
