@@ -5,16 +5,19 @@ import com.oanda.v20.account.AccountID;
 import com.oanda.v20.pricing.ClientPrice;
 import com.oanda.v20.primitives.AcceptDatetimeFormat;
 import org.apache.http.impl.client.HttpClients;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import pl.forex.trading_platform.service.GetOandaQutes;
+import pl.forex.trading_platform.service.GetQoutes;
+import pl.forex.trading_platform.service.GetQuotesOandaImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -37,6 +40,9 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
     @Value("${oanda.getQoutesInterval}")
     private int qoutesInterval;
 
+    @Autowired
+    private GetQoutes getQoutes;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         startFetchingQuotes();
@@ -53,12 +59,12 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
         try {
             List<ClientPrice> clientPrices = context.pricing.get(accountID, instruments).getPrices();
 
-            ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(clientPrices.size());
+            ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(clientPrices.size());
 
             for (int i = 0; i < clientPrices.size(); i++) {
-                GetOandaQutes getOandaQutes = new GetOandaQutes();
-                getOandaQutes.setOandaQutes(context, clientPrices, accountID, Arrays.asList(instruments.get(i)));
-                scheduledThreadPoolExecutor.scheduleWithFixedDelay(getOandaQutes, 0, qoutesInterval, TimeUnit.MILLISECONDS);
+               // GetQuotesOandaImpl getQuotesOandaImpl = new GetQuotesOandaImpl();
+                getQoutes.setSettingsForQuotes(context, clientPrices, accountID, Arrays.asList(instruments.get(i)));
+                scheduledExecutorService.scheduleWithFixedDelay(getQoutes, 0, qoutesInterval, TimeUnit.MILLISECONDS);
             }
 
         } catch (Exception e) {

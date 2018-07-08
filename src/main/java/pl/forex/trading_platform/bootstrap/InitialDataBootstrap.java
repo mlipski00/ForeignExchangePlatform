@@ -6,7 +6,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import pl.forex.trading_platform.domain.Instrument;
 import pl.forex.trading_platform.repository.InstrumentRepository;
 

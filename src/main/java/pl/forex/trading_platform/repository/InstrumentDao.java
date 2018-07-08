@@ -1,5 +1,6 @@
 package pl.forex.trading_platform.repository;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.forex.trading_platform.domain.Instrument;
@@ -8,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Component
+@Qualifier("instrumentDAO")
 @Transactional
 public class InstrumentDao {
 
