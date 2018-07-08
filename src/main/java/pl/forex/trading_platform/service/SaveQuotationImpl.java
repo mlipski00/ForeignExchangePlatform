@@ -5,9 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import pl.forex.trading_platform.domain.AskPriceBucket;
+import pl.forex.trading_platform.domain.BidPriceBucket;
 import pl.forex.trading_platform.domain.Instrument;
+import pl.forex.trading_platform.repository.AskPriceBucketDao;
+import pl.forex.trading_platform.repository.BidPriceBucketDao;
 import pl.forex.trading_platform.repository.InstrumentDao;
 
 import java.util.Optional;
@@ -15,25 +20,42 @@ import java.util.Optional;
 @Component
 @Getter
 @Setter
+@Transactional
 public class SaveQuotationImpl implements SaveQuotation {
 
     @Autowired
-    @Qualifier("instrumentDAO")
     private InstrumentDao instrumentDao;
+
+    @Autowired
+    private AskPriceBucketDao askPriceBucketDao;
+
+    @Autowired
+    private BidPriceBucketDao bidPriceBucketDao;
 
     public SaveQuotationImpl() {
     }
 
     @Override
-    @Transactional
     public void saveQuotation(ClientPrice clientPrice) {
         try {
-           // instrumentDao = new InstrumentDao();
-            instrumentDao.save(new Instrument("ASDASD"));
-            Optional<Instrument> optionalInstrument = Optional.ofNullable(instrumentDao.findById(1));
+            instrumentDao.save(new Instrument(String.valueOf(clientPrice.getInstrument())));
+
+            int i;
+            if (String.valueOf(clientPrice.getInstrument()).equals("EUR_USD")) {
+                i = 1;
+            } else {
+                i = 2;
+            }
+            Optional<Instrument> optionalInstrument = Optional.ofNullable(instrumentDao.findById(i));
 
             Instrument instrumentToSave = optionalInstrument.get();
             instrumentDao.save(instrumentToSave);
+
+            AskPriceBucket askPriceBucket = new AskPriceBucket(Double.valueOf(String.valueOf(clientPrice.getAsks().get(0).getPrice())), Long.valueOf(String.valueOf(clientPrice.getAsks().get(0).getLiquidity())));
+            askPriceBucketDao.save(askPriceBucket);
+
+            BidPriceBucket bidPriceBucket = new BidPriceBucket(Double.valueOf(String.valueOf(clientPrice.getBids().get(0).getPrice())), Long.valueOf(String.valueOf(clientPrice.getBids().get(0).getLiquidity())));
+            bidPriceBucketDao.save(bidPriceBucket);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

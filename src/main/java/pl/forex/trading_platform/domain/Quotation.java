@@ -21,4 +21,11 @@ public class Quotation {
 
     @OneToOne(cascade = CascadeType.ALL)
     private AskPriceBucket askPriceBucket;
+
+    public Quotation(String dateTime, Instrument instrument, BidPriceBucket bidPriceBucket, AskPriceBucket askPriceBucket) {
+        this.dateTime = dateTime;
+        this.instrument = instrument;
+        this.bidPriceBucket = bidPriceBucket;
+        this.askPriceBucket = askPriceBucket;
+    }
 }

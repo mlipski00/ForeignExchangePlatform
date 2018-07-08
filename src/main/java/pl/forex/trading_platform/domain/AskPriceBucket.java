@@ -16,4 +16,9 @@ public class AskPriceBucket {
 
     @OneToOne
     private Quotation quotation;
+
+    public AskPriceBucket(Double price, Long liquidity) {
+        this.price = price;
+        this.liquidity = liquidity;
+    }
 }

@@ -5,10 +5,12 @@ import com.oanda.v20.account.AccountID;
 import com.oanda.v20.pricing.ClientPrice;
 import com.oanda.v20.primitives.AcceptDatetimeFormat;
 import org.apache.http.impl.client.HttpClients;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import pl.forex.trading_platform.service.GetQoutes;
@@ -41,7 +43,7 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
     private int qoutesInterval;
 
     @Autowired
-    private GetQoutes getQoutes;
+    private ObjectFactory<GetQoutes> getQoutes;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -62,9 +64,9 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
             ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(clientPrices.size());
 
             for (int i = 0; i < clientPrices.size(); i++) {
-               // GetQuotesOandaImpl getQuotesOandaImpl = new GetQuotesOandaImpl();
-                getQoutes.setSettingsForQuotes(context, clientPrices, accountID, Arrays.asList(instruments.get(i)));
-                scheduledExecutorService.scheduleWithFixedDelay(getQoutes, 0, qoutesInterval, TimeUnit.MILLISECONDS);
+                GetQoutes getQoutesInstance = getQoutes.getObject();
+                getQoutesInstance.setSettingsForQuotes(context, clientPrices, accountID, Arrays.asList(instruments.get(i)));
+                scheduledExecutorService.scheduleWithFixedDelay(getQoutesInstance, 0, qoutesInterval, TimeUnit.MILLISECONDS);
             }
 
         } catch (Exception e) {

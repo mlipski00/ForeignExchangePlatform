@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@Scope("prototype")
 public class GetQuotesOandaImpl implements GetQoutes {
 
     @Autowired
@@ -44,7 +46,6 @@ public class GetQuotesOandaImpl implements GetQoutes {
         this.accountID = accountID;
         this.instruments = instruments;
         this.sdf = new SimpleDateFormat("HH:mm:ss:SSS");
-        //this.saveQuotation = new SaveQuotationImpl();
     }
     @Override
     public void run() {
@@ -57,7 +58,6 @@ public class GetQuotesOandaImpl implements GetQoutes {
             System.out.println(clientPrices.get(0).getAsks().get(0).getPrice());
             System.out.println(clientPrices.get(0).getAsks().get(0).getLiquidity());
             System.out.println("Active threads: " + Thread.activeCount());
-            //
 
             saveQuotation.saveQuotation(clientPrices.get(0));
         } catch (Exception e) {

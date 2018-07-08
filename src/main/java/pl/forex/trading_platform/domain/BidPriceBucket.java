@@ -16,4 +16,9 @@ public class BidPriceBucket {
 
     @OneToOne
     private Quotation quotation;
+
+    public BidPriceBucket(Double price, Long liquidity) {
+        this.price = price;
+        this.liquidity = liquidity;
+    }
 }

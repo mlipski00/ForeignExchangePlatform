@@ -1,33 +1,32 @@
 package pl.forex.trading_platform.repository;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.forex.trading_platform.domain.Instrument;
+import pl.forex.trading_platform.domain.BidPriceBucket;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Repository
 @Transactional
-public class InstrumentDao {
+public class BidPriceBucketDao {
 
     @PersistenceContext
     EntityManager entityManager;
 
-    public void save(Instrument instrument) {
-        entityManager.persist(instrument);
+    public void save(BidPriceBucket bidPriceBucket) {
+        entityManager.persist(bidPriceBucket);
     }
 
-    public Instrument findById(long id) {
-        return entityManager.find(Instrument.class, id);
+    public BidPriceBucket findById(long id) {
+        return entityManager.find(BidPriceBucket.class, id);
     }
 
-    public void update(Instrument entity) {
+    public void update(BidPriceBucket entity) {
         entityManager.merge(entity);
     }
-    public void delete(Instrument entity) { ;
+    public void delete(BidPriceBucket entity) { ;
         entityManager.remove(entityManager.contains(entity) ?
                 entity : entityManager.merge(entity));
 
