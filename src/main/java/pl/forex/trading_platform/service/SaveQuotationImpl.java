@@ -4,8 +4,6 @@ import com.oanda.v20.pricing.ClientPrice;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.forex.trading_platform.domain.AskPriceBucket;
@@ -18,7 +16,6 @@ import pl.forex.trading_platform.repository.InstrumentDao;
 import pl.forex.trading_platform.repository.QuotationDao;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Optional;
 
 @Component
@@ -45,21 +42,20 @@ public class SaveQuotationImpl implements SaveQuotation {
     @Override
     public void saveQuotation(ClientPrice clientPrice) {
         try {
-            //instrumentDao.save(new Instrument(String.valueOf(clientPrice.getInstrument())));
-
+            Instrument instrumentToSave = null;
             Optional<Instrument> optionalInstrument = Optional.ofNullable(new Instrument(String.valueOf(clientPrice.getInstrument())));
-
-            Instrument instrumentToSave = optionalInstrument.get();
-            //instrumentDao.save(instrumentToSave);
-
+            if (optionalInstrument.isPresent()) {
+                instrumentToSave = instrumentDao.findByDescription(clientPrice.getInstrument().toString());
+            }
             AskPriceBucket askPriceBucket = new AskPriceBucket(Double.valueOf(String.valueOf(clientPrice.getAsks().get(0).getPrice())), Long.valueOf(String.valueOf(clientPrice.getAsks().get(0).getLiquidity())));
-            askPriceBucketDao.save(askPriceBucket);
-
             BidPriceBucket bidPriceBucket = new BidPriceBucket(Double.valueOf(String.valueOf(clientPrice.getBids().get(0).getPrice())), Long.valueOf(String.valueOf(clientPrice.getBids().get(0).getLiquidity())));
-            bidPriceBucketDao.save(bidPriceBucket);
 
-            Quotation quotation = new Quotation(LocalDateTime.now(), instrumentDao.findById(instrumentToSave.getId()), bidPriceBucket, askPriceBucket);
+            Quotation quotation = new Quotation(LocalDateTime.now(), instrumentToSave, bidPriceBucket, askPriceBucket);
             quotationDao.save(quotation);
+            bidPriceBucket.setQuotation(quotation);
+            bidPriceBucketDao.save(bidPriceBucket);
+            askPriceBucket.setQuotation(quotation);
+            askPriceBucketDao.save(askPriceBucket);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

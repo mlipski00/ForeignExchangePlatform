@@ -16,9 +16,6 @@ public class Instrument {
     private Long id;
     private String description;
 
-    @OneToMany
-    private List<Quotation> quotationList;
-
     public Instrument(String description) {
         this.description = description;
     }

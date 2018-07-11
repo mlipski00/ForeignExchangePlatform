@@ -1,12 +1,15 @@
 package pl.forex.trading_platform.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Quotation {
 
@@ -19,7 +22,7 @@ public class Quotation {
     @JoinColumn(name = "instrument_id")
     private Instrument instrument;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private BidPriceBucket bidPriceBucket;
 
     @OneToOne(cascade = CascadeType.ALL)

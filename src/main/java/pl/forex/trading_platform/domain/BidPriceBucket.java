@@ -1,10 +1,15 @@
 package pl.forex.trading_platform.domain;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class BidPriceBucket {
 
@@ -14,7 +19,9 @@ public class BidPriceBucket {
     private Double price;
     private Long liquidity;
 
-    @OneToOne
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bidPriceBucket_id")
     private Quotation quotation;
 
     public BidPriceBucket(Double price, Long liquidity) {
