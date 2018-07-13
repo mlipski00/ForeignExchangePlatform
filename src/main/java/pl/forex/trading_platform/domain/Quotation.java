@@ -22,7 +22,7 @@ public class Quotation {
     @JoinColumn(name = "instrument_id")
     private Instrument instrument;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     private BidPriceBucket bidPriceBucket;
 
     @OneToOne(cascade = CascadeType.ALL)

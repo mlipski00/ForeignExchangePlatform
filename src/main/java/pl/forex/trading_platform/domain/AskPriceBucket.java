@@ -1,5 +1,6 @@
 package pl.forex.trading_platform.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class AskPriceBucket {
     private Long liquidity;
 
     @OneToOne
+    @JsonIgnore
     private Quotation quotation;
 
     public AskPriceBucket(Double price, Long liquidity) {

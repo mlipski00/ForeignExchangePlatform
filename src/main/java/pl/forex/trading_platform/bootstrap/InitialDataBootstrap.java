@@ -23,10 +23,7 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         setInstruments();
-
     }
-
-    //@Transactional
     private void setInstruments() {
         for (int i = 0; i < instrumentsList.length; i++) {
             instrumentRepository.save(new Instrument(instrumentsList[i]));

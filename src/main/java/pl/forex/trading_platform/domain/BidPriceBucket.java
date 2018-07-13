@@ -1,5 +1,6 @@
 package pl.forex.trading_platform.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class BidPriceBucket {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bidPriceBucket_id")
+    @JsonIgnore
     private Quotation quotation;
 
     public BidPriceBucket(Double price, Long liquidity) {
