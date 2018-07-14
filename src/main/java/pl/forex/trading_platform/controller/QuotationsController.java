@@ -16,7 +16,7 @@ public class QuotationsController {
     @Autowired
     LoadQuotations loadQuotations;
 
-    @RequestMapping({"", "/", "/index"})
+    @RequestMapping({"/index"})
     public String getIndexPage(Model model) {
         List<Quotation> quotations = loadQuotations.loadAllQuotations();
         List<Instrument> instruments = loadQuotations.loadAllInstruments();
@@ -24,7 +24,7 @@ public class QuotationsController {
         model.addAttribute("instruments",instruments);
         return "index";
     }
-    @RequestMapping({"/websocket"})
+    @RequestMapping({"", "/", "/websocket"})
     public String webSocketPage() {
         return "websocket";
     }

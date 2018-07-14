@@ -44,8 +44,8 @@ window.onload = function () {
         appendedQuotation.innerHTML = "";
         for (var i = 0; i < json.length; i++) {
             appendedQuotation.innerHTML += "<tr><td>" + json[i].instrument.description
-                + "</td><td>" + json[i].time + "</td><td>" + json[i].bidPriceBucket.price
-            +"</td><td>"+ json[i].askPriceBucket.price + "</td></tr>";
+                + "</td><td>" + json[i].time + "</td><td><button type='button' class='btn btn-outline-primary'> Buy: " + json[i].askPriceBucket.price
+            +"</button></td><td><button type='button' class='btn btn-outline-primary'> Sell: "+ json[i].bidPriceBucket.price + "</button></td></tr>";
         }
     }
 
