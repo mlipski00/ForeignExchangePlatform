@@ -13,7 +13,7 @@ function setConnected(connected) {
 }
 
 function connect() {
-    var socket = new SockJS('/websocket');
+    var socket = new SockJS('websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
@@ -38,6 +38,8 @@ function sendName() {
 
 function showGreeting(message) {
     $("#userinfo").append("<tr><td>" + JSON.stringify(message) + "</td></tr>");
+    $('html,body').animate({scrollTop: document.body.scrollHeight},"fast");
+
 }
 
 $(function () {
