@@ -15,7 +15,10 @@ import pl.forex.trading_platform.repository.BidPriceBucketDao;
 import pl.forex.trading_platform.repository.InstrumentDao;
 import pl.forex.trading_platform.repository.QuotationDao;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Optional;
 
 @Component
@@ -50,7 +53,7 @@ public class SaveQuotationImpl implements SaveQuotation {
             AskPriceBucket askPriceBucket = new AskPriceBucket(Double.valueOf(String.valueOf(clientPrice.getAsks().get(0).getPrice())), Long.valueOf(String.valueOf(clientPrice.getAsks().get(0).getLiquidity())));
             BidPriceBucket bidPriceBucket = new BidPriceBucket(Double.valueOf(String.valueOf(clientPrice.getBids().get(0).getPrice())), Long.valueOf(String.valueOf(clientPrice.getBids().get(0).getLiquidity())));
 
-            Quotation quotation = new Quotation(LocalDateTime.now(), instrumentToSave, bidPriceBucket, askPriceBucket);
+            Quotation quotation = new Quotation(new SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().getTime()), new SimpleDateFormat("HH:mm:ss:SSS").format(Calendar.getInstance().getTime()), instrumentToSave, bidPriceBucket, askPriceBucket);
             quotationDao.save(quotation);
             bidPriceBucket.setQuotation(quotation);
             bidPriceBucketDao.save(bidPriceBucket);

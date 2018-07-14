@@ -14,21 +14,23 @@
 <body>
 
 <div id="main-content" class="container">
-    <h2 class="bg-info text-center"> This is page for forex trading platform performance test purposes using Oanda API</h2>
+    <h2 class="bg-info text-center"> This is page for forex trading platform performance test purposes</h2>
         <div class="row">
             <div class="col-md-4" th:each="instrument : ${instruments}">
     <p th:text="${instrument.description}" class="bg-primary text-center"></p>
     <table class="table">
         <thead>
         <tr>
-            <th>ID</th>
+            <th>Date</th>
+            <th>Time</th>
             <th>Bid price</th>
             <th>Ask price</th>
         </thead>
         <tbody>
         <tr th:each="singlequote : ${quotations}" class="active">
                 <span th:if="${singlequote.instrument.description == instrument.description}">
-                    <td th:text="${singlequote.bidPriceBucket.id}">"</td>
+                    <td th:text="${singlequote.date}">"</td>
+                    <td th:text="${singlequote.time}">"</td>
                     <td th:text="${singlequote.bidPriceBucket.price}">"</td>
                     <td th:text="${singlequote.askPriceBucket.price}"></td>
                     </span>

@@ -16,7 +16,8 @@ public class Quotation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime dateTime;
+    private String date;
+    private String time;
 
     @ManyToOne
     @JoinColumn(name = "instrument_id")
@@ -28,8 +29,9 @@ public class Quotation {
     @OneToOne(cascade = CascadeType.ALL)
     private AskPriceBucket askPriceBucket;
 
-    public Quotation(LocalDateTime dateTime, Instrument instrument, BidPriceBucket bidPriceBucket, AskPriceBucket askPriceBucket) {
-        this.dateTime = dateTime;
+    public Quotation(String date, String time, Instrument instrument, BidPriceBucket bidPriceBucket, AskPriceBucket askPriceBucket) {
+        this.date = date;
+        this.time = time;
         this.instrument = instrument;
         this.bidPriceBucket = bidPriceBucket;
         this.askPriceBucket = askPriceBucket;
