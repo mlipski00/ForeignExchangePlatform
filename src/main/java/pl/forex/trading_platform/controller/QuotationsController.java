@@ -24,4 +24,8 @@ public class QuotationsController {
         model.addAttribute("instruments",instruments);
         return "index";
     }
+    @RequestMapping({"/websocket"})
+    public String webSocketPage() {
+        return "websocket";
+    }
 }
