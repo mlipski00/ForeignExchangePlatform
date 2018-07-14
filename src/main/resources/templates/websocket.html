@@ -20,16 +20,19 @@
     enabled. Please enable
     Javascript and reload this page!</h2></noscript>
 <div id="main-content" class="container">
-
+    <h2 class="p-3 mb-2 bg-primary text-white  text-center"> Forex trading platform quotations demo page</h2>
     <div class="row">
         <div class="col-md-12">
             <table id="conversation" class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Quotations: </th>
+                    <th scope="col">Instrument</th>
+                    <th scope="col">Quote time</th>
+                    <th scope="col">Bid Price</th>
+                    <th scope="col">Ask Price</th>
                 </tr>
                 </thead>
-                <tbody id="userinfo">
+                <tbody id="quotationRow">
                 </tbody>
             </table>
         </div>
@@ -39,8 +42,8 @@
             <form class="form-inline">
                 <div class="form-group">
                     <label for="connect">WebSocket connection:</label>
-                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
-                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+                    <button id="connect" class="btn btn-success" type="submit">Connect</button>
+                    <button id="disconnect" class="btn btn-warning" type="submit" disabled="disabled">Disconnect
                     </button>
                 </div>
             </form>
