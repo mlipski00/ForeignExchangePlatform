@@ -107,11 +107,12 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <p>Modal for buy transaction</p>
+                    <p class="modalTimer">Time to confirm transaction: </p>
                 </div>
                 <div class="modal-footer">
                     <button id="buyConfirmation" class="btn btn-success px-2 mr-auto custom-button-width"
-                            data-dismiss="modal">Buy</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            data-dismiss="modal" onclick="stopInterval()">Buy</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="stopInterval()">Close</button>
                 </div>
             </div>
 
@@ -126,11 +127,12 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <p>Modal for sell transaction</p>
+                    <p class="modalTimer">Time to confirm transaction: </p>
                 </div>
                 <div class="modal-footer">
                         <button id="sellConfirmation" class="btn btn-success px-2 mr-auto custom-button-width"
-                                data-dismiss="modal">Sell</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                data-dismiss="modal" onclick="stopInterval()">Sell</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="stopInterval()">Close</button>
                 </div>
             </div>
         </div>

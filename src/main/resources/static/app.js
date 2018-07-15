@@ -1,6 +1,13 @@
+//value will be fetch via API
+var timeToConfirmTransaction = 20;
+var floatTimeToConfirmTransaction;
+var d = new Date();
+var counter = 0;
+
 window.onload = function () {
     var stompClient = null;
     var appendedQuotation = document.getElementById("quotationRow");
+
 
     function setConnected(connected) {
         $("#connect").prop("disabled", connected);
@@ -39,18 +46,22 @@ window.onload = function () {
 
     function showGreeting(quotation) {
         var json = JSON.parse(quotation);
+        // var startTimer = setInterval(myTimer, 1000);
         console.log(json);
         console.log(json[0].time);
         appendedQuotation.innerHTML = "";
         for (var i = 0; i < json.length; i++) {
             appendedQuotation.innerHTML += "<tr><td>" + json[i].instrument.description
                 + "</td><td>" + json[i].time
-                + "</td><td><button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#buyModal'> Buy: "
+                + "</td><td><button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#buyModal' onclick='startModalTimer()'> Buy: "
                 + json[i].askPriceBucket.price
-                + "</button></td><td><button type='button' class='btn btn-outline-primary'  data-toggle='modal' data-target='#sellModal'> Sell: "
+                + "</button></td><td><button type='button' class='btn btn-outline-primary'  data-toggle='modal' data-target='#sellModal'  onclick='startModalTimer()'> Sell: "
                 + json[i].bidPriceBucket.price + "</button></td></tr>";
         }
     }
+
+
+
     //$('#btn btn-outline-primary').click(function(){$('#buyModal').modal('show');})
     $(function () {
         $("form").on('submit', function (e) {
@@ -63,4 +74,29 @@ window.onload = function () {
             disconnect();
         });
     });
+}
+var modalTimer;
+
+function startModalTimer() {
+    modalTimer = setInterval(myTimer, 1000);
+}
+
+function myTimer() {
+    floatTimeToConfirmTransaction = timeToConfirmTransaction - counter;
+    console.log(d.toLocaleTimeString());
+    var modalsTimers = document.querySelectorAll(".modalTimer");
+    modalsTimers.forEach(function(element) {
+        if (floatTimeToConfirmTransaction <= 0 ) {
+            element.innerHTML = "Please requote"
+        } else {
+            element.innerHTML = "Time to confirm transaction: " + floatTimeToConfirmTransaction;
+        }
+    });
+    counter = counter + 1;
+}
+
+function stopInterval() {
+    clearInterval(modalTimer);
+    floatTimeToConfirmTransaction = timeToConfirmTransaction;
+    counter = 0;
 }
