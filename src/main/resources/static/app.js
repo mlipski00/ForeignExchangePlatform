@@ -44,11 +44,14 @@ window.onload = function () {
         appendedQuotation.innerHTML = "";
         for (var i = 0; i < json.length; i++) {
             appendedQuotation.innerHTML += "<tr><td>" + json[i].instrument.description
-                + "</td><td>" + json[i].time + "</td><td><button type='button' class='btn btn-outline-primary'> Buy: " + json[i].askPriceBucket.price
-            +"</button></td><td><button type='button' class='btn btn-outline-primary'> Sell: "+ json[i].bidPriceBucket.price + "</button></td></tr>";
+                + "</td><td>" + json[i].time
+                + "</td><td><button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#buyModal'> Buy: "
+                + json[i].askPriceBucket.price
+                + "</button></td><td><button type='button' class='btn btn-outline-primary'  data-toggle='modal' data-target='#sellModal'> Sell: "
+                + json[i].bidPriceBucket.price + "</button></td></tr>";
         }
     }
-
+    //$('#btn btn-outline-primary').click(function(){$('#buyModal').modal('show');})
     $(function () {
         $("form").on('submit', function (e) {
             e.preventDefault();

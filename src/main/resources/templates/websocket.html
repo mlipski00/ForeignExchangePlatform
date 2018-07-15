@@ -3,17 +3,21 @@
 <head>
     <title>Forex Trading platform WebSocket Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet">
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <!--<script-->
+    <!--src="https://code.jquery.com/jquery-3.3.1.min.js"-->
+    <!--integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="-->
+    <!--crossorigin="anonymous"></script>-->
 
+    <script src="app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="app.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
+
 </head>
 <body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
@@ -21,7 +25,8 @@
     Javascript and reload this page!</h2></noscript>
 <br>
 <div id="main-content" class="container">
-    <h2 class="p-3 mb-2 bg-primary text-white border border-dark rounded text-center"> Forex trading platform quotations demo page</h2>
+    <h2 class="p-3 mb-2 bg-primary text-white border border-dark rounded text-center"> Forex trading platform quotations
+        demo page</h2>
     <div class="row">
         <div class="col-md-12">
             <table id="conversation" class="table table-striped text-center">
@@ -39,7 +44,6 @@
         </div>
     </div>
     <div class="row">
-
 
         <div class="col-md-6">
             <form class="form-inline">
@@ -71,7 +75,7 @@
                 </tbody>
             </table>
         </div>
-        </div>
+    </div>
     <hr>
     <div class="row">
         <div class="col-md-12">
@@ -93,5 +97,46 @@
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="buyModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Modal for buy transaction</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="buyConfirmation" class="btn btn-success px-2 mr-auto custom-button-width"
+                            data-dismiss="modal">Buy</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="sellModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Modal for sell transaction</p>
+                </div>
+                <div class="modal-footer">
+                        <button id="sellConfirmation" class="btn btn-success px-2 mr-auto custom-button-width"
+                                data-dismiss="modal">Sell</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>
