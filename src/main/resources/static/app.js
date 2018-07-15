@@ -1,10 +1,15 @@
 //value will be fetch via API
-var timeToConfirmTransaction = 20;
+var timeToConfirmTransaction;
 var floatTimeToConfirmTransaction;
 var d = new Date();
 var counter = 0;
 
+
 window.onload = function () {
+    $("#requoteBuyButton").hide();
+    $("#requoteSellButton").hide();
+    console.log("decision time: " + $("#main-content").attr("data-decisiontime"));
+    timeToConfirmTransaction = parseInt($("#main-content").attr("data-decisiontime"));
     var stompClient = null;
     var appendedQuotation = document.getElementById("quotationRow");
 
@@ -84,10 +89,14 @@ function startModalTimer() {
 function myTimer() {
     floatTimeToConfirmTransaction = timeToConfirmTransaction - counter;
     console.log(d.toLocaleTimeString());
-    var modalsTimers = document.querySelectorAll(".modalTimer");
-    modalsTimers.forEach(function(element) {
+    var modalTimers = document.querySelectorAll(".modalTimer");
+    modalTimers.forEach(function(element) {
         if (floatTimeToConfirmTransaction <= 0 ) {
             element.innerHTML = "Please requote"
+            $("#buyConfirmation").hide();
+            $("#sellConfirmation").hide();
+            $("#requoteBuyButton").show();
+            $("#requoteSellButton").show();
         } else {
             element.innerHTML = "Time to confirm transaction: " + floatTimeToConfirmTransaction;
         }
@@ -99,4 +108,13 @@ function stopInterval() {
     clearInterval(modalTimer);
     floatTimeToConfirmTransaction = timeToConfirmTransaction;
     counter = 0;
+    $("#buyConfirmation").show();
+    $("#sellConfirmation").show();
+    $("#requoteBuyButton").hide();
+    $("#requoteSellButton").hide();
+}
+
+function requote() {
+    stopInterval();
+    startModalTimer();
 }
