@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import pl.forex.trading_platform.domain.Instrument;
-import pl.forex.trading_platform.domain.PlatformSettings;
+import pl.forex.trading_platform.domain.settings.PlatformSettings;
 import pl.forex.trading_platform.repository.InstrumentRepository;
 import pl.forex.trading_platform.repository.PlatformSettingsRepository;
 

@@ -1,4 +1,4 @@
-package pl.forex.trading_platform.domain;
+package pl.forex.trading_platform.domain.settings;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

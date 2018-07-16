@@ -1,4 +1,3 @@
-//value will be fetch via API
 var timeToConfirmTransaction;
 var floatTimeToConfirmTransaction;
 var d = new Date();

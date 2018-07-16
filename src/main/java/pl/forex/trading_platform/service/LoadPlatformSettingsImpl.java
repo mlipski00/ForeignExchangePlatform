@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.forex.trading_platform.domain.PlatformSettings;
+import pl.forex.trading_platform.domain.settings.PlatformSettings;
 import pl.forex.trading_platform.repository.PlatformSettingsRepository;
 
 import java.util.List;
