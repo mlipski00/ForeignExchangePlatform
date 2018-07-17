@@ -1,5 +1,6 @@
 package pl.forex.trading_platform.controller;
 
+import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.forex.trading_platform.domain.Instrument;
 import pl.forex.trading_platform.domain.Quotation;
+import pl.forex.trading_platform.domain.nbp.TableA;
 import pl.forex.trading_platform.service.LoadPlatformSettings;
 import pl.forex.trading_platform.service.LoadQuotations;
 import pl.forex.trading_platform.service.NbpRates;
@@ -40,13 +42,8 @@ public class MainController {
     @RequestMapping({"", "/", "/websocket"})
     public String webSocketPage(HttpServletResponse httpServletResponse, Model model) {
         model.addAttribute("decisionTime", loadPlatformSettings.loadDecisionTime());
-        JSONArray nbpJsonArray = null;
-        try {
-            nbpJsonArray = new JSONArray(nbpRates.getTableAQuotes("http://api.nbp.pl/api/exchangerates/tables/A/"));
-            model.addAttribute("nbpTableA", nbpJsonArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        TableA[] tableAarray = nbpRates.getTableAQuotesArray("http://api.nbp.pl/api/exchangerates/tables/A/");
+        model.addAttribute("nbpTableA", tableAarray[0]);;
         return "websocket";
     }
 }

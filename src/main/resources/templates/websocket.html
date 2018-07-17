@@ -159,15 +159,20 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
-                    <p>Modal for NBP Currency Rates</p>
+                    <p>NBP Currency Rates</p>
+                    <p th:text="${nbpTableA.effectiveDate}">Date</p>
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Columns</th>
+                            <th>Currency</th>
+                            <th>Code</th>
+                            <th>Mid Rate</th>
                         </thead>
                         <tbody>
-                        <tr th:each="currency : ${nbpTableA}" class="active">
-                            <td th:text="${currency}">"</td>
+                        <tr th:each="rate : ${nbpTableA.rates}" class="active">
+                            <td th:text="${rate.currency}">"</td>
+                            <td th:text="${rate.code}">"</td>
+                            <td th:text="${rate.mid}">"</td>
                         </tr>
                         </tbody>
                     </table>

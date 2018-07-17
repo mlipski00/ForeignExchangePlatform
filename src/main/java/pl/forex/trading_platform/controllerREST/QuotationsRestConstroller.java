@@ -37,6 +37,6 @@ public class QuotationsRestConstroller {
 
     @RequestMapping("/nbp")
     public String getNbpRates() {
-        return nbpRates.getTableAQuotes("http://api.nbp.pl/api/exchangerates/tables/A/");
+        return nbpRates.getTableAQuotesString("http://api.nbp.pl/api/exchangerates/tables/A/");
     }
 }
