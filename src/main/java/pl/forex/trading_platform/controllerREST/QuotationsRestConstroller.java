@@ -7,6 +7,7 @@ import pl.forex.trading_platform.domain.AskPriceBucket;
 import pl.forex.trading_platform.domain.BidPriceBucket;
 import pl.forex.trading_platform.domain.Quotation;
 import pl.forex.trading_platform.service.LoadQuotations;
+import pl.forex.trading_platform.service.NbpRates;
 
 import java.util.List;
 
@@ -16,6 +17,9 @@ public class QuotationsRestConstroller {
 
     @Autowired
     LoadQuotations loadQuotations;
+
+    @Autowired
+    NbpRates nbpRates;
 
     @RequestMapping("/all")
     public List<Quotation> getQoutations() {
@@ -29,5 +33,10 @@ public class QuotationsRestConstroller {
     @RequestMapping("/bid")
     public List<BidPriceBucket> getBidPrices() {
         return loadQuotations.loadAllBidPrices();
+    }
+
+    @RequestMapping("/nbp")
+    public String getNbpRates() {
+        return nbpRates.getTableAQuotes("http://api.nbp.pl/api/exchangerates/tables/A/");
     }
 }

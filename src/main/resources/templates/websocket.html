@@ -15,7 +15,6 @@
     <!--crossorigin="anonymous"></script>-->
 
     <script src="app.js"></script>
-    <script src="transactions.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
@@ -26,7 +25,7 @@
     enabled. Please enable
     Javascript and reload this page!</h2></noscript>
 <br>
-<div id="main-content" class="container"  th:attr="data-decisionTime=${decisionTime}" >
+<div id="main-content" class="container" th:attr="data-decisionTime=${decisionTime}">
     <h2 class="p-3 mb-2 bg-primary text-white border border-dark rounded text-center"> Forex trading platform quotations
         demo page</h2>
     <div class="row">
@@ -53,6 +52,9 @@
                     <label for="connect" class="px-2">WebSocket connection: </label>
                     <button id="connect" class="btn btn-success px-2" type="submit">Connect</button>
                     <button id="disconnect" class="btn btn-warning px-2" type="submit" disabled="disabled">Disconnect
+                    </button>
+                    <button id="nbpTableA" class="btn btn-primary px-2" data-toggle='modal' data-target='#nbpModal'>NBP
+                        Currency Rates Table
                     </button>
                 </div>
             </form>
@@ -113,10 +115,13 @@
                 </div>
                 <div class="modal-footer">
                     <button id="buyConfirmation" class="btn btn-success px-2 mr-auto custom-button-width"
-                            data-dismiss="modal" onclick="stopInterval()">Buy</button>
+                            data-dismiss="modal" onclick="stopInterval()">Buy
+                    </button>
                     <button id="requoteBuyButton" class="btn btn-warning px-2 mr-auto custom-button-width"
-                            onclick="requote()">Requote</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="stopInterval()">Close</button>
+                            onclick="requote()">Requote
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="stopInterval()">Close
+                    </button>
                 </div>
             </div>
 
@@ -134,16 +139,46 @@
                     <p class="modalTimer">Time to confirm transaction: </p>
                 </div>
                 <div class="modal-footer">
-                        <button id="sellConfirmation" class="btn btn-success px-2 mr-auto custom-button-width"
-                                data-dismiss="modal" onclick="stopInterval()">Sell</button>
+                    <button id="sellConfirmation" class="btn btn-success px-2 mr-auto custom-button-width"
+                            data-dismiss="modal" onclick="stopInterval()">Sell
+                    </button>
                     <button id="requoteSellButton" class="btn btn-warning px-2 mr-auto custom-button-width"
-                            onclick="requote()">Requote</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="stopInterval()">Close</button>
+                            onclick="requote()">Requote
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="stopInterval()">Close
+                    </button>
                 </div>
             </div>
         </div>
-
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="nbpModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Modal for NBP Currency Rates</p>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Columns</th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="currency : ${nbpTableA}" class="active">
+                            <td th:text="${currency}">"</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 </body>

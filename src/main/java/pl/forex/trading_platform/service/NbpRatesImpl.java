@@ -16,18 +16,19 @@ import java.io.IOException;
 @Getter
 @Setter
 @Transactional
-public class NbpQuotesImpl implements NbpQuotes {
+public class NbpRatesImpl implements NbpRates {
 
     @Override
-    public void getTableAQuotes(String nbpUrl) {
+    public String getTableAQuotes(String nbpUrl) {
+        String rawResponse = null;
         HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
         HttpRequest request = null;
         try {
             request = requestFactory.buildGetRequest(new GenericUrl(nbpUrl));
-            String rawResponse = request.execute().parseAsString();
+            rawResponse = request.execute().parseAsString();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return rawResponse;
     }
 }
