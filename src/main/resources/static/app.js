@@ -11,7 +11,7 @@ window.onload = function () {
     timeToConfirmTransaction = parseInt($("#main-content").attr("data-decisiontime"));
     var stompClient = null;
     var appendedQuotation = document.getElementById("quotationRow");
-
+    connect();
 
     function setConnected(connected) {
         $("#connect").prop("disabled", connected);

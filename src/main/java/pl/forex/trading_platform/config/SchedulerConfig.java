@@ -1,18 +1,24 @@
 package pl.forex.trading_platform.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import pl.forex.trading_platform.domain.Instrument;
 import pl.forex.trading_platform.domain.Quotation;
+import pl.forex.trading_platform.domain.nbp.TableA;
+import pl.forex.trading_platform.repository.NbpRatesRepository;
 import pl.forex.trading_platform.service.LoadQuotations;
+import pl.forex.trading_platform.service.NbpRates;
 
 import java.util.List;
 
 @EnableScheduling
 @Configuration
+@PropertySource("classpath:platformSettings.properties")
 public class SchedulerConfig {
 
     @Autowired
@@ -21,11 +27,26 @@ public class SchedulerConfig {
     @Autowired
     LoadQuotations loadQuotations;
 
+    @Value("${platformSettings.nbpTableA}")
+    private String nbpTableAurl;
+
+    @Autowired
+    NbpRates nbpRates;
+
+    @Autowired
+    private NbpRatesRepository nbpRatesRepository;
+
     @Scheduled(fixedDelay = 3000)
     public void sendAdhocMessages() {
         List<Quotation> quotations = loadQuotations.loadAllQuotations();
         List<Instrument> instruments = loadQuotations.loadAllInstruments();
         simpMessagingTemplate.convertAndSend("/topic/user", quotations.subList(Math.max(quotations.size() - instruments.size(), 0), quotations.size()));
+    }
+
+    @Scheduled(fixedDelay = 1000*60*60*24)
+    public void SaveDailyNbpRates() {
+        TableA[] tableAarray = nbpRates.getTableAQuotesArray(nbpTableAurl);
+        nbpRatesRepository.save(tableAarray[0]);
     }
 }
 

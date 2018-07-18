@@ -10,11 +10,11 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-//@Entity
+@Entity
 public class TableA {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String table;
@@ -23,7 +23,7 @@ public class TableA {
 
     private String effectiveDate;
 
-//    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Rates> rates;
 
     public TableA(Long id, String table, String no, String effectiveDate, List<Rates> rates) {

@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
+@PropertySource("classpath:platformSettings.properties")
 public class MainController {
 
     @Autowired
@@ -29,6 +32,9 @@ public class MainController {
 
     @Autowired
     NbpRates nbpRates;
+
+    @Value("${platformSettings.nbpTableA}")
+    private String nbpTableAurl;
 
     @RequestMapping({"/index"})
     public String getIndexPage(Model model) {
@@ -42,8 +48,8 @@ public class MainController {
     @RequestMapping({"", "/", "/websocket"})
     public String webSocketPage(HttpServletResponse httpServletResponse, Model model) {
         model.addAttribute("decisionTime", loadPlatformSettings.loadDecisionTime());
-        TableA[] tableAarray = nbpRates.getTableAQuotesArray("http://api.nbp.pl/api/exchangerates/tables/A/");
-        model.addAttribute("nbpTableA", tableAarray[0]);;
+        TableA[] tableAarray = nbpRates.getTableAQuotesArray(nbpTableAurl);
+        model.addAttribute("nbpTableA", tableAarray[0]);
         return "websocket";
     }
 }
