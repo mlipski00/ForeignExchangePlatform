@@ -9,10 +9,7 @@ import pl.forex.trading_platform.domain.AskPriceBucket;
 import pl.forex.trading_platform.domain.BidPriceBucket;
 import pl.forex.trading_platform.domain.Instrument;
 import pl.forex.trading_platform.domain.Quotation;
-import pl.forex.trading_platform.repository.AskPriceBucketRepository;
-import pl.forex.trading_platform.repository.BidPriceBucketRepository;
-import pl.forex.trading_platform.repository.InstrumentRepository;
-import pl.forex.trading_platform.repository.QuotationRepository;
+import pl.forex.trading_platform.repository.*;
 
 import java.util.List;
 import java.util.Set;
@@ -35,6 +32,9 @@ public class LoadQuotationsImpl implements LoadQuotations {
     @Autowired
     private InstrumentRepository instrumentRepository;
 
+    @Autowired
+    private QuotationDao quotationDao;
+
     @Override
     public List<Quotation> loadAllQuotations() {
         return (List<Quotation>) quotationRepository.findAll();
@@ -53,5 +53,10 @@ public class LoadQuotationsImpl implements LoadQuotations {
     @Override
     public List<Instrument> loadAllInstruments() {
         return (List<Instrument>) instrumentRepository.findAll();
+    }
+
+    @Override
+    public List<Quotation> loadLastQuotations() {
+        return quotationDao.loadLast();
     }
 }

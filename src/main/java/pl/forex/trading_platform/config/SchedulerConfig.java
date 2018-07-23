@@ -40,7 +40,9 @@ public class SchedulerConfig {
     public void sendAdhocMessages() {
         List<Quotation> quotations = loadQuotations.loadAllQuotations();
         List<Instrument> instruments = loadQuotations.loadAllInstruments();
-        simpMessagingTemplate.convertAndSend("/topic/user", quotations.subList(Math.max(quotations.size() - instruments.size(), 0), quotations.size()));
+        System.out.println(loadQuotations.loadLastQuotations());
+        //simpMessagingTemplate.convertAndSend("/topic/user", quotations.subList(Math.max(quotations.size() - instruments.size(), 0), quotations.size()));
+        simpMessagingTemplate.convertAndSend("/topic/user", loadQuotations.loadLastQuotations());
     }
 
     @Scheduled(fixedDelay = 1000*60*60*24)

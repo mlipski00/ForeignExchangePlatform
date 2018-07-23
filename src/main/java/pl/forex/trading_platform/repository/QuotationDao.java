@@ -7,6 +7,8 @@ import pl.forex.trading_platform.domain.Quotation;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -29,6 +31,12 @@ public class QuotationDao {
     public void delete(Quotation entity) { ;
         entityManager.remove(entityManager.contains(entity) ?
                 entity : entityManager.merge(entity));
+    }
+
+    public List<Quotation> loadLast() {
+        Query query = entityManager.createQuery("SELECT q FROM Quotation q ORDER BY q.id DESC");
+        query.setMaxResults(3);
+        return (List<Quotation>) query.getResultList();
 
     }
 }

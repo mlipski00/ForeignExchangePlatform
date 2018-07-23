@@ -3,6 +3,7 @@ package pl.forex.trading_platform.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -35,5 +36,14 @@ public class Quotation {
         this.instrument = instrument;
         this.bidPriceBucket = bidPriceBucket;
         this.askPriceBucket = askPriceBucket;
+    }
+
+    @Override
+    public String toString() {
+        return "Quotation{" +
+                "id=" + id +
+                ", time='" + time + '\'' +
+                ", instrument=" + instrument +
+                '}';
     }
 }

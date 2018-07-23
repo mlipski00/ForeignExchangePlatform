@@ -17,4 +17,6 @@ public interface LoadQuotations {
     List<BidPriceBucket> loadAllBidPrices();
 
     List<Instrument> loadAllInstruments();
+
+    List<Quotation> loadLastQuotations();
 }
