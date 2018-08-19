@@ -55,11 +55,13 @@ window.onload = function () {
         console.log(json[0].time);
         appendedQuotation.innerHTML = "";
         for (var i = 0; i < json.length; i++) {
+            var buyModalArgument = json[i].askPriceBucket.price + ", " +  '\"' + json[i].instrument.description + '\"';
+            var sellModalArgument = json[i].bidPriceBucket.price + ", " +  '\"' + json[i].instrument.description + '\"';
             appendedQuotation.innerHTML += "<tr><td>" + json[i].instrument.description
                 + "</td><td>" + json[i].time
-                + "</td><td><button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#buyModal' onclick='startModalTimer()'> Buy: "
+                + "</td><td><button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#buyModal' onClick='startModalTimer("+ buyModalArgument + ")'> Buy: "
                 + json[i].askPriceBucket.price
-                + "</button></td><td><button type='button' class='btn btn-outline-primary'  data-toggle='modal' data-target='#sellModal'  onclick='startModalTimer()'> Sell: "
+                + "</button></td><td><button type='button' class='btn btn-outline-primary'  data-toggle='modal' data-target='#sellModal'  onClick='startModalTimer("+ sellModalArgument + ")'> Sell: "
                 + json[i].bidPriceBucket.price + "</button></td></tr>";
         }
     }
@@ -81,8 +83,12 @@ window.onload = function () {
 }
 var modalTimer;
 
-function startModalTimer() {
+function startModalTimer(price, instrument) {
     modalTimer = setInterval(myTimer, 1000);
+    document.getElementById("buyModalPrice").innerHTML = price;
+    document.getElementById("buyModalInstrument").innerHTML = instrument;
+    document.getElementById("sellModalPrice").innerHTML = price;
+    document.getElementById("sellModalInstrument").innerHTML = instrument;
 }
 
 function myTimer() {

@@ -56,7 +56,6 @@
             <li class="nav-item active"><a class="nav-link">|</a></li>
         </ul>
         <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Log out</button>
         </form>
     </div>
@@ -120,7 +119,7 @@
                     <td th:text="${trade.price}">"</td>
                     <td></td>
                     <td></td>
-                    <td><button type="button" class="btn btn-danger" data-dismiss="modal" onclick="">Close</button></td>
+                    <td><button type="button" class="btn btn-danger" data-dismiss="modal" href="#" th:href="@{'/transaction/' + ${trade.id} + '/close'}">Close</button></td>
                 </tr>
                 </tbody>
             </table>
@@ -158,6 +157,8 @@
                 <div class="modal-body">
                     <p>Modal for buy transaction</p>
                     <p class="modalTimer">Time to confirm transaction: </p>
+                    <p id="buyModalInstrument"></p>
+                    <p id="buyModalPrice"></p>
                 </div>
                 <div class="modal-footer">
                     <button id="buyConfirmation" class="btn btn-success px-2 mr-auto custom-button-width"
@@ -183,11 +184,12 @@
                 <div class="modal-body">
                     <p>Modal for sell transaction</p>
                     <p class="modalTimer">Time to confirm transaction: </p>
-
+                    <p id="sellModalInstrument"></p>
+                    <p id="sellModalPrice"></p>
                 </div>
                 <div class="modal-footer">
                     <button id="sellConfirmation" class="btn btn-success px-2 mr-auto custom-button-width"
-                            data-dismiss="modal" onclick="stopInterval()">Sell
+                            data-dismiss="modal" onclick="sellTrade()">Sell
                     </button>
                     <button id="requoteSellButton" class="btn btn-warning px-2 mr-auto custom-button-width"
                             onclick="requote()">Requote

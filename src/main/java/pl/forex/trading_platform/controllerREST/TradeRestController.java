@@ -15,10 +15,19 @@ public class TradeRestController {
 
     @RequestMapping(value = "/buy", method = RequestMethod.POST, produces="application/json", consumes="application/json")
     @ResponseBody
-    public void addBook(@RequestBody Transaction transaction){
+    public void buyTrade(@RequestBody Transaction transaction){
         System.out.println("buy rest controller procesing");
         System.out.println(transaction.toString());
         transaction.setBuySell(BuySell.BUY);
+        transactionRepository.save(transaction);
+    }
+
+    @RequestMapping(value = "/sell", method = RequestMethod.POST, produces="application/json", consumes="application/json")
+    @ResponseBody
+    public void sellTrade(@RequestBody Transaction transaction){
+        System.out.println("sell rest controller procesing");
+        System.out.println(transaction.toString());
+        transaction.setBuySell(BuySell.SELL);
         transactionRepository.save(transaction);
     }
 }
