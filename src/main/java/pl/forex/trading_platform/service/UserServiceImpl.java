@@ -6,7 +6,6 @@ import pl.forex.trading_platform.domain.user.User;
 import pl.forex.trading_platform.repository.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {

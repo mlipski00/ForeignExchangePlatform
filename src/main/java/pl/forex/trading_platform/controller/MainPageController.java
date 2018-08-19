@@ -1,8 +1,5 @@
 package pl.forex.trading_platform.controller;
 
-import com.google.gson.Gson;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -12,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.forex.trading_platform.domain.Instrument;
 import pl.forex.trading_platform.domain.Quotation;
 import pl.forex.trading_platform.domain.nbp.TableA;
+import pl.forex.trading_platform.repository.TransactionRepository;
 import pl.forex.trading_platform.service.LoadPlatformSettings;
 import pl.forex.trading_platform.service.LoadQuotations;
 import pl.forex.trading_platform.service.NbpRates;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -29,6 +26,9 @@ public class MainPageController {
 
     @Autowired
     private LoadPlatformSettings loadPlatformSettings;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @Autowired
     NbpRates nbpRates;
@@ -50,6 +50,7 @@ public class MainPageController {
         model.addAttribute("decisionTime", loadPlatformSettings.loadDecisionTime());
         TableA[] tableAarray = nbpRates.getTableAQuotesArray(nbpTableAurl);
         model.addAttribute("nbpTableA", tableAarray[0]);
+        model.addAttribute("openTransactions", transactionRepository.findFirst5ByOrderByIdDesc());
         return "websocket";
     }
 }

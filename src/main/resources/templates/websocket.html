@@ -15,6 +15,7 @@
     <!--crossorigin="anonymous"></script>-->
 
     <script src="app.js"></script>
+    <script src="tradeAjax.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
@@ -68,14 +69,26 @@
                 <thead>
                 <tr>
                     <th scope="col">Instrument</th>
+                    <th scope="col">Side</th>
                     <th scope="col">Trade date</th>
                     <th scope="col">Trade time</th>
                     <th scope="col">Trade price</th>
                     <th scope="col">Profit</th>
                     <th scope="col">Profit in PLN</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody id="openTransactionsRow">
+                <tr th:each="trade : ${openTransactions}" class="active">
+                    <td th:text="${trade.instrument}">"</td>
+                    <td th:text="${trade.buySell}">"</td>
+                    <td th:text="${#strings.substring(trade.tradeDateTime,0,10)}">"</td>
+                    <td th:text="${#strings.substring(trade.tradeDateTime,11)}">"</td>
+                    <td th:text="${trade.price}">"</td>
+                    <td></td>
+                    <td></td>
+                    <td><button type="button" class="btn btn-default" data-dismiss="modal" onclick="">Close</button></td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -115,7 +128,7 @@
                 </div>
                 <div class="modal-footer">
                     <button id="buyConfirmation" class="btn btn-success px-2 mr-auto custom-button-width"
-                            data-dismiss="modal" onclick="stopInterval()">Buy
+                            data-dismiss="modal" onclick="buyTrade()">Buy
                     </button>
                     <button id="requoteBuyButton" class="btn btn-warning px-2 mr-auto custom-button-width"
                             onclick="requote()">Requote
@@ -137,6 +150,7 @@
                 <div class="modal-body">
                     <p>Modal for sell transaction</p>
                     <p class="modalTimer">Time to confirm transaction: </p>
+
                 </div>
                 <div class="modal-footer">
                     <button id="sellConfirmation" class="btn btn-success px-2 mr-auto custom-button-width"

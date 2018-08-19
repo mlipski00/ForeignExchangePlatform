@@ -107,10 +107,13 @@ function stopInterval() {
     clearInterval(modalTimer);
     floatTimeToConfirmTransaction = timeToConfirmTransaction;
     counter = 0;
+
     $("#buyConfirmation").show();
     $("#sellConfirmation").show();
     $("#requoteBuyButton").hide();
     $("#requoteSellButton").hide();
+
+
 }
 
 function requote() {
