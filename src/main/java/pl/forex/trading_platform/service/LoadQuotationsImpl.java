@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import pl.forex.trading_platform.DAO_legacy.QuotationDao;
 import pl.forex.trading_platform.domain.AskPriceBucket;
 import pl.forex.trading_platform.domain.BidPriceBucket;
 import pl.forex.trading_platform.domain.Instrument;
@@ -12,7 +13,6 @@ import pl.forex.trading_platform.domain.Quotation;
 import pl.forex.trading_platform.repository.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Component
 @Getter

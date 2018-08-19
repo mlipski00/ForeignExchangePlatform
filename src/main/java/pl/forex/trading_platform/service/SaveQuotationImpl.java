@@ -10,14 +10,12 @@ import pl.forex.trading_platform.domain.AskPriceBucket;
 import pl.forex.trading_platform.domain.BidPriceBucket;
 import pl.forex.trading_platform.domain.Instrument;
 import pl.forex.trading_platform.domain.Quotation;
-import pl.forex.trading_platform.repository.AskPriceBucketDao;
-import pl.forex.trading_platform.repository.BidPriceBucketDao;
-import pl.forex.trading_platform.repository.InstrumentDao;
-import pl.forex.trading_platform.repository.QuotationDao;
+import pl.forex.trading_platform.DAO_legacy.AskPriceBucketDao;
+import pl.forex.trading_platform.DAO_legacy.BidPriceBucketDao;
+import pl.forex.trading_platform.DAO_legacy.InstrumentDao;
+import pl.forex.trading_platform.DAO_legacy.QuotationDao;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Optional;
 

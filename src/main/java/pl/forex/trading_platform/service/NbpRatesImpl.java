@@ -8,13 +8,11 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.forex.trading_platform.domain.nbp.TableA;
 
 import java.io.IOException;
-import java.util.List;
 
 @Service
 @Getter

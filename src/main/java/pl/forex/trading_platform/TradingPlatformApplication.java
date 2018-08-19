@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 
 @SpringBootApplication(scanBasePackages = "pl.forex")
 @EnableJpaRepositories
-@EnableAutoConfiguration
 public class TradingPlatformApplication  extends SpringBootServletInitializer {
 
     @Override

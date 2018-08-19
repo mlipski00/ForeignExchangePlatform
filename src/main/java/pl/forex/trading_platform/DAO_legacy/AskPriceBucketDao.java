@@ -1,4 +1,4 @@
-package pl.forex.trading_platform.repository;
+package pl.forex.trading_platform.DAO_legacy;
 
 
 import org.springframework.stereotype.Component;

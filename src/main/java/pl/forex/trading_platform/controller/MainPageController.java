@@ -22,7 +22,7 @@ import java.util.List;
 
 @Controller
 @PropertySource("classpath:platformSettings.properties")
-public class MainController {
+public class MainPageController {
 
     @Autowired
     LoadQuotations loadQuotations;

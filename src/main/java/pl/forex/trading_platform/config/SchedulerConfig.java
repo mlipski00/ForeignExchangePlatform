@@ -41,7 +41,6 @@ public class SchedulerConfig {
         List<Quotation> quotations = loadQuotations.loadAllQuotations();
         List<Instrument> instruments = loadQuotations.loadAllInstruments();
         System.out.println(loadQuotations.loadLastQuotations());
-        //simpMessagingTemplate.convertAndSend("/topic/user", quotations.subList(Math.max(quotations.size() - instruments.size(), 0), quotations.size()));
         simpMessagingTemplate.convertAndSend("/topic/user", loadQuotations.loadLastQuotations());
     }
 
