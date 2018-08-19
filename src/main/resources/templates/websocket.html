@@ -25,7 +25,6 @@
 
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active"><a class="nav-link">|</a></li>
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
@@ -53,7 +52,6 @@
                     <a class="dropdown-item" href="#">Outbox</a>
                 </div>
             </li>
-            <li class="nav-item active"><a class="nav-link">|</a></li>
         </ul>
         <form class="form-inline">
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Log out</button>
@@ -119,7 +117,7 @@
                     <td th:text="${trade.price}">"</td>
                     <td></td>
                     <td></td>
-                    <td><button type="button" class="btn btn-danger" data-dismiss="modal" href="#" th:href="@{'/transaction/' + ${trade.id} + '/close'}">Close</button></td>
+                    <td><a type="button" class="btn btn-danger" data-dismiss="modal" href="#" th:href="@{'/transaction/' + ${trade.id} + '/close'}">Close</a></td>
                 </tr>
                 </tbody>
             </table>
@@ -133,16 +131,30 @@
                 <thead>
                 <tr>
                     <th scope="col">Instrument</th>
+                    <th scope="col">Side</th>
                     <th scope="col">Trade date</th>
                     <th scope="col">Trade time</th>
                     <th scope="col">Close date</th>
                     <th scope="col">Close time</th>
                     <th scope="col">Trade price</th>
+                    <th scope="col">Close price</th>
                     <th scope="col">Profit</th>
                     <th scope="col">Profit in PLN</th>
                 </tr>
                 </thead>
                 <tbody id="closedTransactionsRow">
+                <tr th:each="trade : ${closedTransactions}" class="active">
+                    <td th:text="${trade.instrument}">"</td>
+                    <td th:text="${trade.buySell}">"</td>
+                    <td th:text="${#strings.substring(trade.tradeDateTime,0,10)}">"</td>
+                    <td th:text="${#strings.substring(trade.tradeDateTime,11)}">"</td>
+                    <td></td>
+                    <td></td>
+                    <td th:text="${trade.price}">"</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
                 </tbody>
             </table>
         </div>

@@ -19,7 +19,7 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "transaction_id")
     private long id;
 
     private String instrument;
@@ -35,12 +35,12 @@ public class Transaction {
 
     private BuySell buySell;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_transactions",
-            joinColumns = @JoinColumn(name = "transaction_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-
-    private User user;
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+//    @JoinTable(name = "user_transactions",
+//            joinColumns = @JoinColumn(name = "transaction_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id"))
+//
+//    private User user;
 
     private double profit;
 
