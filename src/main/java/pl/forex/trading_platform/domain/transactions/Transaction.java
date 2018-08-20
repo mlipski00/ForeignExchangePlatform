@@ -33,6 +33,8 @@ public class Transaction {
 
     private double price;
 
+    private double closePrice;
+
     private BuySell buySell;
 
 //    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)

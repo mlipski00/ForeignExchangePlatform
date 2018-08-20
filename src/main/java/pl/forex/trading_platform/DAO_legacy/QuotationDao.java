@@ -1,6 +1,8 @@
 package pl.forex.trading_platform.DAO_legacy;
 
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.forex.trading_platform.domain.Quotation;
@@ -12,10 +14,14 @@ import java.util.List;
 
 @Repository
 @Transactional
+@PropertySource("classpath:oandaApi.properties")
 public class QuotationDao {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @Value("${oanda.instrumentsList}")
+    private String[] instrumentsList;
 
     public void save(Quotation quotation) {
         entityManager.persist(quotation);
@@ -35,7 +41,7 @@ public class QuotationDao {
 
     public List<Quotation> loadLast() {
         Query query = entityManager.createQuery("SELECT q FROM Quotation q ORDER BY q.id DESC");
-        query.setMaxResults(3);
+        query.setMaxResults(instrumentsList.length);
         return (List<Quotation>) query.getResultList();
 
     }

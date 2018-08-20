@@ -3,6 +3,8 @@ var floatTimeToConfirmTransaction;
 var d = new Date();
 var counter = 0;
 
+var buyModalArgument
+var sellModalArgument
 
 window.onload = function () {
     $("#requoteBuyButton").hide();
@@ -50,13 +52,12 @@ window.onload = function () {
 
     function showGreeting(quotation) {
         var json = JSON.parse(quotation);
-        // var startTimer = setInterval(myTimer, 1000);
         console.log(json);
         console.log(json[0].time);
         appendedQuotation.innerHTML = "";
         for (var i = 0; i < json.length; i++) {
-            var buyModalArgument = json[i].askPriceBucket.price + ", " +  '\"' + json[i].instrument.description + '\"';
-            var sellModalArgument = json[i].bidPriceBucket.price + ", " +  '\"' + json[i].instrument.description + '\"';
+            buyModalArgument = json[i].askPriceBucket.price + ", " +  '\"' + json[i].instrument.description + '\"';
+            sellModalArgument = json[i].bidPriceBucket.price + ", " +  '\"' + json[i].instrument.description + '\"';
             appendedQuotation.innerHTML += "<tr><td>" + json[i].instrument.description
                 + "</td><td>" + json[i].time
                 + "</td><td><button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#buyModal' onClick='startModalTimer("+ buyModalArgument + ")'> Buy: "
@@ -124,5 +125,5 @@ function stopInterval() {
 
 function requote() {
     stopInterval();
-    startModalTimer();
+    startModalTimer(buyModalArgument);
 }

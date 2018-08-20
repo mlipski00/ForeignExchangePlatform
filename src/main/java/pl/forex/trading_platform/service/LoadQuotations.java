@@ -6,7 +6,6 @@ import pl.forex.trading_platform.domain.Instrument;
 import pl.forex.trading_platform.domain.Quotation;
 
 import java.util.List;
-import java.util.Set;
 
 public interface LoadQuotations {
 

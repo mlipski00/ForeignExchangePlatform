@@ -13,6 +13,7 @@ import pl.forex.trading_platform.domain.nbp.TableA;
 import pl.forex.trading_platform.repository.NbpRatesRepository;
 import pl.forex.trading_platform.service.LoadQuotations;
 import pl.forex.trading_platform.service.NbpRates;
+import pl.forex.trading_platform.service.TransactionService;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class SchedulerConfig {
     public void SaveDailyNbpRates() {
         TableA[] tableAarray = nbpRates.getTableAQuotesArray(nbpTableAurl);
         nbpRatesRepository.save(tableAarray[0]);
+
     }
 }
 

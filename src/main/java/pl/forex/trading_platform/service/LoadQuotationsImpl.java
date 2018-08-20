@@ -12,7 +12,9 @@ import pl.forex.trading_platform.domain.Instrument;
 import pl.forex.trading_platform.domain.Quotation;
 import pl.forex.trading_platform.repository.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Getter
@@ -57,6 +59,8 @@ public class LoadQuotationsImpl implements LoadQuotations {
 
     @Override
     public List<Quotation> loadLastQuotations() {
-        return quotationDao.loadLast();
+        return quotationDao.loadLast().stream()
+                .sorted(Comparator.comparing(q -> q.getInstrument().getDescription()))
+                .collect(Collectors.toList());
     }
 }

@@ -16,6 +16,7 @@ import pl.forex.trading_platform.repository.TransactionRepository;
 import pl.forex.trading_platform.service.LoadPlatformSettings;
 import pl.forex.trading_platform.service.LoadQuotations;
 import pl.forex.trading_platform.service.NbpRates;
+import pl.forex.trading_platform.service.TransactionService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -40,6 +41,9 @@ public class MainPageController {
     @Value("${platformSettings.nbpTableA}")
     private String nbpTableAurl;
 
+    @Autowired
+    private TransactionService transactionService;
+
     @RequestMapping({"/index"})
     public String getIndexPage(Model model) {
         List<Quotation> quotations = loadQuotations.loadAllQuotations();
@@ -62,8 +66,7 @@ public class MainPageController {
     @GetMapping("/transaction/{id}/close")
     public String closeTransaction(@PathVariable String id){
         Transaction transaction = transactionRepository.getOne(Long.valueOf(id));
-        transaction.setClosed(true);
-        transactionRepository.save(transaction);
+        transactionService.closeTransaction(transaction);
         return "redirect:/";
     }
 }
