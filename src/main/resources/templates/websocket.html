@@ -11,6 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
     <script src="tradeAjax.js"></script>
+    <script src="profitValuation.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
@@ -104,21 +105,19 @@
                     <th scope="col">Trade time</th>
                     <th scope="col">Trade price</th>
                     <th scope="col">Amount</th>
-                    <th scope="col">Profit</th>
                     <th scope="col">Profit in PLN</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody id="openTransactionsRow">
-                <tr th:each="trade : ${openTransactions}" class="active">
-                    <td th:text="${trade.instrument}">"</td>
-                    <td th:text="${trade.buySell}">"</td>
+                <tr th:each="trade : ${openTransactions}" class="openTransactionsRowID">
+                    <td class="instrument" th:text="${trade.instrument}">"</td>
+                    <td class="buySell" th:text="${trade.buySell}">"</td>
                     <td th:text="${#strings.substring(trade.tradeDateTime,0,10)}">"</td>
                     <td th:text="${#strings.substring(trade.tradeDateTime,11)}">"</td>
                     <td th:text="${trade.price}">"</td>
                     <td th:text="${trade.amount}">"</td>
-                    <td></td>
-                    <td></td>
+                     <td class="profitPLN"></td>
                     <td><a type="button" class="btn btn-danger" data-dismiss="modal" href="#" th:href="@{'/transaction/' + ${trade.id} + '/close'}">Close</a></td>
                 </tr>
                 </tbody>
@@ -139,7 +138,6 @@
                     <th scope="col">Trade price</th>
                     <th scope="col">Close price</th>
                     <th scope="col">Amount</th>
-                    <th scope="col">Profit</th>
                     <th scope="col">Profit in PLN</th>
                 </tr>
                 </thead>
@@ -152,8 +150,7 @@
                     <td th:text="${trade.price}">"</td>
                     <td th:text="${trade.closePrice}">"</td>
                     <td th:text="${trade.amount}">"</td>
-                    <td th:text="${#numbers.formatDecimal(trade.profit, 1, 2)}"</td>
-                    <td></td>
+                    <td th:text="${#numbers.formatDecimal(trade.profit, 1, 2)}"></td>
                 </tr>
                 </tbody>
             </table>

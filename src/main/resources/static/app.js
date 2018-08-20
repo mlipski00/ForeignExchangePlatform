@@ -51,6 +51,7 @@ window.onload = function () {
 
 
     function showGreeting(quotation) {
+        valuateProfits();
         var json = JSON.parse(quotation);
         console.log(json);
         console.log(json[0].time);
