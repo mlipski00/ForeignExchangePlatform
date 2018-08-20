@@ -148,8 +148,8 @@
                     <td th:text="${trade.buySell}">"</td>
                     <td th:text="${#strings.substring(trade.tradeDateTime,0,10)}">"</td>
                     <td th:text="${#strings.substring(trade.tradeDateTime,11)}">"</td>
-                    <td></td>
-                    <td></td>
+                    <td th:text="${#strings.substring(trade.closeDateTime,0,10)}">"</td>
+                    <td th:text="${#strings.substring(trade.closeDateTime,11)}">"</td>
                     <td th:text="${trade.price}">"</td>
                     <td th:text="${trade.closePrice}">"</td>
                     <td></td>
@@ -177,7 +177,7 @@
                             data-dismiss="modal" onclick="buyTrade()">Buy
                     </button>
                     <button id="requoteBuyButton" class="btn btn-warning px-2 mr-auto custom-button-width"
-                            onclick="requote()">Requote
+                            onclick="buyRequote()">Requote
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="stopInterval()">Close
                     </button>
@@ -204,7 +204,7 @@
                             data-dismiss="modal" onclick="sellTrade()">Sell
                     </button>
                     <button id="requoteSellButton" class="btn btn-warning px-2 mr-auto custom-button-width"
-                            onclick="requote()">Requote
+                            onclick="sellRequote()">Requote
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="stopInterval()">Close
                     </button>

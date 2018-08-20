@@ -3,8 +3,8 @@ var floatTimeToConfirmTransaction;
 var d = new Date();
 var counter = 0;
 
-var buyModalArgument
-var sellModalArgument
+var buyModalArgument = []
+var sellModalArgument = []
 
 window.onload = function () {
     $("#requoteBuyButton").hide();
@@ -56,13 +56,13 @@ window.onload = function () {
         console.log(json[0].time);
         appendedQuotation.innerHTML = "";
         for (var i = 0; i < json.length; i++) {
-            buyModalArgument = json[i].askPriceBucket.price + ", " +  '\"' + json[i].instrument.description + '\"';
-            sellModalArgument = json[i].bidPriceBucket.price + ", " +  '\"' + json[i].instrument.description + '\"';
+            buyModalArgument[i] = '\"' + json[i].instrument.description + '\"' + ", " +  json[i].askPriceBucket.price;
+            sellModalArgument[i] = '\"' + json[i].instrument.description + '\"' + ", " + json[i].bidPriceBucket.price;
             appendedQuotation.innerHTML += "<tr><td>" + json[i].instrument.description
                 + "</td><td>" + json[i].time
-                + "</td><td><button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#buyModal' onClick='startModalTimer("+ buyModalArgument + ")'> Buy: "
+                + "</td><td><button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#buyModal' onClick='startModalTimer("+ buyModalArgument[i] + ")'> Buy: "
                 + json[i].askPriceBucket.price
-                + "</button></td><td><button type='button' class='btn btn-outline-primary'  data-toggle='modal' data-target='#sellModal'  onClick='startModalTimer("+ sellModalArgument + ")'> Sell: "
+                + "</button></td><td><button type='button' class='btn btn-outline-primary'  data-toggle='modal' data-target='#sellModal'  onClick='startModalTimer("+ sellModalArgument[i] + ")'> Sell: "
                 + json[i].bidPriceBucket.price + "</button></td></tr>";
         }
     }
@@ -84,7 +84,7 @@ window.onload = function () {
 }
 var modalTimer;
 
-function startModalTimer(price, instrument) {
+function startModalTimer(instrument, price) {
     modalTimer = setInterval(myTimer, 1000);
     document.getElementById("buyModalPrice").innerHTML = price;
     document.getElementById("buyModalInstrument").innerHTML = instrument;
@@ -123,7 +123,27 @@ function stopInterval() {
 
 }
 
-function requote() {
+function buyRequote() {
     stopInterval();
-    startModalTimer(buyModalArgument);
+    for (i = 0; i < buyModalArgument.length; i++) {
+        if(document.getElementById("buyModalInstrument").innerHTML.toString() === buyModalArgument[i].substr(1,7).toString()){
+            var buyArgumentToSplit = buyModalArgument[i].split(",");
+            startModalTimer(buyArgumentToSplit[0].substr(1,7), buyArgumentToSplit[1]);
+        }
+    }
+
+}
+
+function sellRequote() {
+    stopInterval();
+    for (i = 0; i < sellModalArgument.length; i++) {
+        console.log("sell modal: " + document.getElementById("sellModalInstrument").innerHTML.toString())
+        console.log(sellModalArgument[i].substr(1,7).toString())
+        if(document.getElementById("sellModalInstrument").innerHTML.toString() === sellModalArgument[i].substr(1,7).toString()){
+            var sellArgumentToSplit = sellModalArgument[i].split(",");
+            console.log("first part of split: " + sellArgumentToSplit[0]);
+            startModalTimer(sellArgumentToSplit[0].substr(1,7), sellArgumentToSplit[1]);
+        }
+    }
+
 }
