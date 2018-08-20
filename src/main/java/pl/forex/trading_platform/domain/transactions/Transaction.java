@@ -27,6 +27,8 @@ public class Transaction {
     @CreationTimestamp
     private Date tradeDateTime;
 
+    private double amount;
+
     private boolean isClosed;
 
     private Date closeDateTime;

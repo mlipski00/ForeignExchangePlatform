@@ -29,8 +29,10 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElse(null);
         if (transaction.getBuySell().equals(BuySell.BUY)) {
             transaction.setClosePrice(PnLQoutetation.getBidPriceBucket().getPrice());
+            transaction.setProfit((transaction.getAmount()*transaction.getClosePrice())-(transaction.getAmount()*transaction.getPrice()));
         }else {
             transaction.setClosePrice(PnLQoutetation.getAskPriceBucket().getPrice());
+            transaction.setProfit((transaction.getAmount()*transaction.getPrice())-(transaction.getAmount()*transaction.getClosePrice()));
         }
         transaction.setCloseDateTime(new Date());
         transactionRepository.save(transaction);

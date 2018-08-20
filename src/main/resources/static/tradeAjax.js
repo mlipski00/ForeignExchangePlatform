@@ -6,6 +6,7 @@ function buyTrade() {
 
     buyTrade.instrument = document.getElementById("buyModalInstrument").innerHTML;
     buyTrade.price = document.getElementById("buyModalPrice").innerHTML;
+    buyTrade.amount = document.getElementById("buyAmount").value;
 
     $.ajax({
         url: "http://localhost:8080/transaction/buy",
@@ -17,7 +18,6 @@ function buyTrade() {
         data: JSON.stringify(buyTrade)
     }).done(function () {
         console.log('buy AJAX done');
-        // refreshBooks($('#root'));
         location.reload();
     }).fail(function () {
         console.log('ajax failed');
@@ -32,6 +32,7 @@ function sellTrade() {
 
     sellTrade.instrument = document.getElementById("sellModalInstrument").innerHTML;
     sellTrade.price = document.getElementById("sellModalPrice").innerHTML;
+    sellTrade.amount = document.getElementById("sellAmount").value;
 
     $.ajax({
         url: "http://localhost:8080/transaction/sell",
