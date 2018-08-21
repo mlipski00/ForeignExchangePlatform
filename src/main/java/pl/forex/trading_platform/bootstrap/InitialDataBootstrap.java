@@ -52,6 +52,7 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
         setInstruments();
         setAllSettings();
         setNbpRates();
+        mockUsers();
     }
     private void setInstruments() {
         for (int i = 0; i < instrumentsList.length; i++) {
@@ -72,5 +73,9 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
     private void setNbpRates() {
         TableA[] tableAarray = nbpRates.getTableAQuotesArray(nbpTableAurl);
         nbpRatesRepository.save(tableAarray[0]);
+    }
+
+    private void mockUsers() {
+
     }
 }

@@ -18,9 +18,7 @@ import pl.forex.trading_platform.service.LoadQuotations;
 import pl.forex.trading_platform.service.NbpRates;
 import pl.forex.trading_platform.service.TransactionService;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @PropertySource("classpath:platformSettings.properties")
@@ -68,6 +66,11 @@ public class MainPageController {
         Transaction transaction = transactionRepository.getOne(Long.valueOf(id));
         transactionService.closeTransaction(transaction);
         return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String getLogin(){
+        return "login";
     }
 
 }
