@@ -19,7 +19,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Forex trading platform</a>
+    <a class="navbar-brand" href="/">Forex trading platform</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,11 +27,11 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active"><a class="nav-link">|</a></li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Open transactions</a>
+                <a class="nav-link" href="/opentransactions">Open transactions</a>
             </li>
             <li class="nav-item active "><a class="nav-link">|</a></li>
             <li class="nav-item active">
@@ -55,6 +55,13 @@
             </li>
         </ul>
         <form class="form-inline">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Users ranking</a>
+                </li>
+                <li class="nav-item active"><a class="nav-link">Balance: [nominal]</a></li>
+                <li class="nav-item active"><a class="nav-link">Welcome: [username]</a></li>
+            </ul>
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Log out</button>
         </form>
     </div>
@@ -81,7 +88,7 @@
         <div class="col-md-6">
             <form class="form-inline">
                 <div class="form-group">
-                    <label for="connect" class="px-2">WebSocket connection: </label>
+                    <label for="connect" class="px-2" id="pricingConnectionStatus">Pricing connection status: Not connected</label>
                     <button id="connect" class="btn btn-success px-2" type="submit">Connect</button>
                     <button id="disconnect" class="btn btn-warning px-2" type="submit" disabled="disabled">Disconnect
                     </button>
@@ -91,11 +98,12 @@
                 </div>
             </form>
         </div>
+
     </div>
     <hr>
     <div class="row">
         <div class="col-md-12">
-            <h4 class="p-1 mb-2 bg-light text-dark border border-primary rounded text-center">Open transactions</h4>
+            <h4 class="p-1 mb-2 bg-light text-dark border border-primary rounded text-center">Last 5 open transactions</h4>
             <table id="openTransactions" class="table table-striped text-center">
                 <thead>
                 <tr>
@@ -117,7 +125,7 @@
                     <td th:text="${#strings.substring(trade.tradeDateTime,11)}">"</td>
                     <td th:text="${trade.price}">"</td>
                     <td th:text="${trade.amount}">"</td>
-                     <td class="profitPLN"></td>
+                     <td class="profitPLN">valuating...</td>
                     <td><a type="button" class="btn btn-danger" data-dismiss="modal" href="#" th:href="@{'/transaction/' + ${trade.id} + '/close'}">Close</a></td>
                 </tr>
                 </tbody>
@@ -127,7 +135,7 @@
     <hr>
     <div class="row">
         <div class="col-md-12">
-            <h4 class="p-1 mb-2 bg-light text-dark border border-primary rounded text-center">Closed transactions</h4>
+            <h4 class="p-1 mb-2 bg-light text-dark border border-primary rounded text-center">Last 5 closed transactions</h4>
             <table id="ClosedTransactions" class="table table-striped text-center">
                 <thead>
                 <tr>

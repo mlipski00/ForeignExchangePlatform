@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Forex Trading platform WebSocket Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+    <script src="profitValuation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">Forex trading platform</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active"><a class="nav-link">|</a></li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/opentransactions">Open transactions</a>
+            </li>
+            <li class="nav-item active "><a class="nav-link">|</a></li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Closed transactions</a>
+            </li>
+            <li class="nav-item active"><a class="nav-link">|</a></li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Account details</a>
+            </li>
+            <li class="nav-item active"><a class="nav-link">|</a></li>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Messages menu
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">New Message</a>
+                    <hr>
+                    <a class="dropdown-item" href="#">Inbox</a>
+                    <a class="dropdown-item" href="#">Outbox</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Users ranking</a>
+                </li>
+                <li class="nav-item active"><a class="nav-link">Balance: [nominal]</a></li>
+                <li class="nav-item active"><a class="nav-link">Welcome: [username]</a></li>
+            </ul>
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Log out</button>
+        </form>
+    </div>
+</nav>
+<div id="main-content" class="container">
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="p-1 mb-2 bg-light text-dark border border-primary rounded text-center">All closed transactions</h4>
+            <table id="ClosedTransactions" class="table table-striped text-center">
+                <thead>
+                <tr>
+                    <th scope="col">Instrument</th>
+                    <th scope="col">Side</th>
+                    <th scope="col">Trade dateTime</th>
+                    <th scope="col">Close dateTime</th>
+                    <th scope="col">Trade price</th>
+                    <th scope="col">Close price</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Profit in PLN</th>
+                </tr>
+                </thead>
+                <tbody id="closedTransactionsRow">
+                <tr th:each="trade : ${closedTransactions}" class="active">
+                    <td th:text="${trade.instrument}">"</td>
+                    <td th:text="${trade.buySell}">"</td>
+                    <td th:text="${#strings.substring(trade.tradeDateTime,0,19)}">"</td>
+                    <td th:text="${#strings.substring(trade.closeDateTime,0,19)}">"</td>
+                    <td th:text="${trade.price}">"</td>
+                    <td th:text="${trade.closePrice}">"</td>
+                    <td th:text="${trade.amount}">"</td>
+                    <td th:text="${#numbers.formatDecimal(trade.profit, 1, 2)}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+</body>
+</html>

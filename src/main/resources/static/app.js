@@ -28,6 +28,7 @@ window.onload = function () {
     }
 
     function connect() {
+        document.getElementById("pricingConnectionStatus").innerText = "Pricing connection status: connecting...";
         var socket = new SockJS('websocket');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
@@ -37,6 +38,7 @@ window.onload = function () {
                 showGreeting(greeting.body);
                 $("#quotationRow").hide();
                 $("#quotationRow").fadeIn("1000");
+                document.getElementById("pricingConnectionStatus").innerText = "Pricing connection status: connected";
             });
         });
     }

@@ -54,7 +54,7 @@ public class MainPageController {
     }
 
     @RequestMapping({"", "/", "/websocket"})
-    public String webSocketPage(HttpServletResponse httpServletResponse, Model model) {
+    public String webSocketPage(Model model) {
         model.addAttribute("decisionTime", loadPlatformSettings.loadDecisionTime());
         TableA[] tableAarray = nbpRates.getTableAQuotesArray(nbpTableAurl);
         model.addAttribute("nbpTableA", tableAarray[0]);
@@ -69,4 +69,5 @@ public class MainPageController {
         transactionService.closeTransaction(transaction);
         return "redirect:/";
     }
+
 }
