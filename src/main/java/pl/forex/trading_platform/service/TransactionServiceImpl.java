@@ -9,6 +9,7 @@ import pl.forex.trading_platform.domain.transactions.Transaction;
 import pl.forex.trading_platform.repository.TransactionRepository;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -36,5 +37,10 @@ public class TransactionServiceImpl implements TransactionService {
         }
         transaction.setCloseDateTime(new Date());
         transactionRepository.save(transaction);
+    }
+
+    @Override
+    public double getAllProfit() {
+       return transactionRepository.findAllClosed().stream().map(Transaction::getProfit).reduce(0.0, Double::sum);
     }
 }

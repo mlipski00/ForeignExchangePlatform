@@ -41,6 +41,7 @@ window.onload = function () {
         }
         setConnected(false);
         console.log("Disconnected");
+        document.getElementById("pricingConnectionStatus").innerText = "Pricing connection status: disconnected";
     }
 
     function showGreeting(quotation) {

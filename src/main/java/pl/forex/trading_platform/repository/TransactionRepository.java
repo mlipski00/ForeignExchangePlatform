@@ -8,7 +8,13 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    public List<Transaction> findFirst5ByOrderByIdDesc();
+    public List<Transaction> findAllByOrderByIdDesc();
+
+    @Query(value = "SELECT * FROM TRANSACTION WHERE IS_CLOSED = FALSE", nativeQuery = true)
+    public List<Transaction> findAllNonClosed();
+
+    @Query(value = "SELECT * FROM TRANSACTION WHERE IS_CLOSED = TRUE", nativeQuery = true)
+    public List<Transaction> findAllClosed();
 
     @Query(value = "SELECT * FROM TRANSACTION WHERE IS_CLOSED = FALSE LIMIT 5", nativeQuery = true)
     public List<Transaction> findFirst5NonClosedDesc();

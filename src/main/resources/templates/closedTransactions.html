@@ -34,7 +34,7 @@
             </li>
             <li class="nav-item active "><a class="nav-link">|</a></li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Closed transactions</a>
+                <a class="nav-link" href="/closedtransactions">Closed transactions</a>
             </li>
             <li class="nav-item active"><a class="nav-link">|</a></li>
             <li class="nav-item active">
@@ -98,9 +98,17 @@
             </table>
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <p>Overall profit: </p>
+                    <p th:text="${#numbers.formatDecimal(allProfit, 1, 2)}"> Overall profit:</p>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
-    enabled. Please enable
-    Javascript and reload this page!</h2></noscript>
 </body>
 </html>
