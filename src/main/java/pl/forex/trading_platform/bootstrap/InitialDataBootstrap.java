@@ -38,13 +38,19 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
     @Value("${platformSettings.nbpTableA}")
     private String nbpTableAurl;
 
+    @Value("${platformSettings.minimumTradeAmount}")
+    private Long minimumAmount;
+
+    @Value("${platformSettings.maximumTradeAmount}")
+    private Long maximumAmount;
+
     @Autowired
     NbpRates nbpRates;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         setInstruments();
-        setDecisionTime();
+        setAllSettings();
         setNbpRates();
     }
     private void setInstruments() {
@@ -53,8 +59,14 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
         }
     }
 
-    private void setDecisionTime() {
-        platformSettingsRepository.save(new PlatformSettings(decisionTime));
+    private void setAllSettings() {
+        platformSettingsRepository.save(
+                PlatformSettings.builder()
+                .setDecisionTime(decisionTime)
+                .setMinimumTradeAumount(minimumAmount)
+                .setMaximumTradeAumount(maximumAmount)
+                .build()
+        );
     }
 
     private void setNbpRates() {

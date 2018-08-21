@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.forex.trading_platform.domain.settings.PlatformSettings;
 import pl.forex.trading_platform.repository.PlatformSettingsRepository;
 
-import java.util.List;
-
 @Service
 @Getter
 @Setter
@@ -21,7 +19,11 @@ public class LoadPlatformSettingsImpl implements LoadPlatformSettings {
 
     @Override
     public int loadDecisionTime() {
-        List<PlatformSettings> platformSettingsList = (List<PlatformSettings>) platformSettingsRepository.findAll();
-        return platformSettingsList.get(platformSettingsList.size()-1).getDecisionTime();
+    return platformSettingsRepository.getOne(1L).getDecisionTime();
+    }
+
+    @Override
+    public PlatformSettings loadAllSettings() {
+        return platformSettingsRepository.getOne(1L);
     }
 }

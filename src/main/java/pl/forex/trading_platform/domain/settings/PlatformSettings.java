@@ -1,5 +1,7 @@
 package pl.forex.trading_platform.domain.settings;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +23,40 @@ public class PlatformSettings {
     private Long id;
     private int decisionTime;
 
-    public PlatformSettings(int decisionTime) {
+    private Long minimumTradeAmount;
+    private Long maximumTradeAmount;
+
+    public PlatformSettings(int decisionTime, Long minimumTradeAmount, Long maximumTradeAmount) {
         this.decisionTime = decisionTime;
+        this.minimumTradeAmount = minimumTradeAmount;
+        this.maximumTradeAmount = maximumTradeAmount;
+    }
+    public static PlatformSettingsBuilder builder() {
+        return new PlatformSettingsBuilder();
+    }
+
+    public static class PlatformSettingsBuilder {
+        private int decisionTime;
+        private Long minimumTradeAmount;
+        private Long maximumTradeAmount;
+
+        public PlatformSettingsBuilder setDecisionTime(final int decisionTime) {
+            this.decisionTime = decisionTime;
+            return this;
+        }
+
+        public PlatformSettingsBuilder setMinimumTradeAumount(final Long minimumTradeAmount) {
+            this.minimumTradeAmount = minimumTradeAmount;
+            return this;
+        }
+
+        public PlatformSettingsBuilder setMaximumTradeAumount(final Long maximumTradeAmount) {
+            this.maximumTradeAmount = maximumTradeAmount;
+            return this;
+        }
+
+        public PlatformSettings build() {
+            return new PlatformSettings(decisionTime, minimumTradeAmount, maximumTradeAmount);
+        }
     }
 }

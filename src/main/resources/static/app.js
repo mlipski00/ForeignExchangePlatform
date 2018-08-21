@@ -6,7 +6,12 @@ var counter = 0;
 var buyModalArgument = []
 var sellModalArgument = []
 
+var decisionTime;
+var minimumTradeAmount;
+var maximumTradeAmount;
+
 window.onload = function () {
+    fetch();
     $("#requoteBuyButton").hide();
     $("#requoteSellButton").hide();
     console.log("decision time: " + $("#main-content").attr("data-decisiontime"));
@@ -150,4 +155,43 @@ function sellRequote() {
         }
     }
 
+}
+
+function buyTradeWithValidation() {
+    if (document.getElementById("buyAmount").value < minimumTradeAmount) {
+        alert("Minimal amount is 100");
+        stopInterval();
+        return false;
+    }
+    if (document.getElementById("buyAmount").value > maximumTradeAmount) {
+        alert("Maximal amount is 1000000");
+        stopInterval();
+        return false;
+    }
+    buyTrade();
+}
+
+function sellTradeWithValidation() {
+    if (document.getElementById("sellAmount").value < minimumTradeAmount) {
+        alert("Minimal amount is 100");
+        stopInterval();
+        return false;
+    }
+    if (document.getElementById("sellAmount").value > maximumTradeAmount) {
+        alert("Maximal amount is 1000000");
+        stopInterval();
+        return false;
+    }
+    sellTrade();
+}
+
+function fetch() {
+    $.ajax({
+        url: "http://localhost:8080/platformsettings/allsettings",
+        type: "GET"
+    }).done(function(data) {
+        decisionTime = data.decisionTime;
+        minimumTradeAmount = data.minimumTradeAmount;
+        maximumTradeAmount = data.maximumTradeAmount;
+    })
 }
