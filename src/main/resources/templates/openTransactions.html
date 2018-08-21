@@ -2,7 +2,7 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Forex Trading platform WebSocket Demo</title>
+    <title>Forex Trading platform</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -30,12 +30,14 @@
                 <a class="nav-link" th:href="@{'/'}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active"><a class="nav-link">|</a></li>
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{'/opentransactions'}">Open transactions</a>
-            </li>
-            <li class="nav-item active "><a class="nav-link">|</a></li>
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{'/closedtransactions'}">Closed transactions</a>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                    Transactions
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" th:href="@{'/opentransactions'}">Open transactions</a>
+                    <a class="dropdown-item" th:href="@{'/closedtransactions'}">Closed transactions</a>
+                </div>
             </li>
             <li class="nav-item active"><a class="nav-link">|</a></li>
             <li class="nav-item active">
@@ -43,7 +45,7 @@
             </li>
             <li class="nav-item active"><a class="nav-link">|</a></li>
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                     Messages menu
                 </a>
                 <div class="dropdown-menu">

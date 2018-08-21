@@ -69,8 +69,12 @@ public class MainPageController {
     }
 
     @GetMapping("/login")
-    public String getLogin(){
+    public String getLoginpage(){
         return "login";
     }
 
+    @GetMapping("/registration")
+    public String getRegistrationPage(){
+        return "registration";
+    }
 }
