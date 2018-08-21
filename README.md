@@ -19,8 +19,8 @@ Functionality:
 * Interbank currency prices provided by Oanda Forex Broker
 * Websocket price streaming
 * Transactions excecution
-* Open Transactions valuations (uder construction)
-* Sending messages between register users (uder construction)
-* Admin panel - global messages, users accounts editing (uder construction)
-* Logging and registering users (uder construction)
-* Users ranking by overall transactions profit (uder construction)
+* Open Transactions valuations
+* Sending messages between register users (under construction)
+* Admin panel - global messages, users accounts editing (under construction)
+* Logging and registering users (under construction)
+* Users ranking by overall transactions profit (under construction)
