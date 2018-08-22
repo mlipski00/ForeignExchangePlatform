@@ -1,6 +1,7 @@
 package pl.forex.trading_platform.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,9 +42,9 @@ public class UserRegistrationController {
         roles.add(Role.USER);
         user.setActive(true);
         user.setRoles(roles);
-        user.setPassword(user.getPassword());
-        //user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+//        user.setPassword(user.getPassword());
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userRepository.save(user);
-        return "registration";
+        return "/login";
     }
 }

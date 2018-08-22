@@ -70,4 +70,13 @@ public class User {
 //            joinColumns = @JoinColumn(name = "user_id"),
 //            inverseJoinColumns = @JoinColumn(name = "transaction_id"))
 //    private Set<Transaction> transactions;
+
+    public User(User user) {
+        this.active = user.isActive();
+        this.email = user.getEmail();
+        this.roles = user.getRoles();
+        this.username = user.getUsername();
+        this.id = user.getId();
+        this.password = user.getPassword();
+    }
 }
