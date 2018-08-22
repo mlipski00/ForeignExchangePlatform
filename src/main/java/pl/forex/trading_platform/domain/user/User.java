@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import pl.forex.trading_platform.domain.transactions.Transaction;
 import pl.forex.trading_platform.validator.UniqueEmail;
+import pl.forex.trading_platform.validator.ValidationGroupUniqueEmail;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -41,7 +42,7 @@ public class User {
     private double balance;
 
     @Pattern(regexp = "[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}", message = "type correct email")
-    @UniqueEmail
+    @UniqueEmail(groups = ValidationGroupUniqueEmail.class)
     private String email;
 
     @ElementCollection(fetch = FetchType.EAGER)

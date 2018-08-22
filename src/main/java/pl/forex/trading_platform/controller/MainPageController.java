@@ -73,8 +73,5 @@ public class MainPageController {
         return "login";
     }
 
-    @GetMapping("/registration")
-    public String getRegistrationPage(){
-        return "registration";
-    }
+
 }
