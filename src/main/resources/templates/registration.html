@@ -37,15 +37,15 @@
                             <form method="post" id="register-form" th:href="@{'/registration'}"  th:object="${user}" role="form" style="display: block;">
                                 <div class="form-group">
                                     <input th:field="*{username}" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username"/>
-                                    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect username</p>
+                                    <p class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect username</p>
                                 </div>
                                 <div class="form-group">
                                     <input th:field="*{email}" type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address"/>
-                                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect email</p>
+                                    <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect email</p>
                                 </div>
                                 <div class="form-group">
                                     <input th:field="*{password}" type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password"/>
-                                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</p>
+                                    <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</p>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
