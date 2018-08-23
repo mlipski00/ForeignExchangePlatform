@@ -39,6 +39,10 @@ public class Transaction {
 
     private BuySell buySell;
 
+    private boolean isExecuted;
+
+    private String executionFailReason;
+
 //    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
 //    @JoinTable(name = "user_transactions",
 //            joinColumns = @JoinColumn(name = "transaction_id"),

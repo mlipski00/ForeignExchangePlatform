@@ -41,6 +41,8 @@ public class User {
 
     private double balance;
 
+    private double blockedAmount;
+
     @Pattern(regexp = "[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}", message = "type correct email")
     @UniqueEmail(groups = ValidationGroupUniqueEmail.class)
     private String email;

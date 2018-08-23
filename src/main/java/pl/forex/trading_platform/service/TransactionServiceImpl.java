@@ -6,6 +6,7 @@ import pl.forex.trading_platform.DAO_legacy.QuotationDao;
 import pl.forex.trading_platform.domain.Quotation;
 import pl.forex.trading_platform.domain.transactions.BuySell;
 import pl.forex.trading_platform.domain.transactions.Transaction;
+import pl.forex.trading_platform.domain.user.User;
 import pl.forex.trading_platform.repository.TransactionRepository;
 
 import java.util.Date;
@@ -18,6 +19,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private QuotationDao quotationDao;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public void closeTransaction(Transaction transaction) {
@@ -41,5 +45,11 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public double getAllProfit() {
        return transactionRepository.findAllClosed().stream().map(Transaction::getProfit).reduce(0.0, Double::sum);
+    }
+
+    @Override
+    public double balanceMinusBlockedAmount() {
+        User user = userService.getLoggedUser();
+        return user.getBalance()-user.getBlockedAmount();
     }
 }

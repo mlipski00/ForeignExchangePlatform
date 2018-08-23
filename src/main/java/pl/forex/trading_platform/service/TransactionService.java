@@ -7,4 +7,6 @@ public interface TransactionService {
     public void closeTransaction(Transaction transaction);
 
     public double getAllProfit();
+
+    public double balanceMinusBlockedAmount();
 }
