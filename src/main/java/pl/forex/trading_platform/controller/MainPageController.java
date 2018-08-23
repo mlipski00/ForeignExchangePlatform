@@ -13,10 +13,7 @@ import pl.forex.trading_platform.domain.Quotation;
 import pl.forex.trading_platform.domain.nbp.TableA;
 import pl.forex.trading_platform.domain.transactions.Transaction;
 import pl.forex.trading_platform.repository.TransactionRepository;
-import pl.forex.trading_platform.service.LoadPlatformSettings;
-import pl.forex.trading_platform.service.LoadQuotations;
-import pl.forex.trading_platform.service.NbpRates;
-import pl.forex.trading_platform.service.TransactionService;
+import pl.forex.trading_platform.service.*;
 
 import java.util.List;
 
@@ -42,6 +39,9 @@ public class MainPageController {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping({"/index"})
     public String getIndexPage(Model model) {
         List<Quotation> quotations = loadQuotations.loadAllQuotations();
@@ -58,6 +58,8 @@ public class MainPageController {
         model.addAttribute("nbpTableA", tableAarray[0]);
         model.addAttribute("openTransactions", transactionRepository.findFirst5NonClosedDesc());
         model.addAttribute("closedTransactions", transactionRepository.findFirst5ClosedDesc());
+        model.addAttribute("loggedUser", userService.getLoggedUser().getUsername());
+        model.addAttribute("loggedUserBalance", userService.getLoggedUser().getBalance());
         return "websocket";
     }
 

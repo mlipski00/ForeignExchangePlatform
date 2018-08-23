@@ -59,10 +59,10 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Users ranking</a>
                 </li>
-                <li class="nav-item active"><a class="nav-link">Balance: [nominal]</a></li>
-                <li class="nav-item active"><a class="nav-link">Welcome: [username]</a></li>
+                <li class="nav-item active"><a class="nav-link"  th:text="'Balance: ' + ${loggedUserBalance}">Balance: [nominal]</a></li>
+                <li class="nav-item active"><a class="nav-link"  th:text="'Hello ' + ${loggedUser}+'!'">Welcome: [username]</a></li>
             </ul>
-            <a th:href="@{'/logout'}"><button class="btn btn-outline-light my-2 my-sm-0" type="submit">Log out</button></a>
+            <a th:href="@{'/logout'}" class="btn btn-outline-light my-2 my-sm-0">Log out</a>
         </form>
     </div>
 </nav>

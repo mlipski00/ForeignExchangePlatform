@@ -9,7 +9,6 @@ import pl.forex.trading_platform.domain.transactions.Transaction;
 import pl.forex.trading_platform.repository.TransactionRepository;
 
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {

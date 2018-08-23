@@ -5,13 +5,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 import pl.forex.trading_platform.domain.Instrument;
 import pl.forex.trading_platform.domain.nbp.TableA;
 import pl.forex.trading_platform.domain.settings.PlatformSettings;
+import pl.forex.trading_platform.domain.user.User;
 import pl.forex.trading_platform.repository.InstrumentRepository;
 import pl.forex.trading_platform.repository.NbpRatesRepository;
 import pl.forex.trading_platform.repository.PlatformSettingsRepository;
+import pl.forex.trading_platform.repository.UserRepository;
 import pl.forex.trading_platform.service.NbpRates;
 
 
@@ -28,6 +31,9 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
 
     @Autowired
     private NbpRatesRepository nbpRatesRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Value("${oanda.instrumentsList}")
     private String[] instrumentsList;
@@ -76,6 +82,11 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
     }
 
     private void mockUsers() {
-
+        User user = new User();
+        user.setUsername("Michał");
+        user.setEmail("m@wp.pl");
+        user.setBalance(500000);
+        user.setPassword(BCrypt.hashpw("123123", BCrypt.gensalt()));
+        userRepository.save(user);
     }
 }
