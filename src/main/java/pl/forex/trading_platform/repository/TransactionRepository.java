@@ -19,6 +19,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     @Query(value = "SELECT * FROM TRANSACTION WHERE IS_CLOSED = FALSE ORDER BY TRANSACTION_ID DESC LIMIT 5", nativeQuery = true)
     public List<Transaction> findFirst5NonClosedDesc();
 
-    @Query(value = "SELECT * FROM TRANSACTION WHERE IS_CLOSED = TRUE ORDER BY TRANSACTION_ID DESC LIMIT 5", nativeQuery = true)
+    @Query(value = "SELECT * FROM TRANSACTION WHERE IS_CLOSED = TRUE AND IS_EXECUTED = TRUE ORDER BY TRANSACTION_ID DESC LIMIT 5", nativeQuery = true)
     public List<Transaction> findFirst5ClosedDesc();
 }
