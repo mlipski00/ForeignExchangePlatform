@@ -28,6 +28,7 @@ function buyTrade() {
                 + "<p>Trade side: " + transaction.buySell + "</p>"
                 + "<p>instrument: " + transaction.instrument + "</p>"
                 + "<p>Amount: " + transaction.amount + "</p>"
+                + "<p>Amount in PLN: " + transaction.amountPLN + "</p>"
                 + "<p>Trade price: " + transaction.price + "</p>";
         } else {
             document.getElementById("tradeResultTRX").innerHTML = "Transaction not executed. Reason: " + transaction.executionFailReason;
@@ -66,6 +67,7 @@ function sellTrade() {
                 + "<p>Trade side: " + transaction.buySell + "</p>"
                 + "<p>instrument: " + transaction.instrument + "</p>"
                 + "<p>Amount: " + transaction.amount + "</p>"
+                + "<p>Amount in PLN: " + transaction.amountPLN + "</p>"
                 + "<p>Trade price: " + transaction.price + "</p>";
         } else {
             document.getElementById("tradeResultTRX").innerHTML = "Transaction not executed. Reason: " + transaction.executionFailReason;

@@ -52,7 +52,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public double getAllProfit() {
-       return transactionRepository.findAllClosed().stream().map(Transaction::getProfit).reduce(0.0, Double::sum);
+       return transactionRepository.findAllClosed(userService.getLoggedUser().getId()).stream().map(Transaction::getProfit).reduce(0.0, Double::sum);
     }
 
     @Override

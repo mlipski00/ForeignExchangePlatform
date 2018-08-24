@@ -37,7 +37,9 @@ public class UserServiceImpl implements UserService {
         if (loggedUser.getBalance() - loggedUser.getBlockedAmount() - transaction.getAmount()*transaction.getPrice() >= 0) {
             transaction.setExecuted(true);
             transaction.setExecutionFailReason(ExecutionFailReason.STATUS_OK.getReason());
+            transaction.setAmountPLN(transaction.getAmount()*transaction.getPrice());
             loggedUser.setBlockedAmount(loggedUser.getBlockedAmount() + transaction.getAmount()*transaction.getPrice());
+            transaction.setUser(loggedUser);
             transactionList.add(transaction);
             userRepository.save(loggedUser);
         } else {
@@ -45,6 +47,8 @@ public class UserServiceImpl implements UserService {
             transaction.setClosed(true);
             transaction.setExecutionFailReason(ExecutionFailReason.NOT_ENOUGH_BALANCE.getReason());
             transaction.setProfit(0);
+            transaction.setAmountPLN(transaction.getAmount()*transaction.getPrice());
+            transaction.setUser(loggedUser);
             transactionList.add(transaction);
             userRepository.save(loggedUser);
         }

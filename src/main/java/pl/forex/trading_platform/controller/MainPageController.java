@@ -56,8 +56,8 @@ public class MainPageController {
         model.addAttribute("decisionTime", loadPlatformSettings.loadDecisionTime());
         TableA[] tableAarray = nbpRates.getTableAQuotesArray(nbpTableAurl);
         model.addAttribute("nbpTableA", tableAarray[0]);
-        model.addAttribute("openTransactions", transactionRepository.findFirst5NonClosedDesc());
-        model.addAttribute("closedTransactions", transactionRepository.findFirst5ClosedDesc());
+        model.addAttribute("openTransactions", transactionRepository.findFirst5NonClosedDesc(userService.getLoggedUser().getId()));
+        model.addAttribute("closedTransactions", transactionRepository.findFirst5ClosedDesc(userService.getLoggedUser().getId()));
         model.addAttribute("loggedUser", userService.getLoggedUser().getUsername());
         model.addAttribute("loggedUserBalance", userService.getLoggedUser().getBalance());
         model.addAttribute("loggedUserBlockedAmount", userService.getLoggedUser().getBlockedAmount());

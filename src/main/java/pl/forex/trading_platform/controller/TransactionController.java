@@ -29,13 +29,13 @@ public class TransactionController {
 
     @RequestMapping("/opentransactions")
     public String openTransactions(Model model) {
-        model.addAttribute("openTransactions", transactionRepository.findAllNonClosed());
+        model.addAttribute("openTransactions", transactionRepository.findAllNonClosed(userService.getLoggedUser().getId()));
         return "openTransactions";
     }
 
     @RequestMapping("/closedtransactions")
     public String closedTransactions(Model model) {
-        model.addAttribute("closedTransactions", transactionRepository.findAllClosed());
+        model.addAttribute("closedTransactions", transactionRepository.findAllClosed(userService.getLoggedUser().getId()));
         model.addAttribute("allProfit", transactionService.getAllProfit());
         return "closedTransactions";
     }

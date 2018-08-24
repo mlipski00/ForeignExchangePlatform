@@ -87,6 +87,7 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
         user.setEmail("m@wp.pl");
         user.setBalance(500000);
         user.setBlockedAmount(0);
+        user.setActive(true);
         user.setPassword(BCrypt.hashpw("123123", BCrypt.gensalt()));
         userRepository.save(user);
     }
