@@ -8,6 +8,7 @@ import pl.forex.trading_platform.domain.transactions.BuySell;
 import pl.forex.trading_platform.domain.transactions.Transaction;
 import pl.forex.trading_platform.domain.user.User;
 import pl.forex.trading_platform.repository.TransactionRepository;
+import pl.forex.trading_platform.repository.UserRepository;
 
 import java.util.Date;
 
@@ -16,6 +17,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private TransactionRepository transactionRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private QuotationDao quotationDao;
@@ -39,6 +43,9 @@ public class TransactionServiceImpl implements TransactionService {
             transaction.setProfit((transaction.getAmount()*transaction.getPrice())-(transaction.getAmount()*transaction.getClosePrice()));
         }
         transaction.setCloseDateTime(new Date());
+        User user = userService.getLoggedUser();
+        user.setBalance(updateBalance(transaction));
+        userRepository.save(user);
         transactionRepository.save(transaction);
     }
 
@@ -48,8 +55,8 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public double balanceMinusBlockedAmount() {
+    public double updateBalance(Transaction transaction) {
         User user = userService.getLoggedUser();
-        return user.getBalance()-user.getBlockedAmount();
+        return user.getBalance()+transaction.getProfit();
     }
 }

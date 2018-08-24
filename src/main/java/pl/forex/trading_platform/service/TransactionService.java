@@ -8,5 +8,5 @@ public interface TransactionService {
 
     public double getAllProfit();
 
-    public double balanceMinusBlockedAmount();
+    public double updateBalance(Transaction transaction);
 }

@@ -14,9 +14,6 @@ import pl.forex.trading_platform.service.UserService;
 public class TradeRestController {
 
     @Autowired
-    private TransactionRepository transactionRepository;
-
-    @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/buy", method = RequestMethod.POST, produces="application/json", consumes="application/json")
@@ -26,30 +23,16 @@ public class TradeRestController {
         System.out.println("buy rest controller procesing");
         System.out.println(transaction.toString());
         transaction.setBuySell(BuySell.BUY);
-        if (loggedUser.getBalance() - loggedUser.getBlockedAmount() - transaction.getAmount() >= 0 ) {
-            transaction.setExecuted(true);
-            transaction.setExecutionFailReason(ExecutionFailReason.STATUS_OK.getReason());
-            loggedUser.setBlockedAmount(transaction.getAmount());
-        } else {
-            transaction.setExecuted(false);
-            transaction.setClosed(true);
-            transaction.setExecutionFailReason(ExecutionFailReason.NOT_ENOUGH_BALANCE.getReason());
-            transaction.setProfit(0);
-        }
-        transactionRepository.save(transaction);
-        return transaction;
+        return userService.processTtransaction(transaction, loggedUser);
     }
 
     @RequestMapping(value = "/sell", method = RequestMethod.POST, produces="application/json", consumes="application/json")
     @ResponseBody
     public Transaction sellTrade(@RequestBody Transaction transaction){
+        User loggedUser = userService.getLoggedUser();
         System.out.println("sell rest controller procesing");
         System.out.println(transaction.toString());
         transaction.setBuySell(BuySell.SELL);
-        transaction.setExecuted(true);
-//        transaction.setExecutionFailReason(ExecutionFailReason.NOT_ENOUGH_BALANCE.getReason());
-        transaction.setExecutionFailReason(ExecutionFailReason.STATUS_OK.getReason());
-        transactionRepository.save(transaction);
-        return transaction;
+        return userService.processTtransaction(transaction, loggedUser);
     }
 }

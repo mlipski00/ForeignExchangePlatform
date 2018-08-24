@@ -43,12 +43,11 @@ public class Transaction {
 
     private String executionFailReason;
 
-//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
 //    @JoinTable(name = "user_transactions",
 //            joinColumns = @JoinColumn(name = "transaction_id"),
 //            inverseJoinColumns = @JoinColumn(name = "user_id"))
-//
-//    private User user;
+    private User user;
 
     private double profit;
 
