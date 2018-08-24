@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         if (loggedUser.getBalance() - loggedUser.getBlockedAmount() - transaction.getAmount() >= 0) {
             transaction.setExecuted(true);
             transaction.setExecutionFailReason(ExecutionFailReason.STATUS_OK.getReason());
-            loggedUser.setBlockedAmount(loggedUser.getBlockedAmount() + transaction.getAmount());
+            loggedUser.setBlockedAmount(loggedUser.getBlockedAmount() + transaction.getAmount()*transaction.getPrice());
             transactionList.add(transaction);
             userRepository.save(loggedUser);
         } else {

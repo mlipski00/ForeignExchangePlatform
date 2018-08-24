@@ -42,6 +42,7 @@ public class UserRegistrationController {
         user.setRoles(roles);
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         user.setBalance(500000);
+        user.setBlockedAmount(0);
         userRepository.save(user);
         model.addAttribute("registrationResult", 1);
         return "/login";

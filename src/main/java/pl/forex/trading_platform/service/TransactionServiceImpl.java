@@ -45,6 +45,7 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setCloseDateTime(new Date());
         User user = userService.getLoggedUser();
         user.setBalance(updateBalance(transaction));
+        user.setBlockedAmount(user.getBlockedAmount()-transaction.getAmount()*transaction.getPrice());
         userRepository.save(user);
         transactionRepository.save(transaction);
     }
