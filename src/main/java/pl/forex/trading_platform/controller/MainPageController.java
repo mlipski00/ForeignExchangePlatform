@@ -60,6 +60,7 @@ public class MainPageController {
         model.addAttribute("closedTransactions", transactionRepository.findFirst5ClosedDesc());
         model.addAttribute("loggedUser", userService.getLoggedUser().getUsername());
         model.addAttribute("loggedUserBalance", userService.getLoggedUser().getBalance());
+        model.addAttribute("loggedUserBlockedAmount", userService.getLoggedUser().getBlockedAmount());
         return "websocket";
     }
 
