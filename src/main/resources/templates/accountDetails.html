@@ -9,8 +9,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="openTransactionsProfitValuation.js"></script>
-    <script src="tradeAjax.js"></script>
     <script src="profitValuation.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
@@ -45,7 +43,7 @@
             </li>
             <li class="nav-item active"><a class="nav-link">|</a></li>
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                     Messages menu
                 </a>
                 <div class="dropdown-menu">
@@ -72,54 +70,50 @@
 <div id="main-content" class="container">
     <hr>
     <div class="row">
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="connect" class="px-2" id="pricingConnectionStatus">Pricing connection status: Not connected</label>
-                    <button id="connect" class="btn btn-success px-2" type="submit">Connect</button>
-                    <button id="disconnect" class="btn btn-warning px-2" type="submit" disabled="disabled">Disconnect
-                    </button>
+        <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Account details</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Transactions summary</a>
+                <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">About Forex project</a>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                    <div class="card-body">
+                        <h4 class="card-title">Account details</h4>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a th:href="@{'/'}" class="btn btn-primary">Go to pricing page</a>
+                    </div>
                 </div>
-            </form>
+                <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                    <div class="card-body">
+                        <h4 class="card-title">Transactions summary</h4>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a th:href="@{'/opentransactions'}" class="btn btn-primary">Open Transactions</a> <a th:href="@{'/closedtransactions'}" class="btn btn-primary">Closed transactions</a>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                    <div class="card-body">
+                        <h4 class="card-title">About Forex project</h4>
+                        <p class="card-text">The forex trading platform project is result of broad investment banking knowledge and software engineering passion.</p>
+                        <p class="card-text">Platform allows you to execute demonstration trades on fx currencies market and check your investment skills.</p>
+                        <p class="card-text">Core functionality:
+                            <ul>
+                            <li>Interbank currency prices provided by Oanda Forex Broker</li>
+                            <li>Websocket price streaming</li>
+                            <li>Transactions excecution including balance validation</li>
+                            <li>Open Transactions valuation</li>
+                            <li>Computing overall profit of closed transactions</li>
+                            <li>Logging and registering users </li>
+
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-12">
-            <h4 class="p-1 mb-2 bg-light text-dark border border-primary rounded text-center">All open transactions</h4>
-            <table id="openTransactions" class="table table-striped text-center">
-                <thead>
-                <tr>
-                    <th scope="col">Instrument</th>
-                    <th scope="col">Side</th>
-                    <th scope="col">Trade date</th>
-                    <th scope="col">Trade time</th>
-                    <th scope="col">Trade price</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Profit in PLN</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody id="openTransactionsRow">
-                <tr th:each="trade : ${openTransactions}" class="openTransactionsRowID">
-                    <td class="instrument" th:text="${trade.instrument}">"</td>
-                    <td class="buySell" th:text="${trade.buySell}">"</td>
-                    <td th:text="${#strings.substring(trade.tradeDateTime,0,10)}">"</td>
-                    <td th:text="${#strings.substring(trade.tradeDateTime,11)}">"</td>
-                    <td th:text="${trade.price}">"</td>
-                    <td th:text="${trade.amount}">"</td>
-                     <td class="profitPLN">valuating...</td>
-                    <td><a type="button" class="btn btn-danger" data-dismiss="modal" href="#" th:href="@{'/transaction/' + ${trade.id} + '/close'}">Close</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <hr>
     </div>
 </div>
-<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
-    enabled. Please enable
-    Javascript and reload this page!</h2></noscript>
 </body>
 </html>
