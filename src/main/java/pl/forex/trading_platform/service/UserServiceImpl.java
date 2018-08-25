@@ -75,4 +75,8 @@ public class UserServiceImpl implements UserService {
         }
         return true;
     }
+    @Override
+    public List<User> userRankingList() {
+        return userRepository.findAll().stream().sorted(Comparator.comparing(User::getBalance).reversed()).collect(Collectors.toList());
+    }
 }

@@ -61,7 +61,7 @@
                 </li>
                 <li class="nav-item active"><a class="nav-link"  th:text="'Balance: ' + ${#numbers.formatDecimal(loggedUserBalance, 1, 'WHITESPACE',2, 'COMMA')} + ' PLN'">Balance: [nominal]</a></li>
                 <li class="nav-item active"><a class="nav-link"  th:text="'Blocked: ' + ${#numbers.formatDecimal(loggedUserBlockedAmount, 1, 'WHITESPACE', 2, 'COMMA')} + ' PLN'">Blocked: [nominal]</a></li>
-                <li class="nav-item active"><a class="nav-link"  th:text="'Hello ' + ${loggedUser}+'!'">Welcome: [username]</a></li>
+                <li class="nav-item active"><a class="nav-link"  th:text="'Hello ' + ${loggedUser.username}+'!'">Welcome: [username]</a></li>
             </ul>
             <a th:href="@{'/logout'}" class="btn btn-outline-light my-2 my-sm-0">Log out</a>
         </form>
@@ -71,48 +71,30 @@
     <hr>
     <div class="row">
         <div class="col-md-12">
-            <h4 class="p-1 mb-2 bg-light text-dark border border-primary rounded text-center">All closed transactions</h4>
-            <table id="ClosedTransactions" class="table table-striped text-center">
+            <h4 class="p-1 mb-2 bg-light text-dark border border-primary rounded text-center">Users Ranking</h4>
+            <table id="UsersRanking" class="table table-striped text-center">
                 <thead>
                 <tr>
-                    <th scope="col">Instrument</th>
-                    <th scope="col">Side</th>
-                    <th scope="col">Trade dateTime</th>
-                    <th scope="col">Close dateTime</th>
-                    <th scope="col">Trade price</th>
-                    <th scope="col">Close price</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Profit in PLN</th>
-                    <th scope="col">Comment</th>
+                    <th scope="col"></th>
+                    <th scope="col">User name</th>
+                    <th scope="col">Initial balance</th>
+                    <th scope="col">Current balance</th>
+                    <th scope="col">Result</th>
                 </tr>
                 </thead>
-                <tbody id="closedTransactionsRow">
-                <tr th:each="trade : ${closedTransactions}" class="active">
-                    <td th:text="${trade.instrument}">"</td>
-                    <td th:text="${trade.buySell}">"</td>
-                    <td th:text="${#strings.substring(trade.tradeDateTime,0,19)}">"</td>
-                    <td th:text="${#strings.substring(trade.closeDateTime,0,19)}">"</td>
-                    <td th:text="${trade.price}">"</td>
-                    <td th:text="${trade.closePrice}">"</td>
-                    <td th:text="${trade.amount}">"</td>
-                    <td th:text="${#numbers.formatDecimal(trade.profit, 1, 2)}"></td>
-                    <td th:if="${trade.executionFailReason != '0'}" th:text="${'Trade not executed. ' + trade.executionFailReason}"></td>
-                    <td th:if="${trade.executionFailReason == '0'}">Trade executed correctly</td>
+                <tbody id="usersRankingRow">
+                <tr th:each="user, iter  : ${userRankingList}" class="active">
+                    <td th:text="${iter.index+1}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${#numbers.formatDecimal(500000, 1, 'WHITESPACE', 2, 'COMMA')} + ' PLN'"></td>
+                    <td th:text="${#numbers.formatDecimal(user.balance, 1, 'WHITESPACE', 2, 'COMMA')} + ' PLN'"></td>
+                    <td th:text="${#numbers.formatPercent((user.balance / 500000)-1, 1, 2)}">"</td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
     <hr>
-    <div class="row">
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <p th:text="'Overall profit: ' + ${#numbers.formatDecimal(allProfit, 1, 2)} + ' PLN'"> Overall profit:</p>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
 </body>
 </html>
