@@ -1,3 +1,9 @@
 .custom-button-width {
     width:150px;
 }
+
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}

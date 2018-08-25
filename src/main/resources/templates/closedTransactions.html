@@ -82,6 +82,7 @@
                     <th scope="col">Trade price</th>
                     <th scope="col">Close price</th>
                     <th scope="col">Amount</th>
+                    <th scope="col">Amount in PLN</th>
                     <th scope="col">Profit in PLN</th>
                     <th scope="col">Comment</th>
                 </tr>
@@ -94,7 +95,8 @@
                     <td th:text="${#strings.substring(trade.closeDateTime,0,19)}">"</td>
                     <td th:text="${trade.price}">"</td>
                     <td th:text="${trade.closePrice}">"</td>
-                    <td th:text="${trade.amount}">"</td>
+                    <td class="fit" th:text="${#numbers.formatDecimal(trade.amount,  1, 'WHITESPACE', 2, 'COMMA')}">"</td>
+                    <td class="fit" th:text="${#numbers.formatDecimal(trade.amount*trade.price,  1, 'WHITESPACE', 2, 'COMMA')}">"</td>
                     <td th:text="${#numbers.formatDecimal(trade.profit, 1, 2)}"></td>
                     <td th:if="${trade.executionFailReason != '0'}" th:text="${'Trade not executed. ' + trade.executionFailReason}"></td>
                     <td th:if="${trade.executionFailReason == '0'}">Trade executed correctly</td>
