@@ -9,4 +9,13 @@ public interface TransactionService {
     public double getAllProfit();
 
     public double updateBalance(Transaction transaction);
+
+    public long countOpenTrades();
+
+    public long countClosedTrades();
+
+    public long countProfitableTrades();
+
+    public long countLosingTrades();
+
 }

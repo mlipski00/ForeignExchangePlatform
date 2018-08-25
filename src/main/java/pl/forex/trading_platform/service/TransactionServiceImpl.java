@@ -60,4 +60,20 @@ public class TransactionServiceImpl implements TransactionService {
         User user = userService.getLoggedUser();
         return user.getBalance()+transaction.getProfit();
     }
+    @Override
+    public long countOpenTrades() {
+        return transactionRepository.findAllNonClosed(userService.getLoggedUser().getId()).stream().count();
+    }
+    @Override
+    public long countClosedTrades() {
+        return transactionRepository.findAllClosed(userService.getLoggedUser().getId()).stream().count();
+    }
+    @Override
+    public long countProfitableTrades() {
+        return transactionRepository.findAllClosed(userService.getLoggedUser().getId()).stream().filter(trade -> trade.getProfit() > 0).count();
+    }
+    @Override
+    public long countLosingTrades() {
+        return transactionRepository.findAllClosed(userService.getLoggedUser().getId()).stream().filter(trade -> trade.getProfit() <= 0).count();
+    }
 }

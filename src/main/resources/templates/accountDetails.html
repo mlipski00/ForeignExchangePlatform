@@ -81,34 +81,45 @@
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                     <div class="card-body">
-                        <h4 class="card-title">Account details</h4>
+                        <h3 class="card-title">Account details</h3>
                         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                         <a th:href="@{'/'}" class="btn btn-primary">Go to pricing page</a>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
                     <div class="card-body">
-                        <h4 class="card-title">Transactions summary</h4>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a th:href="@{'/opentransactions'}" class="btn btn-primary">Open Transactions</a> <a th:href="@{'/closedtransactions'}" class="btn btn-primary">Closed transactions</a>
+                        <h3 class="card-title">Transactions summary</h3>
+                        <p class="card-text">
+                        <ul>
+                            <li th:text="'All transactions: ' + ${countOpenTrades + countClosedTrades}">All transactions</li>
+                            <li th:text="'Open transactions: ' + ${countOpenTrades}">Open transactions</li>
+                            <li th:text="'Closed transactions: ' + ${countClosedTrades}">Closed transactions</li>
+                            <li th:text="'Profitable transactions: ' + ${countProfitableTrades}">Profitable transactions</li>
+                            <li th:text="'Losing (or 0 PLN profit) transactions: ' + ${countLosingTrades}">Losing transactions</li>
+                            <li th:text="'Overall profit: ' + ${#numbers.formatDecimal(allProfit, 1, 'WHITESPACE',2, 'COMMA')} + ' PLN'">Overall profit</li>
+                            <li th:text="'Current balance: ' + ${#numbers.formatDecimal(loggedUserBalance, 1, 'WHITESPACE',2, 'COMMA')} + ' PLN'">Current balance</li>
+                            <li th:text="'Current blocked amount: ' + ${#numbers.formatDecimal(loggedUserBlockedAmount, 1, 'WHITESPACE', 2, 'COMMA')} + ' PLN'">Current blocked amount</li>
+                        </ul>
+                        </p>
+                        <a th:href="@{'/opentransactions'}" class="btn btn-primary">Open Transactions list</a> <a th:href="@{'/closedtransactions'}" class="btn btn-primary">Closed transactions list</a>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
                     <div class="card-body">
-                        <h4 class="card-title">About Forex project</h4>
-                        <p class="card-text">The forex trading platform project is result of broad investment banking knowledge and software engineering passion.</p>
+                        <h3 class="card-title">About Forex project</h3>
+                        <p class="card-text">The <b>Forex Trading Platform</b> project is result of broad investment banking knowledge and software engineering passion.</p>
                         <p class="card-text">Platform allows you to execute demonstration trades on fx currencies market and check your investment skills.</p>
-                        <p class="card-text">Core functionality:
-                            <ul>
-                            <li>Interbank currency prices provided by Oanda Forex Broker</li>
-                            <li>Websocket price streaming</li>
-                            <li>Transactions excecution including balance validation</li>
-                            <li>Open Transactions valuation</li>
-                            <li>Computing overall profit of closed transactions</li>
-                            <li>Logging and registering users </li>
-
+                        <p class="card-text"><b>Core functionality:</b>
+                        <ul>
+                                <li>Websocket interbank fx price streaming</li>
+                                <li>Transactions excecution including balance validation</li>
+                                <li>Open Transactions valuation</li>
+                                <li>Computing overall profit of closed transactions</li>
+                                <li>Logging and registering users </li>
+                                <li>Interbank currency prices provided by Oanda Forex Broker</li>
                             </ul>
                         </p>
+                        <p><a href="https://github.com/mlipski00/ForeignExchangePlatform" class="card-text">GitHub: <b>https://github.com/mlipski00/ForeignExchangePlatform</b></a></p>
                     </div>
                 </div>
             </div>

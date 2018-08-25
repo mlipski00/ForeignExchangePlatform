@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.forex.trading_platform.service.TransactionService;
 import pl.forex.trading_platform.service.UserService;
 
 @Controller
@@ -14,11 +15,19 @@ public class AccountDetailsController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TransactionService transactionService;
+
     @ModelAttribute
     public void addLoggedUserAttributes(Model model) {
         model.addAttribute("loggedUser", userService.getLoggedUser().getUsername());
         model.addAttribute("loggedUserBalance", userService.getLoggedUser().getBalance());
         model.addAttribute("loggedUserBlockedAmount", userService.getLoggedUser().getBlockedAmount());
+        model.addAttribute("allProfit", transactionService.getAllProfit());
+        model.addAttribute("countOpenTrades", transactionService.countOpenTrades());
+        model.addAttribute("countClosedTrades", transactionService.countClosedTrades());
+        model.addAttribute("countProfitableTrades", transactionService.countProfitableTrades());
+        model.addAttribute("countLosingTrades", transactionService.countLosingTrades());
     }
 
     @RequestMapping(value = "/accountDetails", method = RequestMethod.GET)
