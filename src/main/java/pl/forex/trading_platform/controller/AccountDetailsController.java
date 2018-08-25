@@ -20,7 +20,7 @@ public class AccountDetailsController {
 
     @ModelAttribute
     public void addLoggedUserAttributes(Model model) {
-        model.addAttribute("loggedUser", userService.getLoggedUser().getUsername());
+        model.addAttribute("loggedUser", userService.getLoggedUser());
         model.addAttribute("loggedUserBalance", userService.getLoggedUser().getBalance());
         model.addAttribute("loggedUserBlockedAmount", userService.getLoggedUser().getBlockedAmount());
         model.addAttribute("allProfit", transactionService.getAllProfit());

@@ -61,7 +61,7 @@
                 </li>
                 <li class="nav-item active"><a class="nav-link"  th:text="'Balance: ' + ${#numbers.formatDecimal(loggedUserBalance, 1, 'WHITESPACE',2, 'COMMA')} + ' PLN'">Balance: [nominal]</a></li>
                 <li class="nav-item active"><a class="nav-link"  th:text="'Blocked: ' + ${#numbers.formatDecimal(loggedUserBlockedAmount, 1, 'WHITESPACE', 2, 'COMMA')} + ' PLN'">Blocked: [nominal]</a></li>
-                <li class="nav-item active"><a class="nav-link"  th:text="'Hello ' + ${loggedUser}+'!'">Welcome: [username]</a></li>
+                <li class="nav-item active"><a class="nav-link"  th:text="'Hello ' + ${loggedUser.username}+'!'">Welcome: [username]</a></li>
             </ul>
             <a th:href="@{'/logout'}" class="btn btn-outline-light my-2 my-sm-0">Log out</a>
         </form>
@@ -82,7 +82,13 @@
                 <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                     <div class="card-body">
                         <h3 class="card-title">Account details</h3>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text">
+                        <ul>
+                            <li th:text="'User name: ' + ${loggedUser.username}">User name</li>
+                            <li th:text="'Email: ' + ${loggedUser.email}">Email</li>
+                            <li th:text="'Created: ' + ${loggedUser.created}">Created</li>
+                        </ul>
+                        </p>
                         <a th:href="@{'/'}" class="btn btn-primary">Go to pricing page</a>
                     </div>
                 </div>
@@ -94,9 +100,9 @@
                             <li th:text="'All transactions: ' + ${countOpenTrades + countClosedTrades}">All transactions</li>
                             <li th:text="'Open transactions: ' + ${countOpenTrades}">Open transactions</li>
                             <li th:text="'Closed transactions: ' + ${countClosedTrades}">Closed transactions</li>
-                            <li th:text="'Profitable transactions: ' + ${countProfitableTrades}">Profitable transactions</li>
-                            <li th:text="'Losing (or 0 PLN profit) transactions: ' + ${countLosingTrades}">Losing transactions</li>
-                            <li th:text="'Overall profit: ' + ${#numbers.formatDecimal(allProfit, 1, 'WHITESPACE',2, 'COMMA')} + ' PLN'">Overall profit</li>
+                            <li th:text="'Closed profitable transactions: ' + ${countProfitableTrades}">Profitable transactions</li>
+                            <li th:text="'Closed losing transactions: ' +  ${countLosingTrades} + ' (includes 0 PLN profit)'">Losing transactions</li>
+                            <li th:text="'Overall closed profit: ' + ${#numbers.formatDecimal(allProfit, 1, 'WHITESPACE',2, 'COMMA')} + ' PLN'">Overall profit</li>
                             <li th:text="'Current balance: ' + ${#numbers.formatDecimal(loggedUserBalance, 1, 'WHITESPACE',2, 'COMMA')} + ' PLN'">Current balance</li>
                             <li th:text="'Current blocked amount: ' + ${#numbers.formatDecimal(loggedUserBlockedAmount, 1, 'WHITESPACE', 2, 'COMMA')} + ' PLN'">Current blocked amount</li>
                         </ul>
