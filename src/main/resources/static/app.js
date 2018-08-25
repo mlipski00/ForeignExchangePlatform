@@ -159,12 +159,12 @@ function sellRequote() {
 
 function buyTradeWithValidation() {
     if (document.getElementById("buyAmount").value < minimumTradeAmount) {
-        alert("Minimal amount is 100");
+        alert("Minimal amount is " + minimumTradeAmount);
         stopInterval();
         return false;
     }
     if (document.getElementById("buyAmount").value > maximumTradeAmount) {
-        alert("Maximal amount is 1000000");
+        alert("Maximal amount is " + maximumTradeAmount);
         stopInterval();
         return false;
     }
@@ -173,12 +173,12 @@ function buyTradeWithValidation() {
 
 function sellTradeWithValidation() {
     if (document.getElementById("sellAmount").value < minimumTradeAmount) {
-        alert("Minimal amount is 100");
+        alert("Minimal amount is " + minimumTradeAmount);
         stopInterval();
         return false;
     }
     if (document.getElementById("sellAmount").value > maximumTradeAmount) {
-        alert("Maximal amount is 1000000");
+        alert("Maximal amount is " + maximumTradeAmount);
         stopInterval();
         return false;
     }

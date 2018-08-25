@@ -25,6 +25,7 @@ public class TransactionController {
     public void addLoggedUserAttributes(Model model) {
         model.addAttribute("loggedUser", userService.getLoggedUser().getUsername());
         model.addAttribute("loggedUserBalance", userService.getLoggedUser().getBalance());
+        model.addAttribute("loggedUserBlockedAmount", userService.getLoggedUser().getBlockedAmount());
     }
 
     @RequestMapping("/opentransactions")
