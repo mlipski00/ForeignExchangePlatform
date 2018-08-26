@@ -7,11 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="profitValuation.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
 
 </head>
@@ -43,7 +39,7 @@
             </li>
             <li class="nav-item active"><a class="nav-link">|</a></li>
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                     Messages menu
                 </a>
                 <div class="dropdown-menu">
@@ -67,34 +63,29 @@
         </form>
     </div>
 </nav>
-<div id="main-content" class="container">
-    <hr>
-    <div class="row">
-        <div class="col-md-12">
-            <h4 class="p-1 mb-2 bg-light text-dark border border-primary rounded text-center">Users Ranking</h4>
-            <table id="UsersRanking" class="table table-striped text-center">
-                <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col">User name</th>
-                    <th scope="col">Initial balance</th>
-                    <th scope="col">Current balance</th>
-                    <th scope="col">Result</th>
-                </tr>
-                </thead>
-                <tbody id="usersRankingRow">
-                <tr th:each="user, iter  : ${userRankingList}" class="active">
-                    <td th:text="${iter.index+1}"></td>
-                    <td th:text="${user.username}"></td>
-                    <td th:text="${#numbers.formatDecimal(500000, 1, 'WHITESPACE', 2, 'COMMA')} + ' PLN'"></td>
-                    <td th:text="${#numbers.formatDecimal(user.balance, 1, 'WHITESPACE', 2, 'COMMA')} + ' PLN'"></td>
-                    <td th:text="${#numbers.formatPercent((user.balance / 500000)-1, 1, 2)}">"</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="container">
+    <h1 class="w-90 p-3 align-content-center">Inbox</h1>
+    <div th:if="${messages.isEmpty()}" class="alert alert-info alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        No messages
     </div>
-    <hr>
+    <div class="row">
+            <div class="col-lg-12"  th:each="message : ${messages}">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 th:text="'From: ' + ${message.sender.username}" class="card-title">From: ${message.sender.username}
+                            <div th:if="${message.isRead}">
+                                <span class="badge badge-pill badge-danger">Unread</span>
+                            </div>
+                        </h4>
+                        <h6 th:text="${message.created}">${message.created}</h6>
+                        <p th:text="${#strings.abbreviate(message.text,20)}" class="card-text">${fn:substring(message.text, 0, 20)}...</p>
+                        <hr>
+                        <a th:href="@{'/messages/'  + ${message.id}}" class="btn btn-primary">Open Message</a>
+                    </div>
+                </div>
+            </div>
+    </div>
 </div>
 </body>
 </html>

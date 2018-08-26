@@ -14,7 +14,6 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Transaction {
 

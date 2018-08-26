@@ -3,12 +3,15 @@ package pl.forex.trading_platform.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.forex.trading_platform.domain.user.Message;
 import pl.forex.trading_platform.service.MessageService;
 import pl.forex.trading_platform.service.UserService;
+
+import javax.validation.Valid;
 
 @Controller
 public class MessageController {
@@ -32,5 +35,25 @@ public class MessageController {
         model.addAttribute("message", new Message());
         model.addAttribute("recivers", messageService.getAllRecivers());
         return "messageForm";
+    }
+
+    @RequestMapping(value = "/newMessage", method = RequestMethod.POST)
+    public String processMessageForm(@Valid Message message, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("message", message);
+            model.addAttribute("recivers", messageService.getAllRecivers());
+            return "messageForm";
+        }
+        messageService.saveMessage(message);
+        model.addAttribute("recivers", messageService.getAllRecivers());
+        model.addAttribute("sendingMessageResult", 1);
+        return "messageForm";
+    }
+
+    @RequestMapping(value = "/inbox", method = RequestMethod.GET)
+    public String getInboxPage(Model model) {
+        model.addAttribute("messages", messageService.getAllLoggedUserMessages());
+
+        return "messageInbox";
     }
 }

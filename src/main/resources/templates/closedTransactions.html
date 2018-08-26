@@ -47,10 +47,10 @@
                     Messages menu
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">New Message</a>
+                    <a class="dropdown-item" th:href="@{'/newMessage'}">New Message</a>
                     <hr>
-                    <a class="dropdown-item" href="#">Inbox</a>
-                    <a class="dropdown-item" href="#">Outbox</a>
+                    <a class="dropdown-item" th:href="@{'/inbox'}">Inbox</a>
+                    <a class="dropdown-item" th:href="@{'/outbox'}">Outbox</a>
                 </div>
             </li>
         </ul>

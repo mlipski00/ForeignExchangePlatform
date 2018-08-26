@@ -7,13 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="openTransactionsProfitValuation.js"></script>
-    <script src="tradeAjax.js"></script>
-    <script src="profitValuation.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
 
 </head>
@@ -71,9 +65,12 @@
 </nav>
 <div class="container">
     <h1 class="w-90 p-3 align-content-center" th:text="${loggedUser.username}+', write message'">${user.username}! Write message</h1>
+    <div th:if="${sendingMessageResult == 1}" class="alert alert-success alert-dismissible fade show">
+        Message send successfully
+    </div>
     <div class="card">
         <div class="card-body">
-            <form method="post" th:href="@{'/sendMessage'}"
+            <form method="post" th:href="@{'/newMessage'}"
                   th:object="${message}" role="form" style="display: block;">
                 <h4 class="w-90 p-3 align-content-center">New message</h4>
                 <input class="form-control" type="text" th:placeholder="${loggedUser.username}" readonly/>
@@ -90,6 +87,7 @@
                 <hr>
                 <div class="form-group">
                     <textarea th:field="*{text}" type="textarea" name="textarea" id="textarea" rows="3" tabindex="1" class="form-control" placeholder="Type message" value=""/>
+                    <p class="error" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Incorrect length of message</p>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="form-control btn btn-success" value="Send message">
