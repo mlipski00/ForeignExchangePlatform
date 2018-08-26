@@ -43,7 +43,7 @@
                     Messages menu
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item"  th:href="@{'/newMessage'}">New Message</a>
+                    <a class="dropdown-item" th:href="@{'/newMessage'}">New Message</a>
                     <hr>
                     <a class="dropdown-item" th:href="@{'/inbox'}">Inbox</a>
                     <a class="dropdown-item" th:href="@{'/outbox'}">Outbox</a>
@@ -73,10 +73,9 @@
             <div class="col-lg-12"  th:each="message : ${messages}">
                 <div class="card">
                     <div class="card-body">
-                        <h4 th:text="'From: ' + ${message.sender.username}" class="card-title">From: ${message.sender.username}
-                            <div th:if="${message.isRead}">
-                                <span class="badge badge-pill badge-danger">Unread</span>
-                            </div>
+                        <h4 class="card-title">
+                            <span th:text="'From: ' + ${message.sender.username}"></span>
+                                <span th:if="${#bools.isFalse(message.isRead)}" class="badge badge-pill badge-danger">Unread</span>
                         </h4>
                         <h6 th:text="${message.created}">${message.created}</h6>
                         <p th:text="${#strings.abbreviate(message.text,20)}" class="card-text">${fn:substring(message.text, 0, 20)}...</p>

@@ -33,20 +33,18 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <!--<c:if test="${registrationResult == 1}">-->
-                            <!--<div class="alert alert-success" role="alert">-->
-                                <!--User registered successfully-->
-                            <!--</div>-->
-                        <!--</c:if>-->
                         <div class="col-lg-12">
                             <form method="post" id="login-form" th:action="@{/login}"  role="form" style="display: block;">
-                                <div th:if="${param.error}" class="alert alert-danger">
+                                <div th:if="${param.error}" class="alert alert-danger alert-dismissible fade show">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
                                     Invalid username or password.
                                 </div>
-                                <div th:if="${param.logout}" class="alert alert-success">
+                                <div th:if="${param.logout}" class="alert alert-success alert-dismissible fade show">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
                                     You have been logged out.
                                 </div>
-                                <div th:if="${registrationResult == 1}" class="alert alert-success">
+                                <div th:if="${registrationResult == 1}" class="alert alert-success alert-dismissible fade show">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
                                     User registered successfully
                                 </div>
                                 <div class="form-group">

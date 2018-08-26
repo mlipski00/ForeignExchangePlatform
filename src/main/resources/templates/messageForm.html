@@ -43,10 +43,10 @@
                     Messages menu
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">New Message</a>
+                    <a class="dropdown-item" th:href="@{'/newMessage'}">New Message</a>
                     <hr>
-                    <a class="dropdown-item" href="#">Inbox</a>
-                    <a class="dropdown-item" href="#">Outbox</a>
+                    <a class="dropdown-item" th:href="@{'/inbox'}">Inbox</a>
+                    <a class="dropdown-item" th:href="@{'/outbox'}">Outbox</a>
                 </div>
             </li>
         </ul>
@@ -66,6 +66,7 @@
 <div class="container">
     <h1 class="w-90 p-3 align-content-center" th:text="${loggedUser.username}+', write message'">${user.username}! Write message</h1>
     <div th:if="${sendingMessageResult == 1}" class="alert alert-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
         Message send successfully
     </div>
     <div class="card">
