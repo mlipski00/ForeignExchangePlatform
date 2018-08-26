@@ -1,7 +1,21 @@
 # ForeignExchangePlatform
-### Forex trading platform - demo (under construction) is online: http://77.55.219.195:8080/trading_platform-0.1.2-SNAPSHOT/
+### Forex trading platform - project is online: http://77.55.219.195:8080/trading_platform-0.4.0-SNAPSHOT/
 
-This repository is aimed to track development process of currency exchange platform. Project is currently in progress.
+This repository is aimed to track development process of currency exchange platform.
+
+The Forex Trading Platform project is result of broad investment banking knowledge and software engineering passion.
+
+Platform allows you to execute demonstration trades on fx currencies market and check your investment skills.
+
+Functionality:
+* Websocket price streaming
+* Transactions excecution and pre trade validation
+* Open Transactions valuations
+* Sending messages between register users
+* Logging and registering users 
+* Users ranking by overall transactions profit
+* Interbank currency prices provided by Oanda Forex Broker
+* Admin panel - platform parameterization, global messages, users accounts editing (under construction)
 
 Project is build with following technologies:
 * Spring boot
@@ -14,13 +28,3 @@ Project is build with following technologies:
 * Thymeleaf
 * WebSockets
 * Oanda Forex Broker API library
-
-Functionality:
-* Interbank currency prices provided by Oanda Forex Broker
-* Websocket price streaming
-* Transactions excecution
-* Open Transactions valuations
-* Sending messages between register users (under construction)
-* Admin panel - global messages, users accounts editing (under construction)
-* Logging and registering users (under construction)
-* Users ranking by overall transactions profit (under construction)
