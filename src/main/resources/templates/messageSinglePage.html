@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Forex Trading platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" th:href="@{'/'}">Forex trading platform</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{'/'}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active"><a class="nav-link">|</a></li>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                    Transactions
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" th:href="@{'/opentransactions'}">Open transactions</a>
+                    <a class="dropdown-item" th:href="@{'/closedtransactions'}">Closed transactions</a>
+                </div>
+            </li>
+            <li class="nav-item active"><a class="nav-link">|</a></li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{'/accountDetails'}">Account details</a>
+            </li>
+            <li class="nav-item active"><a class="nav-link">|</a></li>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                    Messages menu
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" th:href="@{'/newMessage'}">New Message</a>
+                    <hr>
+                    <a class="dropdown-item" th:href="@{'/inbox'}">Inbox</a>
+                    <a class="dropdown-item" th:href="@{'/outbox'}">Outbox</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{'/usersRanking'}">Users ranking</a>
+                </li>
+                <li class="nav-item active"><a class="nav-link"  th:text="'Balance: ' + ${#numbers.formatDecimal(loggedUserBalance, 1, 'WHITESPACE',2, 'COMMA')} + ' PLN'">Balance: [nominal]</a></li>
+                <li class="nav-item active"><a class="nav-link"  th:text="'Blocked: ' + ${#numbers.formatDecimal(loggedUserBlockedAmount, 1, 'WHITESPACE', 2, 'COMMA')} + ' PLN'">Blocked: [nominal]</a></li>
+                <li class="nav-item active"><a class="nav-link"  th:text="'Hello ' + ${loggedUser.username}+'!'">Welcome: [username]</a></li>
+            </ul>
+            <a th:href="@{'/logout'}" class="btn btn-outline-light my-2 my-sm-0">Log out</a>
+        </form>
+    </div>
+</nav>
+<div class="container">
+    <h1 class="w-90 p-3 align-content-center">Message details</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <span class="card-title">
+                        <span th:text="'From: ' + ${message.sender.username}" class="h5">From: ${message.sender.username} </span>
+                        <span th:text="${message.sender.email}" class="font-italic">${message.sender.email}</span>
+                    </span><hr>
+                    <span class="card-title">
+                        <span th:text="'To: ' + ${message.reciver.username}" class="h5">To: ${message.reciver.username} </span>
+                        <span th:text="${message.reciver.email}" class="font-italic">${message.reciver.email}</span>
+                    </span><hr>
+                    <h6 th:text="${message.created}">${message.created}</h6>
+                    <p th:text="${message.text}" class="card-text">${message.text}</p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

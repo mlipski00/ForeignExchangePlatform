@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.forex.trading_platform.domain.user.Message;
@@ -29,7 +30,7 @@ public class MessageController {
         model.addAttribute("loggedUserBlockedAmount", userService.getLoggedUser().getBlockedAmount());
     }
 
-//    @RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
+    //    @RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
     @RequestMapping(value = "/newMessage", method = RequestMethod.GET)
     public String getMessageForm(Model model) {
         model.addAttribute("message", new Message());
@@ -52,8 +53,28 @@ public class MessageController {
 
     @RequestMapping(value = "/inbox", method = RequestMethod.GET)
     public String getInboxPage(Model model) {
+        model.addAttribute("title", "Inbox");
         model.addAttribute("messages", messageService.getAllLoggedUserMessages());
+        return "messageList";
+    }
 
-        return "messageInbox";
+    @RequestMapping(value = "/outbox", method = RequestMethod.GET)
+    public String getOutboxage(Model model) {
+        model.addAttribute("title", "Outbox");
+        model.addAttribute("messages", messageService.getAllLoggedUserSendMessages());
+        return "messageList";
+    }
+
+    @RequestMapping(value = "/messages/Inbox/{id}", method = RequestMethod.GET)
+    public String getSingleInboxMessageDetails(@PathVariable("id") long id, Model model) {
+        model.addAttribute("message", messageService.getSingleMessage(id));
+        messageService.setMessageAsRead(id);
+        return "messageSinglePage";
+    }
+
+    @RequestMapping(value = "/messages/Outbox/{id}", method = RequestMethod.GET)
+    public String getSingleOutboxMessageDetails(@PathVariable("id") long id, Model model) {
+        model.addAttribute("message", messageService.getSingleMessage(id));
+        return "messageSinglePage";
     }
 }

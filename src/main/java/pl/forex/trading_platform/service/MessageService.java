@@ -14,4 +14,10 @@ public interface MessageService {
     public int numberOfUnreadMessages();
 
     public List<Message> getAllLoggedUserMessages();
+
+    public Message getSingleMessage(Long id);
+
+    public void setMessageAsRead(Long id);
+
+    public List<Message> getAllLoggedUserSendMessages();
 }

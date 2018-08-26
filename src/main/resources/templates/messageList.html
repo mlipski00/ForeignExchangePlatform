@@ -64,7 +64,7 @@
     </div>
 </nav>
 <div class="container">
-    <h1 class="w-90 p-3 align-content-center">Inbox</h1>
+    <h1 th:text="${title}" class="w-90 p-3 align-content-center">Inbox/Outbox</h1>
     <div th:if="${messages.isEmpty()}" class="alert alert-info alert-dismissible fade show">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         No messages
@@ -74,13 +74,16 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">
-                            <span th:text="'From: ' + ${message.sender.username}"></span>
-                                <span th:if="${#bools.isFalse(message.isRead)}" class="badge badge-pill badge-danger">Unread</span>
+                            <span th:if="${title} == 'Inbox'">
+                                <span th:text="'From: ' + ${message.sender.username}"></span>
+                                <span th:if="${#bools.isFalse(message.isRead)} and ${title} == 'Inbox'" class="badge badge-pill badge-danger">Unread</span></span>
+                            <span th:if="${title} == 'Outbox'">
+                                <span th:text="'To: ' + ${message.reciver.username}"></span></span>
                         </h4>
                         <h6 th:text="${message.created}">${message.created}</h6>
                         <p th:text="${#strings.abbreviate(message.text,20)}" class="card-text">${fn:substring(message.text, 0, 20)}...</p>
                         <hr>
-                        <a th:href="@{'/messages/'  + ${message.id}}" class="btn btn-primary">Open Message</a>
+                        <a th:href="@{'/messages/'  + ${title} + '/'+ ${message.id}}" class="btn btn-primary">Open Message</a>
                     </div>
                 </div>
             </div>

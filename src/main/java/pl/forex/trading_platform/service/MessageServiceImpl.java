@@ -42,4 +42,21 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> getAllLoggedUserMessages() {
         return messageRepository.findAllByReciver(userService.getLoggedUser());
     }
+
+    @Override
+    public Message getSingleMessage(Long id) {
+        return messageRepository.getOne(id);
+    }
+
+    @Override
+    public void setMessageAsRead(Long id) {
+        Message message = messageRepository.getOne(id);
+        message.setRead(true);
+        messageRepository.save(message);
+    }
+
+    @Override
+    public List<Message> getAllLoggedUserSendMessages() {
+        return messageRepository.findAllBySender(userService.getLoggedUser());
+    }
 }
