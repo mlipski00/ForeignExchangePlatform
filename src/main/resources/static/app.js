@@ -11,6 +11,7 @@ var minimumTradeAmount;
 var maximumTradeAmount;
 
 window.onload = function () {
+    checkNewMessages();
     fetch();
     $("#requoteBuyButton").hide();
     $("#requoteSellButton").hide();
@@ -186,12 +187,27 @@ function sellTradeWithValidation() {
 }
 
 function fetch() {
+}
+$.ajax({
+    url: "http://localhost:8080/platformsettings/allsettings",
+    type: "GET"
+}).done(function(data) {
+    decisionTime = data.decisionTime;
+    minimumTradeAmount = data.minimumTradeAmount;
+    maximumTradeAmount = data.maximumTradeAmount;
+})
+
+function checkNewMessages() {
     $.ajax({
-        url: "http://localhost:8080/platformsettings/allsettings",
+        url: "http://localhost:8080/checkNewMessages",
         type: "GET"
     }).done(function(data) {
-        decisionTime = data.decisionTime;
-        minimumTradeAmount = data.minimumTradeAmount;
-        maximumTradeAmount = data.maximumTradeAmount;
+        if (data.length > 0) {
+            var messages = jQuery.parseJSON(JSON.stringify(data))
+            $('#newMessageModal').modal('show');
+            document.getElementById("messageModalSender").innerText = "From: " + messages[0].sender.username
+            document.getElementById("messageModalLinkToMessage").innerHTML = "<a href=http://localhost:8080/messages/Inbox/" + messages[0].id + " class='btn btn-primary'>Open Message</a>";
+        }
     })
+
 }

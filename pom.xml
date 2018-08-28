@@ -5,7 +5,7 @@
 
     <groupId>pl.forex</groupId>
     <artifactId>trading_platform</artifactId>
-    <version>0.3.0-SNAPSHOT</version>
+    <version>0.4.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>trading_platform</name>

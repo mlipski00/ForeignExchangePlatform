@@ -59,4 +59,9 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> getAllLoggedUserSendMessages() {
         return messageRepository.findAllBySender(userService.getLoggedUser());
     }
+
+    @Override
+    public List<Message> GetAllUnreadMessagesByLoggedUser() {
+        return messageRepository.findAllByReciverAndIsReadIsFalse(userService.getLoggedUser());
+    }
 }

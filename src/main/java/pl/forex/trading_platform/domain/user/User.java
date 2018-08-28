@@ -1,5 +1,6 @@
 package pl.forex.trading_platform.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import pl.forex.trading_platform.domain.transactions.Transaction;
@@ -54,13 +55,14 @@ public class User {
     @CreationTimestamp
     private Date created;
 
+    @JsonIgnore
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "sender_messages",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "message_id"))
     private Set<Message> sendedMessages;
 
-
+    @JsonIgnore
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(name = "reciver_messages",
             joinColumns = @JoinColumn(name = "user_id"),
