@@ -52,4 +52,22 @@ public class Transaction {
 
     private double profit;
 
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", instrument='" + instrument + '\'' +
+                ", tradeDateTime=" + tradeDateTime +
+                ", amount=" + amount +
+                ", amountPLN=" + amountPLN +
+                ", isClosed=" + isClosed +
+                ", closeDateTime=" + closeDateTime +
+                ", price=" + price +
+                ", closePrice=" + closePrice +
+                ", buySell=" + buySell +
+                ", isExecuted=" + isExecuted +
+                ", executionFailReason='" + executionFailReason + '\'' +
+                ", profit=" + profit +
+                '}';
+    }
 }

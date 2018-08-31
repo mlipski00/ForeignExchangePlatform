@@ -7,6 +7,7 @@ import pl.forex.trading_platform.domain.transactions.ExecutionFailReason;
 import pl.forex.trading_platform.domain.transactions.Transaction;
 import pl.forex.trading_platform.domain.user.User;
 import pl.forex.trading_platform.repository.TransactionRepository;
+import pl.forex.trading_platform.service.EmailService;
 import pl.forex.trading_platform.service.UserService;
 
 @RestController
@@ -16,6 +17,9 @@ public class TradeRestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EmailService emailService;
+
     @RequestMapping(value = "/buy", method = RequestMethod.POST, produces="application/json", consumes="application/json")
     @ResponseBody
     public Transaction buyTrade(@RequestBody Transaction transaction){
@@ -23,6 +27,7 @@ public class TradeRestController {
         System.out.println("buy rest controller procesing");
         System.out.println(transaction.toString());
         transaction.setBuySell(BuySell.BUY);
+        emailService.sendEmail(loggedUser.getEmail(), "Forex transaction confirmation", transaction.toString());
         return userService.processTtransaction(transaction, loggedUser);
     }
 
@@ -33,6 +38,7 @@ public class TradeRestController {
         System.out.println("sell rest controller procesing");
         System.out.println(transaction.toString());
         transaction.setBuySell(BuySell.SELL);
+        emailService.sendEmail(loggedUser.getEmail(), "Forex transaction confirmation", transaction.toString());
         return userService.processTtransaction(transaction, loggedUser);
     }
 }

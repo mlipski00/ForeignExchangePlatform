@@ -27,6 +27,9 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EmailService emailService;
+
     @Override
     public void closeTransaction(Transaction transaction) {
         transaction.setClosed(true);
@@ -48,6 +51,7 @@ public class TransactionServiceImpl implements TransactionService {
         user.setBlockedAmount(user.getBlockedAmount()-transaction.getAmount()*transaction.getPrice());
         userRepository.save(user);
         transactionRepository.save(transaction);
+        emailService.sendEmail(userService.getLoggedUser().getEmail(), "Forex transaction confirmation", transaction.toString());
     }
 
     @Override

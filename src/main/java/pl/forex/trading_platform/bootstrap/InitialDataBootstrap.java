@@ -91,7 +91,7 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
     private void mockUsers() {
         User user = new User();
         user.setUsername("Michał");
-        user.setEmail("m@wp.pl");
+        user.setEmail("michal.lipski2@gmail.com");
         user.setBalance(500000);
         user.setBlockedAmount(0);
         user.setActive(true);
