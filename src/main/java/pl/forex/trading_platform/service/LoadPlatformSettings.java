@@ -7,4 +7,8 @@ public interface LoadPlatformSettings {
     int loadDecisionTime();
 
     public PlatformSettings loadAllSettings();
+
+    public Long loadMinimumAmount();
+
+    public Long loadMaximumAmount();
 }

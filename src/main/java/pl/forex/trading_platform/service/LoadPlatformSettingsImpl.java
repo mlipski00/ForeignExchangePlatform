@@ -23,6 +23,16 @@ public class LoadPlatformSettingsImpl implements LoadPlatformSettings {
     }
 
     @Override
+    public Long loadMinimumAmount()  {
+        return platformSettingsRepository.getOne(1L).getMinimumTradeAmount();
+    }
+
+    @Override
+    public Long loadMaximumAmount()  {
+        return platformSettingsRepository.getOne(1L).getMaximumTradeAmount();
+    }
+
+    @Override
     public PlatformSettings loadAllSettings() {
         return platformSettingsRepository.getOne(1L);
     }

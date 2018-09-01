@@ -185,7 +185,7 @@
                     <div class="form-group row">
                         <label for="buyAmount" class="col-2 col-form-label">Amount:</label>
                         <div class="col-8">
-                            <input class="form-control" type="number" value="100" id="buyAmount" required="required" min="100" max="100000">
+                            <input class="form-control" type="number" th:value="${minimumTradeAmount}" id="buyAmount" required="required" min="100" max="100000">
                         </div>
                    </div>
                 </div>
@@ -218,7 +218,7 @@
                     <div class="form-group row">
                         <label for="sellAmount" class="col-2 col-form-label">Amount:</label>
                         <div class="col-8">
-                            <input class="form-control" type="number" value="100" id="sellAmount" required="required" min="100" max="100000">
+                            <input class="form-control" type="number" th:value="${minimumTradeAmount}" id="sellAmount" required="required" min="100" max="100000">
                         </div>
                     </div>
                 </div>

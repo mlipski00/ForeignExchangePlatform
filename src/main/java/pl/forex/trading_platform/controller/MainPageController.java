@@ -55,6 +55,8 @@ public class MainPageController {
     @RequestMapping({"", "/", "/websocket"})
     public String webSocketPage(Model model) {
         model.addAttribute("decisionTime", loadPlatformSettings.loadDecisionTime());
+        model.addAttribute("minimumTradeAmount", loadPlatformSettings.loadMinimumAmount());
+        model.addAttribute("maximumTradeAmount", loadPlatformSettings.loadMaximumAmount());
         TableA[] tableAarray = nbpRates.getTableAQuotesArray(nbpTableAurl);
         model.addAttribute("nbpTableA", tableAarray[0]);
         model.addAttribute("openTransactions", transactionRepository.findFirst5NonClosedDesc(userService.getLoggedUser().getId()));
