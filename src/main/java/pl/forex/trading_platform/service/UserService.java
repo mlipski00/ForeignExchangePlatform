@@ -14,4 +14,6 @@ public interface UserService {
     Transaction processTtransaction(Transaction transaction, User loggedUser);
 
     List<User> userRankingList();
+
+    public boolean isLoggedUserAdmin();
 }

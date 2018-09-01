@@ -18,7 +18,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
         modelAndView.setViewName("errorPage");
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         modelAndView.addObject("errorCode", statusCode);
-        modelAndView.addObject("errorMsg", HttpStatus.valueOf(statusCode));
+//        modelAndView.addObject("errorMsg", HttpStatus.valueOf(statusCode));
         return modelAndView;
     }
 

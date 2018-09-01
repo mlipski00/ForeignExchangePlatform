@@ -104,7 +104,7 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
 
         User user2 = new User();
         user2.setUsername("Tomek");
-        user2.setEmail("t@wp.pl");
+        user2.setEmail("t@gmail.com");
         user2.setBalance(500000);
         user2.setBlockedAmount(0);
         user2.setActive(true);
@@ -150,11 +150,11 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
         roles.add(Role.ADMIN);
         User user3 = new User();
         user3.setUsername("Ada");
-        user3.setEmail("a@wp.pl");
+        user3.setEmail("a@gmail.com");
         user3.setBalance(500000);
         user3.setBlockedAmount(0);
         user3.setActive(true);
-        user.setRoles(roles);
+        user3.setRoles(roles);
         user3.setPassword(BCrypt.hashpw("123123", BCrypt.gensalt()));
         userRepository.save(user3);
         Set<Transaction> transactionSet2 = new HashSet<>();

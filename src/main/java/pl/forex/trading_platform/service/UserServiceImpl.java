@@ -2,6 +2,8 @@ package pl.forex.trading_platform.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import pl.forex.trading_platform.domain.transactions.ExecutionFailReason;
 import pl.forex.trading_platform.domain.transactions.Transaction;
@@ -78,5 +80,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> userRankingList() {
         return userRepository.findAll().stream().sorted(Comparator.comparing(User::getBalance).reversed()).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean isLoggedUserAdmin() {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        return authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
 }

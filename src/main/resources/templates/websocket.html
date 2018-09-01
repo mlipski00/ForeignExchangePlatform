@@ -55,7 +55,7 @@
                     <a class="dropdown-item" th:href="@{'/outbox'}">Outbox</a>
                 </div>
             </li>
-            <li th:if="${registrationResult != 1}" class="nav-item active">
+            <li th:if="${isUserAdmin}" class="nav-item active">
                 <a th:href="@{'/adminpanel'}" class="btn btn-outline-light my-2 my-sm-0">Admin Panel</a>
             </li>
         </ul>

@@ -62,6 +62,7 @@ public class MainPageController {
         model.addAttribute("loggedUser", userService.getLoggedUser().getUsername());
         model.addAttribute("loggedUserBalance", userService.getLoggedUser().getBalance());
         model.addAttribute("loggedUserBlockedAmount", userService.getLoggedUser().getBlockedAmount());
+        model.addAttribute("isUserAdmin", userService.isLoggedUserAdmin());
         return "websocket";
     }
     @PreAuthorize("hasRole('ROLE_USER')")
