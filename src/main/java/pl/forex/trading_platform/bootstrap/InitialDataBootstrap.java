@@ -13,6 +13,7 @@ import pl.forex.trading_platform.domain.settings.PlatformSettings;
 import pl.forex.trading_platform.domain.transactions.BuySell;
 import pl.forex.trading_platform.domain.transactions.ExecutionFailReason;
 import pl.forex.trading_platform.domain.transactions.Transaction;
+import pl.forex.trading_platform.domain.user.Role;
 import pl.forex.trading_platform.domain.user.User;
 import pl.forex.trading_platform.repository.*;
 import pl.forex.trading_platform.service.NbpRates;
@@ -89,12 +90,15 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
     }
 
     private void mockUsers() {
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.USER);
         User user = new User();
         user.setUsername("Michał");
         user.setEmail("michal.lipski2@gmail.com");
         user.setBalance(500000);
         user.setBlockedAmount(0);
         user.setActive(true);
+        user.setRoles(roles);
         user.setPassword(BCrypt.hashpw("123123", BCrypt.gensalt()));
         userRepository.save(user);
 
@@ -104,6 +108,7 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
         user2.setBalance(500000);
         user2.setBlockedAmount(0);
         user2.setActive(true);
+        user2.setRoles(roles);
         user2.setPassword(BCrypt.hashpw("123123", BCrypt.gensalt()));
         userRepository.save(user2);
         Set<Transaction> transactionSet = new HashSet<>();
@@ -142,12 +147,14 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
         user2.setTransactions(transactionSet);
         userRepository.save(user2);
 
+        roles.add(Role.ADMIN);
         User user3 = new User();
         user3.setUsername("Ada");
         user3.setEmail("a@wp.pl");
         user3.setBalance(500000);
         user3.setBlockedAmount(0);
         user3.setActive(true);
+        user.setRoles(roles);
         user3.setPassword(BCrypt.hashpw("123123", BCrypt.gensalt()));
         userRepository.save(user3);
         Set<Transaction> transactionSet2 = new HashSet<>();

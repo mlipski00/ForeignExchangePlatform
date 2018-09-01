@@ -3,6 +3,7 @@ package pl.forex.trading_platform.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,7 +64,7 @@ public class MainPageController {
         model.addAttribute("loggedUserBlockedAmount", userService.getLoggedUser().getBlockedAmount());
         return "websocket";
     }
-
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/transaction/{id}/close")
     public String closeTransaction(@PathVariable String id){
         Transaction transaction = transactionRepository.getOne(Long.valueOf(id));
