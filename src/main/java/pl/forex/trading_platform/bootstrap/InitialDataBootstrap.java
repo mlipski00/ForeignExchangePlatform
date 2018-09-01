@@ -58,6 +58,9 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
     @Value("${platformSettings.maximumTradeAmount}")
     private Long maximumAmount;
 
+    @Value("${platformSettings.initialBalance}")
+    private Long initialBalance;
+
     @Autowired
     NbpRates nbpRates;
 
@@ -80,6 +83,7 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
                 .setDecisionTime(decisionTime)
                 .setMinimumTradeAumount(minimumAmount)
                 .setMaximumTradeAumount(maximumAmount)
+                .setInitialBalance(initialBalance)
                 .build()
         );
     }
@@ -95,7 +99,7 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
         User user = new User();
         user.setUsername("Michał");
         user.setEmail("michal.lipski2@gmail.com");
-        user.setBalance(500000);
+        user.setBalance(initialBalance);
         user.setBlockedAmount(0);
         user.setActive(true);
         user.setRoles(roles);
@@ -105,7 +109,7 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
         User user2 = new User();
         user2.setUsername("Tomek");
         user2.setEmail("t@gmail.com");
-        user2.setBalance(500000);
+        user2.setBalance(initialBalance);
         user2.setBlockedAmount(0);
         user2.setActive(true);
         user2.setRoles(roles);
@@ -149,9 +153,9 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
 
         roles.add(Role.ADMIN);
         User user3 = new User();
-        user3.setUsername("Ada");
+        user3.setUsername("Admin");
         user3.setEmail("a@gmail.com");
-        user3.setBalance(500000);
+        user3.setBalance(initialBalance);
         user3.setBlockedAmount(0);
         user3.setActive(true);
         user3.setRoles(roles);

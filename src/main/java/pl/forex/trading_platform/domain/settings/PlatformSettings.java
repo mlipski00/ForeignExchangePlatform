@@ -26,11 +26,13 @@ public class PlatformSettings {
 
     private Long minimumTradeAmount;
     private Long maximumTradeAmount;
+    private Long initialBalance;
 
-    private PlatformSettings(int decisionTime, Long minimumTradeAmount, Long maximumTradeAmount) {
+    private PlatformSettings(int decisionTime, Long minimumTradeAmount, Long maximumTradeAmount, long initialBalance) {
         this.decisionTime = decisionTime;
         this.minimumTradeAmount = minimumTradeAmount;
         this.maximumTradeAmount = maximumTradeAmount;
+        this.initialBalance = initialBalance;
     }
     public static PlatformSettingsBuilder builder() {
         return new PlatformSettingsBuilder();
@@ -40,6 +42,7 @@ public class PlatformSettings {
         private int decisionTime;
         private Long minimumTradeAmount;
         private Long maximumTradeAmount;
+        private Long initialBalance;
 
         public PlatformSettingsBuilder setDecisionTime(final int decisionTime) {
             this.decisionTime = decisionTime;
@@ -56,8 +59,13 @@ public class PlatformSettings {
             return this;
         }
 
+        public PlatformSettingsBuilder setInitialBalance(final long initialBalance) {
+            this.initialBalance = initialBalance;
+            return this;
+        }
+
         public PlatformSettings build() {
-            return new PlatformSettings(decisionTime, minimumTradeAmount, maximumTradeAmount);
+            return new PlatformSettings(decisionTime, minimumTradeAmount, maximumTradeAmount, initialBalance);
         }
     }
 }

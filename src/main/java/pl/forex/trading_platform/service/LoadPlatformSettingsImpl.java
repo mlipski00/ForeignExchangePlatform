@@ -33,6 +33,11 @@ public class LoadPlatformSettingsImpl implements LoadPlatformSettings {
     }
 
     @Override
+    public Long loadInitialBalnce()  {
+        return platformSettingsRepository.getOne(1L).getInitialBalance();
+    }
+
+    @Override
     public PlatformSettings loadAllSettings() {
         return platformSettingsRepository.getOne(1L);
     }

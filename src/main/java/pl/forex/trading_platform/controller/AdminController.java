@@ -55,6 +55,7 @@ public class AdminController {
         platformSettingsUpdated.setDecisionTime(platformSettings.getDecisionTime());
         platformSettingsUpdated.setMinimumTradeAmount(platformSettings.getMinimumTradeAmount());
         platformSettingsUpdated.setMaximumTradeAmount(platformSettings.getMaximumTradeAmount());
+        platformSettingsUpdated.setInitialBalance(platformSettings.getInitialBalance());
         platformSettingsRepository.save(platformSettingsUpdated);
         return "adminpanel";
     }

@@ -86,23 +86,26 @@
         <div class="card-body">
             <form method="post" th:href="@{'/adminpanel'}"
                   th:object="${platformSettings}" role="form">
-                <h6 class="w-90 p-3 align-content-center">Decision Time:</h6>
+                <h5 class="w-90 p-3 align-content-center">Decision Time:</h5>
                 <div class="form-group">
-                    <textarea th:field="*{decisionTime}" type="number" name="decisionTime" id="decisionTime" tabindex="1" class="form-control" th:placeholder="#{platformSettings.decisionTime}" value=""/>
+                    <input th:field="*{decisionTime}" type="number" name="decisionTime" id="decisionTime" tabindex="1" class="form-control" th:placeholder="#{platformSettings.decisionTime}" value=""/>
                     <p class="error" th:if="${#fields.hasErrors('decisionTime')}" th:errors="*{decisionTime}">Incorrect value</p>
                 </div>
-                <hr>
-                <h6 class="w-90 p-3 align-content-center">Minimum Trade Amount:</h6>
+                <h5 class="w-90 p-3 align-content-center">Minimum Trade Amount:</h5>
                 <div class="form-group">
-                    <textarea th:field="*{minimumTradeAmount}" type="minimumTradeAmount" id="minimumTradeAmount" tabindex="1" class="form-control" th:placeholder="#{platformSettings.minimumTradeAmount}" value=""/>
+                    <input th:field="*{minimumTradeAmount}" type="number" id="minimumTradeAmount" tabindex="1" class="form-control" th:placeholder="#{platformSettings.minimumTradeAmount}" value=""/>
                     <p class="error" th:if="${#fields.hasErrors('minimumTradeAmount')}" th:errors="*{minimumTradeAmount}">Incorrect value</p>
                 </div>
-                <hr>
-                <h6 class="w-90 p-3 align-content-center">Maximum Trade Amount:</h6>
+                <h5 class="w-90 p-3 align-content-center">Maximum Trade Amount:</h5>
                 <div class="form-group">
-                    <textarea th:field="*{maximumTradeAmount}" type="number" name="maximumTradeAmount" id="maximumTradeAmount" tabindex="1" class="form-control" th:placeholder="#{platformSettings.maximumTradeAmount}" value=""/>
+                    <input th:field="*{maximumTradeAmount}" type="number" name="maximumTradeAmount" id="maximumTradeAmount" tabindex="1" class="form-control" th:placeholder="#{platformSettings.maximumTradeAmount}" value=""/>
                     <p class="error" th:if="${#fields.hasErrors('maximumTradeAmount')}" th:errors="*{maximumTradeAmount}">Incorrect value</p>
                     <p class="error" th:if="${wrongMaximumTradeAmount}">Maximum trade amount must be higher or equal to minimum trade amount</p>
+                </div>
+                <h5 class="w-90 p-3 align-content-center">Initial balance for new account:</h5>
+                <div class="form-group">
+                    <input th:field="*{initialBalance}" type="number" id="initialBalance" tabindex="1" class="form-control" th:placeholder="#{platformSettings.initialBalance}" value=""/>
+                    <p class="error" th:if="${#fields.hasErrors('initialBalance')}" th:errors="*{initialBalance}">Incorrect value</p>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="form-control btn btn-success" value="Save platform settings">
