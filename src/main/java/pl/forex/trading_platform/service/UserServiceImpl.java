@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     public boolean validUserEmail(String email) {
         try {
             List<User> userList = userRepository.findAll();
-            if (null == userList) {
+            if (userList.isEmpty()) {
                 return true;
             }
             for (User user : userList) {

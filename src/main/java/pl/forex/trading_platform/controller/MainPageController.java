@@ -43,6 +43,9 @@ public class MainPageController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LoggerService loggerService;
+
     @RequestMapping({"/index"})
     public String getIndexPage(Model model) {
         List<Quotation> quotations = loadQuotations.loadAllQuotations();
@@ -54,6 +57,8 @@ public class MainPageController {
 
     @RequestMapping({"", "/", "/websocket"})
     public String webSocketPage(Model model) {
+        loggerService.logToFile("Info log message. Method name: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        loggerService.sendLogFileToEmail();
         model.addAttribute("decisionTime", loadPlatformSettings.loadDecisionTime());
         model.addAttribute("minimumTradeAmount", loadPlatformSettings.loadMinimumAmount());
         model.addAttribute("maximumTradeAmount", loadPlatformSettings.loadMaximumAmount());
@@ -70,6 +75,7 @@ public class MainPageController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/transaction/{id}/close")
     public String closeTransaction(@PathVariable String id){
+        loggerService.logToFile("Info log message. Method name: " + new Object(){}.getClass().getEnclosingMethod().getName());
         Transaction transaction = transactionRepository.getOne(Long.valueOf(id));
         transactionService.closeTransaction(transaction);
         return "redirect:/";
@@ -77,6 +83,7 @@ public class MainPageController {
 
     @GetMapping("/login")
     public String getLoginpage(){
+        loggerService.logToFile("Info log message. Method name: " + new Object(){}.getClass().getEnclosingMethod().getName());
         return "login";
     }
 

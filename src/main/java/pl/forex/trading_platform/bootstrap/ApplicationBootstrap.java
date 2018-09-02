@@ -15,6 +15,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import pl.forex.trading_platform.service.GetQoutes;
 import pl.forex.trading_platform.service.GetQuotesOandaImpl;
+import pl.forex.trading_platform.service.LoggerService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,8 +46,13 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
     @Autowired
     private ObjectFactory<GetQoutes> getQoutes;
 
+    @Autowired
+    private LoggerService loggerService;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+
+        initLogFile();
         startFetchingQuotes();
     }
 
@@ -73,5 +79,7 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
             System.out.println(e.getMessage());
         }
     }
-
+    private void initLogFile() {
+        loggerService.initNewLogFile();
+    }
 }
