@@ -52,7 +52,6 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
-        initLogFile();
         startFetchingQuotes();
     }
 
@@ -78,8 +77,5 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
-    private void initLogFile() {
-        loggerService.initNewLogFile();
     }
 }

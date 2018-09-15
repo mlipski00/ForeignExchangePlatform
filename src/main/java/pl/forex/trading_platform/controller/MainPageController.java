@@ -1,5 +1,8 @@
 package pl.forex.trading_platform.controller;
 
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -19,6 +22,7 @@ import pl.forex.trading_platform.service.*;
 import java.util.List;
 
 @Controller
+@Slf4j
 @PropertySource("classpath:platformSettings.properties")
 public class MainPageController {
 
@@ -43,8 +47,7 @@ public class MainPageController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private LoggerService loggerService;
+    final static Logger logger = Logger.getLogger(MainPageController.class);
 
     @RequestMapping({"/index"})
     public String getIndexPage(Model model) {
@@ -57,8 +60,6 @@ public class MainPageController {
 
     @RequestMapping({"", "/", "/websocket"})
     public String webSocketPage(Model model) {
-        loggerService.logToFile("Info log message. Method name: " + new Object(){}.getClass().getEnclosingMethod().getName());
-        loggerService.sendLogFileToEmail();
         model.addAttribute("decisionTime", loadPlatformSettings.loadDecisionTime());
         model.addAttribute("minimumTradeAmount", loadPlatformSettings.loadMinimumAmount());
         model.addAttribute("maximumTradeAmount", loadPlatformSettings.loadMaximumAmount());
@@ -70,12 +71,12 @@ public class MainPageController {
         model.addAttribute("loggedUserBalance", userService.getLoggedUser().getBalance());
         model.addAttribute("loggedUserBlockedAmount", userService.getLoggedUser().getBlockedAmount());
         model.addAttribute("isUserAdmin", userService.isLoggedUserAdmin());
+        logger.debug("@RequestMapping({\"\", \"/\", \"/websocket\"}) called");
         return "websocket";
     }
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/transaction/{id}/close")
     public String closeTransaction(@PathVariable String id){
-        loggerService.logToFile("Info log message. Method name: " + new Object(){}.getClass().getEnclosingMethod().getName());
         Transaction transaction = transactionRepository.getOne(Long.valueOf(id));
         transactionService.closeTransaction(transaction);
         return "redirect:/";
@@ -83,7 +84,6 @@ public class MainPageController {
 
     @GetMapping("/login")
     public String getLoginpage(){
-        loggerService.logToFile("Info log message. Method name: " + new Object(){}.getClass().getEnclosingMethod().getName());
         return "login";
     }
 
