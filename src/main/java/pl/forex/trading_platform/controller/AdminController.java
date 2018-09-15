@@ -1,5 +1,6 @@
 package pl.forex.trading_platform.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ public class AdminController {
     @Autowired
     private PlatformSettingsRepository platformSettingsRepository;
 
+    final static Logger logger = Logger.getLogger(AdminController.class);
+
     @ModelAttribute
     public void addLoggedUserAttributes(Model model) {
         model.addAttribute("loggedUser", userService.getLoggedUser().getUsername());
@@ -42,12 +45,14 @@ public class AdminController {
         if (result.hasErrors()) {
             model.addAttribute("platformSettings", platformSettings);
             model.addAttribute("updateSettingsResult", 1);
+            logger.debug("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) with error result: " + result.getAllErrors().toString() + " called by user: " + userService.getLoggedUser());
             return "adminpanel";
         }
         if (platformSettings.getMaximumTradeAmount() < platformSettings.getMinimumTradeAmount()){
             model.addAttribute("wrongMaximumTradeAmount", true);
             model.addAttribute("platformSettings", platformSettings);
             model.addAttribute("updateSettingsResult", 1);
+            logger.debug("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) with error result: maxAmount ("+platformSettings.getMaximumTradeAmount()+") < minAmount ("+platformSettings.getMinimumTradeAmount()+") called by user: " + userService.getLoggedUser());
             return "adminpanel";
         }
         model.addAttribute("updateSettingsResult", 2);
@@ -57,6 +62,7 @@ public class AdminController {
         platformSettingsUpdated.setMaximumTradeAmount(platformSettings.getMaximumTradeAmount());
         platformSettingsUpdated.setInitialBalance(platformSettings.getInitialBalance());
         platformSettingsRepository.save(platformSettingsUpdated);
+        logger.debug("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) called by user: " + userService.getLoggedUser());
         return "adminpanel";
     }
 }

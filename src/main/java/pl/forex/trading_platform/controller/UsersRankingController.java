@@ -1,5 +1,6 @@
 package pl.forex.trading_platform.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ public class UsersRankingController {
     @Autowired
     private UserService userService;
 
+    final static Logger logger = Logger.getLogger(UsersRankingController.class);
 
     @ModelAttribute
     public void addLoggedUserAttributes(Model model) {
@@ -27,6 +29,7 @@ public class UsersRankingController {
 
     @RequestMapping(value = "/usersRanking", method = RequestMethod.GET)
     public String getAccountDetailsPage() {
+        logger.debug("@RequestMapping(value = \"/usersRanking\", method = RequestMethod.GET) called by user: " + userService.getLoggedUser());
         return "usersRanking";
     }
 }

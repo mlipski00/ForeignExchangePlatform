@@ -18,7 +18,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-@ToString
 @Table(name = "user")
 public class User {
 
@@ -82,5 +81,20 @@ public class User {
         this.username = user.getUsername();
         this.id = user.getId();
         this.password = user.getPassword();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", userDetails='" + userDetails + '\'' +
+                ", active=" + active +
+                ", balance=" + balance +
+                ", blockedAmount=" + blockedAmount +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                ", created=" + created +
+                '}';
     }
 }

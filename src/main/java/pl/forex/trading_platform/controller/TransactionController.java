@@ -1,5 +1,6 @@
 package pl.forex.trading_platform.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,8 @@ public class TransactionController {
     @Autowired
     private UserService userService;
 
+    final static Logger logger = Logger.getLogger(TransactionController.class);
+
     @ModelAttribute
     public void addLoggedUserAttributes(Model model) {
         model.addAttribute("loggedUser", userService.getLoggedUser().getUsername());
@@ -33,6 +36,7 @@ public class TransactionController {
     @RequestMapping("/opentransactions")
     public String openTransactions(Model model) {
         model.addAttribute("openTransactions", transactionRepository.findAllNonClosed(userService.getLoggedUser().getId()));
+        logger.debug("@RequestMapping(\"/opentransactions\") called by user: " + userService.getLoggedUser());
         return "openTransactions";
     }
 
@@ -40,6 +44,7 @@ public class TransactionController {
     public String closedTransactions(Model model) {
         model.addAttribute("closedTransactions", transactionRepository.findAllClosed(userService.getLoggedUser().getId()));
         model.addAttribute("allProfit", transactionService.getAllProfit());
+        logger.debug("@RequestMapping(\"/closedtransactions\") called by user: " + userService.getLoggedUser());
         return "closedTransactions";
     }
 }
