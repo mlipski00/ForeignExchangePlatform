@@ -15,6 +15,7 @@ Functionality:
 * Users ranking by overall transactions profit
 * Interbank currency prices provided by Oanda Forex Broker
 * Admin panel - platform parameterization for user with admin role
+* Logging users activity and price quotations into flat file
 
 Project is build with following technologies:
 * Spring boot
