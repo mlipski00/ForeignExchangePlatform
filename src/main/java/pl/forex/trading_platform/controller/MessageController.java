@@ -47,7 +47,7 @@ public class MessageController {
         if (result.hasErrors()) {
             model.addAttribute("message", message);
             model.addAttribute("recivers", messageService.getAllRecivers());
-            logger.debug("@RequestMapping(value = \"/newMessage\", method = RequestMethod.POST) with error result: " + result.getAllErrors().toString() + " called by user: " + userService.getLoggedUser());
+            logger.error("@RequestMapping(value = \"/newMessage\", method = RequestMethod.POST) with error result: " + result.getAllErrors().toString() + " called by user: " + userService.getLoggedUser());
             return "messageForm";
         }
         messageService.saveMessage(message);

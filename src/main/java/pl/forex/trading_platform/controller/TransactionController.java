@@ -45,7 +45,6 @@ public class TransactionController {
         model.addAttribute("closedTransactions", transactionRepository.findAllClosed(userService.getLoggedUser().getId()));
         model.addAttribute("allProfit", transactionService.getAllProfit());
         logger.debug("@RequestMapping(\"/closedtransactions\") called by user: " + userService.getLoggedUser());
-        logger.error("error message !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return "closedTransactions";
     }
 }

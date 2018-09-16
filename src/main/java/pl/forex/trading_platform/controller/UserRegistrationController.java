@@ -42,7 +42,7 @@ public class UserRegistrationController {
     public String registrationProcess(@Validated({ValidationGroupUniqueEmail.class, Default.class}) User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             System.out.println("registration errors: " + result.getAllErrors().toString());
-            logger.debug("@RequestMapping(value = \"/registration\", method = RequestMethod.POST) with error result: " + result.getAllErrors().toString() + " called by unlogged user");
+            logger.error("@RequestMapping(value = \"/registration\", method = RequestMethod.POST) with error result: " + result.getAllErrors().toString() + " called by unlogged user");
             return "registration";
         }
         Set<Role> roles = new HashSet<>();
