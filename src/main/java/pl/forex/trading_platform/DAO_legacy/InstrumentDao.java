@@ -1,7 +1,5 @@
 package pl.forex.trading_platform.DAO_legacy;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.forex.trading_platform.domain.Instrument;

@@ -45,14 +45,14 @@ public class AdminController {
         if (result.hasErrors()) {
             model.addAttribute("platformSettings", platformSettings);
             model.addAttribute("updateSettingsResult", 1);
-            logger.debug("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) with error result: " + result.getAllErrors().toString() + " called by user: " + userService.getLoggedUser());
+            logger.error("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) with error result: " + result.getAllErrors().toString() + " called by user: " + userService.getLoggedUser());
             return "adminpanel";
         }
         if (platformSettings.getMaximumTradeAmount() < platformSettings.getMinimumTradeAmount()){
             model.addAttribute("wrongMaximumTradeAmount", true);
             model.addAttribute("platformSettings", platformSettings);
             model.addAttribute("updateSettingsResult", 1);
-            logger.debug("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) with error result: maxAmount ("+platformSettings.getMaximumTradeAmount()+") < minAmount ("+platformSettings.getMinimumTradeAmount()+") called by user: " + userService.getLoggedUser());
+            logger.error("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) with error result: maxAmount ("+platformSettings.getMaximumTradeAmount()+") < minAmount ("+platformSettings.getMinimumTradeAmount()+") called by user: " + userService.getLoggedUser());
             return "adminpanel";
         }
         model.addAttribute("updateSettingsResult", 2);
