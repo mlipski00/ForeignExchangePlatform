@@ -1,5 +1,5 @@
 # ForeignExchangePlatform
-### Forex trading platform - project is online: http://77.55.219.195:8080/trading_platform-1.0/
+### Forex trading platform - project is online: http://77.55.219.195:8080/trading_platform-1.1.0/
 
 The Forex Trading Platform project is result of broad investment banking knowledge and software engineering passion.
 
