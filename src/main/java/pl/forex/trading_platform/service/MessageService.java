@@ -7,19 +7,19 @@ import java.util.List;
 
 public interface MessageService {
 
-    public List<User> getAllRecivers();
+    List<User> getAllRecivers();
 
-    public void saveMessage(Message message);
+    void saveMessage(Message message);
 
-    public int numberOfUnreadMessages();
+    int numberOfUnreadMessages();
 
-    public List<Message> getAllLoggedUserMessages();
+    List<Message> getAllLoggedUserMessages();
 
-    public Message getSingleMessage(Long id);
+    Message getSingleMessage(Long id);
 
-    public void setMessageAsRead(Long id);
+    void setMessageAsRead(Long id);
 
-    public List<Message> getAllLoggedUserSendMessages();
+    List<Message> getAllLoggedUserSendMessages();
 
-    public List<Message> GetAllUnreadMessagesByLoggedUser();
+    List<Message> GetAllUnreadMessagesByLoggedUser();
 }

@@ -4,5 +4,5 @@ import com.oanda.v20.pricing.ClientPrice;
 
 public interface SaveQuotation {
 
-    public void saveQuotation(ClientPrice clientPrice);
+    void saveQuotation(ClientPrice clientPrice);
 }

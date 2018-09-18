@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserService {
 
-    public boolean validUserEmail(String email);
+    boolean validUserEmail(String email);
 
     User getLoggedUser();
 
@@ -15,5 +15,5 @@ public interface UserService {
 
     List<User> userRankingList();
 
-    public boolean isLoggedUserAdmin();
+    boolean isLoggedUserAdmin();
 }

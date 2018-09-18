@@ -30,6 +30,8 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private EmailService emailService;
 
+    private final String emailConfirmationSubject = "Forex transaction confirmation";
+
     @Override
     public void closeTransaction(Transaction transaction) {
         transaction.setClosed(true);
@@ -51,7 +53,7 @@ public class TransactionServiceImpl implements TransactionService {
         user.setBlockedAmount(user.getBlockedAmount()-transaction.getAmount()*transaction.getPrice());
         userRepository.save(user);
         transactionRepository.save(transaction);
-        emailService.sendEmail(userService.getLoggedUser().getEmail(), "Forex transaction confirmation", transaction.toString());
+        emailService.sendEmail(userService.getLoggedUser().getEmail(), emailConfirmationSubject, transaction.toString());
     }
 
     @Override

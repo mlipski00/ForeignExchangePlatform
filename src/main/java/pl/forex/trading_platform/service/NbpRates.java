@@ -4,7 +4,7 @@ import pl.forex.trading_platform.domain.nbp.TableA;
 
 public interface NbpRates {
 
-    public String getTableAQuotesString(String url);
+    String getTableAQuotesString(String url);
 
-    public TableA[] getTableAQuotesArray(String url);
+    TableA[] getTableAQuotesArray(String url);
 }

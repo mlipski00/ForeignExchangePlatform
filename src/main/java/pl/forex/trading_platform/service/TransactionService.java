@@ -4,18 +4,18 @@ import pl.forex.trading_platform.domain.transactions.Transaction;
 
 public interface TransactionService {
 
-    public void closeTransaction(Transaction transaction);
+    void closeTransaction(Transaction transaction);
 
-    public double getAllProfit();
+    double getAllProfit();
 
-    public double updateBalance(Transaction transaction);
+    double updateBalance(Transaction transaction);
 
-    public long countOpenTrades();
+    long countOpenTrades();
 
-    public long countClosedTrades();
+    long countClosedTrades();
 
-    public long countProfitableTrades();
+    long countProfitableTrades();
 
-    public long countLosingTrades();
+    long countLosingTrades();
 
 }

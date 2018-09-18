@@ -6,11 +6,11 @@ public interface LoadPlatformSettings {
 
     int loadDecisionTime();
 
-    public PlatformSettings loadAllSettings();
+    PlatformSettings loadAllSettings();
 
-    public Long loadMinimumAmount();
+    Long loadMinimumAmount();
 
-    public Long loadMaximumAmount();
+    Long loadMaximumAmount();
 
-    public Long loadInitialBalnce();
+    Long loadInitialBalnce();
 }
