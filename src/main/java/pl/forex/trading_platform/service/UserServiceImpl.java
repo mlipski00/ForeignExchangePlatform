@@ -1,15 +1,13 @@
 package pl.forex.trading_platform.service;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
-import pl.forex.trading_platform.domain.transactions.ExecutionFailReason;
-import pl.forex.trading_platform.domain.transactions.Transaction;
 import pl.forex.trading_platform.domain.user.CustomUserDetails;
 import pl.forex.trading_platform.domain.user.User;
-import pl.forex.trading_platform.repository.TransactionRepository;
 import pl.forex.trading_platform.repository.UserRepository;
 
 import java.util.*;
@@ -25,39 +23,20 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    final static Logger logger = Logger.getLogger(UserServiceImpl.class);
+
     @Override
     public User getLoggedUser() {
         Authentication authentication = authenticationFacade.getAuthentication();
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         Optional<User> userOptional = userRepository.findById(customUserDetails.getId());
-        return userOptional.get();
-    }
-
-    @Override
-    public Transaction processTtransaction(Transaction transaction, User loggedUser) {
-        Set<Transaction> transactionList = loggedUser.getTransactions();
-        if (loggedUser.getBalance() - loggedUser.getBlockedAmount() - transaction.getAmount()*transaction.getPrice() >= 0) {
-            transaction.setExecuted(true);
-            transaction.setExecutionFailReason(ExecutionFailReason.STATUS_OK.getReason());
-            transaction.setAmountPLN(transaction.getAmount()*transaction.getPrice());
-            loggedUser.setBlockedAmount(loggedUser.getBlockedAmount() + transaction.getAmount()*transaction.getPrice());
-            transaction.setUser(loggedUser);
-            transactionList.add(transaction);
-            userRepository.save(loggedUser);
+        if(userOptional.isPresent()) {
+            return userOptional.get();
         } else {
-            transaction.setExecuted(false);
-            transaction.setClosed(true);
-            transaction.setExecutionFailReason(ExecutionFailReason.NOT_ENOUGH_BALANCE.getReason());
-            transaction.setProfit(0);
-            transaction.setAmountPLN(transaction.getAmount()*transaction.getPrice());
-            transaction.setUser(loggedUser);
-            transactionList.add(transaction);
-            userRepository.save(loggedUser);
+            logger.error("getLoggedUser() method failed");
+           return new User();
         }
-        List<Transaction> transactionSet2List = new ArrayList<>(loggedUser.getTransactions());
-        return transactionSet2List.stream().sorted(Comparator.comparing(Transaction::getId)).collect(Collectors.toList()).get(transactionSet2List.size() - 1);
     }
-
 
     @Override
     public boolean validUserEmail(String email) {

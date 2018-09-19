@@ -5,12 +5,14 @@ import org.springframework.stereotype.Service;
 import pl.forex.trading_platform.DAO_legacy.QuotationDao;
 import pl.forex.trading_platform.domain.Quotation;
 import pl.forex.trading_platform.domain.transactions.BuySell;
+import pl.forex.trading_platform.domain.transactions.ExecutionFailReason;
 import pl.forex.trading_platform.domain.transactions.Transaction;
 import pl.forex.trading_platform.domain.user.User;
 import pl.forex.trading_platform.repository.TransactionRepository;
 import pl.forex.trading_platform.repository.UserRepository;
 
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -81,5 +83,30 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public long countLosingTrades() {
         return transactionRepository.findAllClosed(userService.getLoggedUser().getId()).stream().filter(trade -> trade.getProfit() <= 0).count();
+    }
+
+    @Override
+    public Transaction processTtransaction(Transaction transaction, User loggedUser) {
+        Set<Transaction> transactionList = loggedUser.getTransactions();
+        if (loggedUser.getBalance() - loggedUser.getBlockedAmount() - transaction.getAmount()*transaction.getPrice() >= 0) {
+            transaction.setExecuted(true);
+            transaction.setExecutionFailReason(ExecutionFailReason.STATUS_OK.getReason());
+            transaction.setAmountPLN(transaction.getAmount()*transaction.getPrice());
+            loggedUser.setBlockedAmount(loggedUser.getBlockedAmount() + transaction.getAmount()*transaction.getPrice());
+            transaction.setUser(loggedUser);
+            transactionList.add(transaction);
+            userRepository.save(loggedUser);
+        } else {
+            transaction.setExecuted(false);
+            transaction.setClosed(true);
+            transaction.setExecutionFailReason(ExecutionFailReason.NOT_ENOUGH_BALANCE.getReason());
+            transaction.setProfit(0);
+            transaction.setAmountPLN(transaction.getAmount()*transaction.getPrice());
+            transaction.setUser(loggedUser);
+            transactionList.add(transaction);
+            userRepository.save(loggedUser);
+        }
+        List<Transaction> transactionSet2List = new ArrayList<>(loggedUser.getTransactions());
+        return transactionSet2List.stream().sorted(Comparator.comparing(Transaction::getId)).collect(Collectors.toList()).get(transactionSet2List.size() - 1);
     }
 }

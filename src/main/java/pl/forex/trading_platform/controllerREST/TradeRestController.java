@@ -8,6 +8,7 @@ import pl.forex.trading_platform.domain.transactions.Transaction;
 import pl.forex.trading_platform.domain.user.User;
 import pl.forex.trading_platform.repository.TransactionRepository;
 import pl.forex.trading_platform.service.EmailService;
+import pl.forex.trading_platform.service.TransactionService;
 import pl.forex.trading_platform.service.UserService;
 
 @RestController
@@ -20,6 +21,9 @@ public class TradeRestController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private TransactionService transactionService;
+
     private final String emailConfirmationSubject = "Forex transaction confirmation";
 
     @RequestMapping(value = "/buy", method = RequestMethod.POST, produces="application/json", consumes="application/json")
@@ -30,7 +34,7 @@ public class TradeRestController {
         System.out.println(transaction.toString());
         transaction.setBuySell(BuySell.BUY);
         emailService.sendEmail(loggedUser.getEmail(), emailConfirmationSubject, transaction.toString());
-        return userService.processTtransaction(transaction, loggedUser);
+        return transactionService.processTtransaction(transaction, loggedUser);
     }
 
     @RequestMapping(value = "/sell", method = RequestMethod.POST, produces="application/json", consumes="application/json")
@@ -41,6 +45,6 @@ public class TradeRestController {
         System.out.println(transaction.toString());
         transaction.setBuySell(BuySell.SELL);
         emailService.sendEmail(loggedUser.getEmail(), emailConfirmationSubject, transaction.toString());
-        return userService.processTtransaction(transaction, loggedUser);
+        return transactionService.processTtransaction(transaction, loggedUser);
     }
 }

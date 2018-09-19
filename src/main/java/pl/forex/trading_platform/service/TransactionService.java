@@ -1,6 +1,7 @@
 package pl.forex.trading_platform.service;
 
 import pl.forex.trading_platform.domain.transactions.Transaction;
+import pl.forex.trading_platform.domain.user.User;
 
 public interface TransactionService {
 
@@ -17,5 +18,7 @@ public interface TransactionService {
     long countProfitableTrades();
 
     long countLosingTrades();
+
+    Transaction processTtransaction(Transaction transaction, User loggedUser);
 
 }
