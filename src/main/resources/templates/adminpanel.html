@@ -113,6 +113,32 @@
             </form>
         </div>
     </div>
+            <hr>
+    <h1 class="w-90 p-3 align-content-center">Update users</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="post" th:href="@{'/updateUser'}"
+                  th:object="${user}" role="form" style="display: block;">
+                <h5 class="w-90 p-3 align-content-center">Choose user</h5>
+                <div class="form-group">
+                    <select class="form-control" th:field="*{id}">
+                        <option th:each="user : ${allUsers}"
+                                th:value="${user.id}"
+                                th:text="${user.username}+ ' - current balance: '+ ${user.balance}">username and user balance</option>
+                    </select>
+                </div>
+                <hr>
+                <h5 class="w-90 p-3 align-content-center">New balance</h5>
+                    <div class="form-group">
+                        <input th:field="*{balance}" type="number" id="balance" tabindex="1" class="form-control" th:placeholder="#{platformSettings.initialBalance}" value=""/>
+                        <p class="error" th:if="${#fields.hasErrors('balance')}" th:errors="*{balance}">Incorrect value</p>
+                    </div>
+                <div class="form-group">
+                    <input type="submit" class="form-control btn btn-success" value="Update user">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.forex.trading_platform.domain.settings.PlatformSettings;
+import pl.forex.trading_platform.domain.user.User;
 import pl.forex.trading_platform.repository.PlatformSettingsRepository;
 import pl.forex.trading_platform.service.UserService;
 
@@ -28,15 +29,17 @@ public class AdminController {
     final static Logger logger = Logger.getLogger(AdminController.class);
 
     @ModelAttribute
-    public void addLoggedUserAttributes(Model model) {
+    public void addGlobalAttributes(Model model) {
         model.addAttribute("loggedUser", userService.getLoggedUser().getUsername());
         model.addAttribute("loggedUserBalance", userService.getLoggedUser().getBalance());
         model.addAttribute("loggedUserBlockedAmount", userService.getLoggedUser().getBlockedAmount());
         model.addAttribute("isUserAdmin", userService.isLoggedUserAdmin());
+        model.addAttribute("allUsers", userService.getAllUsers());
     }
     @RequestMapping(value = "/adminpanel", method = RequestMethod.GET)
     public String getUpdateSettingsForm(Model model) {
-        model.addAttribute("platformSettings", platformSettingsRepository.getOne(1l));
+        model.addAttribute("platformSettings", platformSettingsRepository.getOne(1L));
+        model.addAttribute("user", new User());
     return "adminpanel";
     }
 
@@ -65,4 +68,10 @@ public class AdminController {
         logger.debug("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) called by user: " + userService.getLoggedUser());
         return "adminpanel";
     }
+
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    public String processUpdateUser(@Valid User user, BindingResult result, Model model) {
+        return "adminpanel";
+    }
+
 }

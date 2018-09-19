@@ -12,5 +12,8 @@ public interface UserService {
 
     List<User> userRankingList();
 
+    List<User> getAllUsers();
+
     boolean isLoggedUserAdmin();
+
 }

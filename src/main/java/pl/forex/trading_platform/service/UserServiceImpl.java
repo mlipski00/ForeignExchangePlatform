@@ -62,6 +62,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll().stream().collect(Collectors.toList());
+    }
+
+    @Override
     public boolean isLoggedUserAdmin() {
         Authentication authentication = authenticationFacade.getAuthentication();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

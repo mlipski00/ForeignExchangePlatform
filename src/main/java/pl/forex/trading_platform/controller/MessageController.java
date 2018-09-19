@@ -66,7 +66,7 @@ public class MessageController {
     }
 
     @RequestMapping(value = "/outbox", method = RequestMethod.GET)
-    public String getOutboxage(Model model) {
+    public String getOutboxPage(Model model) {
         model.addAttribute("title", "Outbox");
         model.addAttribute("messages", messageService.getAllLoggedUserSendMessages());
         logger.debug("@RequestMapping(value = \"/outbox\", method = RequestMethod.GET) called by user: " + userService.getLoggedUser());
