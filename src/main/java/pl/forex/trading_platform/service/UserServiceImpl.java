@@ -72,4 +72,13 @@ public class UserServiceImpl implements UserService {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         return authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
+
+    @Override
+    public void updateUserBalance(Long usersToUpdateId, double newBalanceAmount) {
+        Optional<User> userOptional = userRepository.findById(usersToUpdateId);
+        userOptional.ifPresent(user -> {
+            user.setBalance(newBalanceAmount);
+            userRepository.save(user);
+        });
+    }
 }

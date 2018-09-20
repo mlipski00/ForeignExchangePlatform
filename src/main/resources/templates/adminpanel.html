@@ -84,7 +84,7 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <form method="post" th:href="@{'/adminpanel'}"
+            <form method="post" th:action="@{/updatePlatformSettings}"
                   th:object="${platformSettings}" role="form">
                 <h5 class="w-90 p-3 align-content-center">Decision Time:</h5>
                 <div class="form-group">
@@ -115,9 +115,17 @@
     </div>
             <hr>
     <h1 class="w-90 p-3 align-content-center">Update users</h1>
+    <div th:if="${updateUserBalanceResult == 1}" class="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        User balance update failed
+    </div>
+    <div th:if="${updateUserBalanceResult == 2}" class="alert alert-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        User balance updated successfully
+    </div>
     <div class="card">
         <div class="card-body">
-            <form method="post" th:href="@{'/updateUser'}"
+            <form method="post" th:action="@{'/updateUser'}"
                   th:object="${user}" role="form" style="display: block;">
                 <h5 class="w-90 p-3 align-content-center">Choose user</h5>
                 <div class="form-group">

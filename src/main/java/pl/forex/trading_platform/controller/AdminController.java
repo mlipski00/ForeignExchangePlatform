@@ -43,15 +43,17 @@ public class AdminController {
     return "adminpanel";
     }
 
-    @RequestMapping(value = "/adminpanel", method = RequestMethod.POST)
+    @RequestMapping(value = "/updatePlatformSettings", method = RequestMethod.POST)
     public String processUpdateSettings(@Valid PlatformSettings platformSettings, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("user", new User());
             model.addAttribute("platformSettings", platformSettings);
             model.addAttribute("updateSettingsResult", 1);
             logger.error("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) with error result: " + result.getAllErrors().toString() + " called by user: " + userService.getLoggedUser());
             return "adminpanel";
         }
         if (platformSettings.getMaximumTradeAmount() < platformSettings.getMinimumTradeAmount()){
+            model.addAttribute("user", new User());
             model.addAttribute("wrongMaximumTradeAmount", true);
             model.addAttribute("platformSettings", platformSettings);
             model.addAttribute("updateSettingsResult", 1);
@@ -65,12 +67,23 @@ public class AdminController {
         platformSettingsUpdated.setMaximumTradeAmount(platformSettings.getMaximumTradeAmount());
         platformSettingsUpdated.setInitialBalance(platformSettings.getInitialBalance());
         platformSettingsRepository.save(platformSettingsUpdated);
+        model.addAttribute("user", new User());
         logger.debug("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) called by user: " + userService.getLoggedUser());
         return "adminpanel";
     }
 
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     public String processUpdateUser(@Valid User user, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("platformSettings", platformSettingsRepository.getOne(1L));
+            model.addAttribute("user", user);
+            model.addAttribute("updateUserBalanceResult", 1);
+            return "adminpanel";
+        }
+        model.addAttribute("platformSettings", platformSettingsRepository.getOne(1L));
+        userService.updateUserBalance(user.getId(), user.getBalance());
+        model.addAttribute("user", user);
+        model.addAttribute("updateUserBalanceResult", 2);
         return "adminpanel";
     }
 

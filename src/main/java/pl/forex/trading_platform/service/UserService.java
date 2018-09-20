@@ -16,4 +16,6 @@ public interface UserService {
 
     boolean isLoggedUserAdmin();
 
+    void updateUserBalance(Long usersToUpdateId, double newBalanceAmount);
+
 }
