@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.forex.trading_platform.domain.settings.PlatformSettings;
 import pl.forex.trading_platform.domain.user.User;
 import pl.forex.trading_platform.repository.PlatformSettingsRepository;
+import pl.forex.trading_platform.service.MessageService;
 import pl.forex.trading_platform.service.UserService;
 
 import javax.validation.Valid;
@@ -25,6 +26,9 @@ public class AdminController {
 
     @Autowired
     private PlatformSettingsRepository platformSettingsRepository;
+
+    @Autowired
+    private MessageService messageService;
 
     final static Logger logger = Logger.getLogger(AdminController.class);
 
@@ -84,6 +88,7 @@ public class AdminController {
         userService.updateUserBalance(user.getId(), user.getBalance());
         model.addAttribute("user", user);
         model.addAttribute("updateUserBalanceResult", 2);
+        messageService.notifyUserWithNewBalaceByMessage(user.getId(), user.getBalance());
         return "adminpanel";
     }
 

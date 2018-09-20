@@ -22,4 +22,6 @@ public interface MessageService {
     List<Message> getAllLoggedUserSendMessages();
 
     List<Message> GetAllUnreadMessagesByLoggedUser();
+
+    void notifyUserWithNewBalaceByMessage(Long userId, double newBalance);
 }

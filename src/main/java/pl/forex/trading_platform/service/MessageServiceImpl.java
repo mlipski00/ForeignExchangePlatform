@@ -8,6 +8,7 @@ import pl.forex.trading_platform.repository.MessageRepository;
 import pl.forex.trading_platform.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,5 +64,17 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> GetAllUnreadMessagesByLoggedUser() {
         return messageRepository.findAllByReciverAndIsReadIsFalse(userService.getLoggedUser());
+    }
+
+    @Override
+    public void notifyUserWithNewBalaceByMessage(Long userId, double newBalance) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        userOptional.ifPresent(messageReciver -> {
+            Message message = new Message();
+            message.setSender(userService.getLoggedUser());
+            message.setReciver(messageReciver);
+            message.setText("Hi " + messageReciver.getUsername() + ". Your balance has been updated by Admin. Current amount: " + newBalance);
+            saveMessage(message);
+        });
     }
 }
