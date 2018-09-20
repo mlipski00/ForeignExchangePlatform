@@ -14,7 +14,7 @@ Functionality:
 * Security - logging and registering users 
 * Users ranking by overall transactions profit
 * Interbank currency prices provided by Oanda Forex Broker
-* Admin panel - platform parameterization for user with admin role
+* Admin panel: platform parameterization and user update (balance) with message notification
 * Logging users activity and price quotations into flat file
 
 Project is build with following technologies:
