@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import pl.forex.trading_platform.repository.UserRepository;
 import pl.forex.trading_platform.service.CustomUserDetailsService;
 
@@ -19,7 +21,7 @@ import java.util.Arrays;
 @EnableWebSecurity
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
 @Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
@@ -69,5 +71,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         };
     }
 
-
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedOrigins("*");
+    }
 }
