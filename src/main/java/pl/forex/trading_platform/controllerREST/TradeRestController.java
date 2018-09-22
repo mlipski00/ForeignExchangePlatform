@@ -1,7 +1,9 @@
 package pl.forex.trading_platform.controllerREST;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.forex.trading_platform.controller.UsersRankingController;
 import pl.forex.trading_platform.domain.transactions.BuySell;
 import pl.forex.trading_platform.domain.transactions.ExecutionFailReason;
 import pl.forex.trading_platform.domain.transactions.Transaction;
@@ -24,14 +26,16 @@ public class TradeRestController {
     @Autowired
     private TransactionService transactionService;
 
+    final static Logger logger = Logger.getLogger(UsersRankingController.class);
+
     private final String emailConfirmationSubject = "Forex transaction confirmation";
 
     @RequestMapping(value = "/buy", method = RequestMethod.POST, produces="application/json", consumes="application/json")
     @ResponseBody
     public Transaction buyTrade(@RequestBody Transaction transaction){
         User loggedUser = userService.getLoggedUser();
-        System.out.println("buy rest controller procesing");
-        System.out.println(transaction.toString());
+        logger.debug("User: " + loggedUser);
+        logger.debug(transaction.toString());
         transaction.setBuySell(BuySell.BUY);
         emailService.sendEmail(loggedUser.getEmail(), emailConfirmationSubject, transaction.toString());
         return transactionService.processTtransaction(transaction, loggedUser);
@@ -41,8 +45,8 @@ public class TradeRestController {
     @ResponseBody
     public Transaction sellTrade(@RequestBody Transaction transaction){
         User loggedUser = userService.getLoggedUser();
-        System.out.println("sell rest controller procesing");
-        System.out.println(transaction.toString());
+        logger.debug("User: " + loggedUser);
+        logger.debug(transaction.toString());
         transaction.setBuySell(BuySell.SELL);
         emailService.sendEmail(loggedUser.getEmail(), emailConfirmationSubject, transaction.toString());
         return transactionService.processTtransaction(transaction, loggedUser);

@@ -34,7 +34,7 @@ public class UserRegistrationController {
     @GetMapping("/registration")
     public String getRegistrationPage(Model model) {
         model.addAttribute("user", new User());
-        logger.debug("@GetMapping(\"/registration\") called by unlogged user");
+        logger.debug("User: unlogged user");
         return "registration";
     }
 
@@ -42,7 +42,7 @@ public class UserRegistrationController {
     public String registrationProcess(@Validated({ValidationGroupUniqueEmail.class, Default.class}) User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             System.out.println("registration errors: " + result.getAllErrors().toString());
-            logger.error("@RequestMapping(value = \"/registration\", method = RequestMethod.POST) with error result: " + result.getAllErrors().toString() + " called by unlogged user");
+            logger.error("error result: " + result.getAllErrors().toString() + " called by unlogged user");
             return "registration";
         }
         Set<Role> roles = new HashSet<>();
@@ -55,7 +55,7 @@ public class UserRegistrationController {
         user.setActive(true);
         userRepository.save(user);
         model.addAttribute("registrationResult", 1);
-        logger.debug("@RequestMapping(value = \"/registration\", method = RequestMethod.POST) called by unlogged user");
+        logger.debug("User: unlogged user");
         return "/login";
     }
 }

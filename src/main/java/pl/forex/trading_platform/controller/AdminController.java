@@ -40,10 +40,12 @@ public class AdminController {
         model.addAttribute("isUserAdmin", userService.isLoggedUserAdmin());
         model.addAttribute("allUsers", userService.getAllUsers());
     }
+
     @RequestMapping(value = "/adminpanel", method = RequestMethod.GET)
     public String getUpdateSettingsForm(Model model) {
         model.addAttribute("platformSettings", platformSettingsRepository.getOne(1L));
         model.addAttribute("user", new User());
+        logger.debug("User: " + userService.getLoggedUser());
     return "adminpanel";
     }
 
@@ -53,7 +55,7 @@ public class AdminController {
             model.addAttribute("user", new User());
             model.addAttribute("platformSettings", platformSettings);
             model.addAttribute("updateSettingsResult", 1);
-            logger.error("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) with error result: " + result.getAllErrors().toString() + " called by user: " + userService.getLoggedUser());
+            logger.error("error result: " + result.getAllErrors().toString() + " | User: " + userService.getLoggedUser());
             return "adminpanel";
         }
         if (platformSettings.getMaximumTradeAmount() < platformSettings.getMinimumTradeAmount()){
@@ -61,7 +63,7 @@ public class AdminController {
             model.addAttribute("wrongMaximumTradeAmount", true);
             model.addAttribute("platformSettings", platformSettings);
             model.addAttribute("updateSettingsResult", 1);
-            logger.error("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) with error result: maxAmount ("+platformSettings.getMaximumTradeAmount()+") < minAmount ("+platformSettings.getMinimumTradeAmount()+") called by user: " + userService.getLoggedUser());
+            logger.error("error result: maxAmount ("+platformSettings.getMaximumTradeAmount()+") < minAmount ("+platformSettings.getMinimumTradeAmount()+") | User: "+ userService.getLoggedUser());
             return "adminpanel";
         }
         model.addAttribute("updateSettingsResult", 2);
@@ -72,7 +74,7 @@ public class AdminController {
         platformSettingsUpdated.setInitialBalance(platformSettings.getInitialBalance());
         platformSettingsRepository.save(platformSettingsUpdated);
         model.addAttribute("user", new User());
-        logger.debug("@RequestMapping(value = \"/adminpanel\", method = RequestMethod.POST) called by user: " + userService.getLoggedUser());
+        logger.debug("User: " + userService.getLoggedUser());
         return "adminpanel";
     }
 

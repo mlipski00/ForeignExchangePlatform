@@ -37,7 +37,7 @@ public class AccountDetailsController {
 
     @RequestMapping(value = "/accountDetails", method = RequestMethod.GET)
     public String getAccountDetailsPage() {
-        logger.debug("@RequestMapping(value = \"/accountDetails\", method = RequestMethod.GET) called by user: " + userService.getLoggedUser());
+        logger.debug("User: " + userService.getLoggedUser());
         return "accountDetails";
     }
 }

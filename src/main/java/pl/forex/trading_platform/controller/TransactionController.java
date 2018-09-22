@@ -36,7 +36,7 @@ public class TransactionController {
     @RequestMapping("/opentransactions")
     public String openTransactions(Model model) {
         model.addAttribute("openTransactions", transactionRepository.findAllNonClosed(userService.getLoggedUser().getId()));
-        logger.debug("@RequestMapping(\"/opentransactions\") called by user: " + userService.getLoggedUser());
+        logger.debug("User: " + userService.getLoggedUser());
         return "openTransactions";
     }
 
@@ -44,7 +44,7 @@ public class TransactionController {
     public String closedTransactions(Model model) {
         model.addAttribute("closedTransactions", transactionRepository.findAllClosed(userService.getLoggedUser().getId()));
         model.addAttribute("allProfit", transactionService.getAllProfit());
-        logger.debug("@RequestMapping(\"/closedtransactions\") called by user: " + userService.getLoggedUser());
+        logger.debug("User: " + userService.getLoggedUser());
         return "closedTransactions";
     }
 }

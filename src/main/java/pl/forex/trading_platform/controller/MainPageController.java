@@ -55,7 +55,7 @@ public class MainPageController {
         List<Instrument> instruments = loadQuotations.loadAllInstruments();
         model.addAttribute("quotations", quotations.subList(Math.max(quotations.size() - instruments.size() * 3, 0), quotations.size()));
         model.addAttribute("instruments", instruments);
-        logger.debug("@RequestMapping({\"/index\"}) called by user: " + userService.getLoggedUser());
+        logger.debug("User: " + userService.getLoggedUser());
         return "index";
     }
 
@@ -72,7 +72,7 @@ public class MainPageController {
         model.addAttribute("loggedUserBalance", userService.getLoggedUser().getBalance());
         model.addAttribute("loggedUserBlockedAmount", userService.getLoggedUser().getBlockedAmount());
         model.addAttribute("isUserAdmin", userService.isLoggedUserAdmin());
-        logger.debug("@RequestMapping({\"\", \"/\", \"/websocket\"}) called by user: " + userService.getLoggedUser());
+        logger.debug("User: " + userService.getLoggedUser());
         return "websocket";
     }
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -80,13 +80,13 @@ public class MainPageController {
     public String closeTransaction(@PathVariable String id){
         Transaction transaction = transactionRepository.getOne(Long.valueOf(id));
         transactionService.closeTransaction(transaction);
-        logger.debug("@GetMapping(\"/transaction/{id}/close\") called by user: " + userService.getLoggedUser());
+        logger.debug("User: " + userService.getLoggedUser());
         return "redirect:/";
     }
 
     @GetMapping("/login")
     public String getLoginpage(){
-        logger.debug("@GetMapping(\"/login\") called by unlogged user");
+        logger.debug("User: unlogged");
         return "login";
     }
 

@@ -29,7 +29,7 @@ public class UsersRankingController {
 
     @RequestMapping(value = "/usersRanking", method = RequestMethod.GET)
     public String getAccountDetailsPage() {
-        logger.debug("@RequestMapping(value = \"/usersRanking\", method = RequestMethod.GET) called by user: " + userService.getLoggedUser());
+        logger.debug("User: " + userService.getLoggedUser());
         return "usersRanking";
     }
 }
