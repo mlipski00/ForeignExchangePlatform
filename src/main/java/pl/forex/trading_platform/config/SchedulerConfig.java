@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import pl.forex.trading_platform.domain.Instrument;
 import pl.forex.trading_platform.domain.Quotation;
 import pl.forex.trading_platform.domain.nbp.TableA;
+import pl.forex.trading_platform.messageBroker.MessageSenderRabbitMQ;
 import pl.forex.trading_platform.repository.NbpRatesRepository;
 import pl.forex.trading_platform.service.LoadQuotations;
 import pl.forex.trading_platform.service.NbpRates;
@@ -37,12 +38,20 @@ public class SchedulerConfig {
     @Autowired
     private NbpRatesRepository nbpRatesRepository;
 
+    @Autowired
+    private MessageSenderRabbitMQ messageSenderRabbitMQ;
+
     @Scheduled(fixedDelay = 3000)
     public void sendAdhocMessages() {
         List<Quotation> quotations = loadQuotations.loadAllQuotations();
         List<Instrument> instruments = loadQuotations.loadAllInstruments();
         System.out.println(loadQuotations.loadLastQuotations());
         simpMessagingTemplate.convertAndSend("/topic/user", loadQuotations.loadLastQuotations());
+        try {
+            messageSenderRabbitMQ.SendMessageToBroker();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     @Scheduled(fixedDelay = 1000*60*60*24)
