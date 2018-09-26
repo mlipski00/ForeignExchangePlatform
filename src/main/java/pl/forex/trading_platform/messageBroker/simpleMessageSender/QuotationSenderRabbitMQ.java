@@ -1,4 +1,4 @@
-package pl.forex.trading_platform.messageBroker;
+package pl.forex.trading_platform.messageBroker.simpleMessageSender;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 import pl.forex.trading_platform.service.LoadQuotations;
 
 @Component
-public class MessageSenderRabbitMQ {
+public class QuotationSenderRabbitMQ {
 
     @Autowired
     private LoadQuotations loadQuotations;
 
-    private final static String QUEUE_NAME = "hello";
+    private final static String QUEUE_NAME = "simple_queue";
 
     public void SendMessageToBroker() throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
@@ -26,7 +26,6 @@ public class MessageSenderRabbitMQ {
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
         String message = loadQuotations.loadLastQuotations().toString();
         channel.basicPublish("", QUEUE_NAME, null, message.getBytes("UTF-8"));
-
         channel.close();
         connection.close();
     }

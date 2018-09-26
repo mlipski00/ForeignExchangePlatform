@@ -7,16 +7,12 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import pl.forex.trading_platform.domain.Instrument;
-import pl.forex.trading_platform.domain.Quotation;
 import pl.forex.trading_platform.domain.nbp.TableA;
-import pl.forex.trading_platform.messageBroker.MessageSenderRabbitMQ;
+import pl.forex.trading_platform.messageBroker.RPC_client.RPCQuotationClient;
+import pl.forex.trading_platform.messageBroker.simpleMessageSender.QuotationSenderRabbitMQ;
 import pl.forex.trading_platform.repository.NbpRatesRepository;
 import pl.forex.trading_platform.service.LoadQuotations;
 import pl.forex.trading_platform.service.NbpRates;
-import pl.forex.trading_platform.service.TransactionService;
-
-import java.util.List;
 
 @EnableScheduling
 @Configuration
@@ -39,18 +35,17 @@ public class SchedulerConfig {
     private NbpRatesRepository nbpRatesRepository;
 
     @Autowired
-    private MessageSenderRabbitMQ messageSenderRabbitMQ;
+    private QuotationSenderRabbitMQ quotationSenderRabbitMQ;
 
     @Scheduled(fixedDelay = 3000)
     public void sendAdhocMessages() {
-        List<Quotation> quotations = loadQuotations.loadAllQuotations();
-        List<Instrument> instruments = loadQuotations.loadAllInstruments();
         System.out.println(loadQuotations.loadLastQuotations());
         simpMessagingTemplate.convertAndSend("/topic/user", loadQuotations.loadLastQuotations());
         try {
-            messageSenderRabbitMQ.SendMessageToBroker();
+            quotationSenderRabbitMQ.SendMessageToBroker();
+            RPCQuotationClient.run(loadQuotations.loadLastQuotations());
         } catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
     }
 
