@@ -1,21 +1,22 @@
 # ForeignExchangePlatform
-### Forex trading platform - project is online: http://77.55.219.195:8080/trading_platform-1.1.0/
+### Forex trading platform - project is online: http://mlipski.site:8080/trading_platform-1.1.0/
 
 The Forex Trading Platform project is result of broad investment banking knowledge and software engineering passion.
 
 Platform allows you to execute demonstration trades on fx currencies market and check your investment skills.
 
 Functionality:
-* Websocket price streaming
+* Websocket price streaming to client interface
 * Transactions excecution and pre trade validation
-* Transactions email confirmations
-* Open Transactions valuations
-* Sending messages between register users
+* Email confirmations after transaction excecution
+* Open transactions valuations
+* Sending internal messages between users
 * Security - logging and registering users 
 * Users ranking by overall transactions profit
 * Interbank currency prices provided by Oanda Forex Broker
-* Admin panel: platform parameterization and user update (balance) with message notification
+* Admin panel: platform parameterization and user update (balance) with users internal message notification
 * Logging users activity and price quotations into flat file
+* Sending quotations to external services via message broker
 
 Project is build with following technologies:
 * Spring boot
@@ -27,4 +28,6 @@ Project is build with following technologies:
 * Jquery
 * Thymeleaf
 * WebSockets
+* RabbitMQ
 * Oanda Forex Broker API library
+
