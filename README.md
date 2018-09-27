@@ -16,7 +16,9 @@ Functionality:
 * Interbank currency prices provided by Oanda Forex Broker
 * Admin panel: platform parameterization and user update (balance) with users internal message notification
 * Logging users activity and price quotations into flat file
-* Sending quotations to external services via message broker
+* Sending quotations to external services via message broker (message receivers are in separate GitHub repository: https://github.com/mlipski00/ForexProjectMessageBroker)
+
+Repository contains Docker image build file (with CentOS Linux distribution image layer) - "Dockerfile".
 
 Project is build with following technologies:
 * Spring boot
