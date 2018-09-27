@@ -1,6 +1,9 @@
 # ForeignExchangePlatform
 ### Forex trading platform - project is online: http://mlipski.site:8080/trading_platform-1.1.0/
 
+[![Build Status](https://travis-ci.com/mlipski00/ForeignExchangePlatform.svg?branch=Branch-without-message-broker)](https://travis-ci.com/mlipski00/ForeignExchangePlatform)
+
+
 The Forex Trading Platform project is result of broad investment banking knowledge and software engineering passion.
 
 Platform allows you to execute demonstration trades on fx currencies market and check your investment skills.
