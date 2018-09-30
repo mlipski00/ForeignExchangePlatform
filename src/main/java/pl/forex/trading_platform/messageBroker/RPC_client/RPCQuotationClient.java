@@ -1,4 +1,4 @@
-package pl.forex.trading_platform.messageBroker.RCP_client;
+package pl.forex.trading_platform.messageBroker.RPC_client;
 
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
@@ -15,13 +15,13 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeoutException;
 
 @Component
-public class RCPQuotationClient {
+public class RPCQuotationClient {
 
     private Connection connection;
     private Channel channel;
-    private String requestQueueName = "rcp_queue";
+    private String requestQueueName = "rpc_queue";
 
-    public RCPQuotationClient() throws IOException, TimeoutException {
+    public RPCQuotationClient() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
 
@@ -62,10 +62,10 @@ public class RCPQuotationClient {
     }
 
     public static void run(int quotetionsSize, String quotetionsBody) {
-        RCPQuotationClient qutationRpc = null;
+        RPCQuotationClient qutationRpc = null;
         String response = null;
         try {
-            qutationRpc = new RCPQuotationClient();
+            qutationRpc = new RPCQuotationClient();
 
                 System.out.println(" [x] Requesting sending (" + quotetionsSize + ") qoutations RPC message broker.");
                 response = qutationRpc.call(quotetionsBody);
