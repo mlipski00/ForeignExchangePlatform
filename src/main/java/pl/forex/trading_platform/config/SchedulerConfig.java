@@ -8,9 +8,10 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import pl.forex.trading_platform.domain.nbp.TableA;
-import pl.forex.trading_platform.messageBroker.RPC_client.RPCQuotationClient;
+import pl.forex.trading_platform.messageBroker.RCP_client.RCPQuotationClient;
 import pl.forex.trading_platform.messageBroker.simpleMessageSender.QuotationSenderRabbitMQ;
 import pl.forex.trading_platform.repository.NbpRatesRepository;
+import pl.forex.trading_platform.service.JsonConverter;
 import pl.forex.trading_platform.service.LoadQuotations;
 import pl.forex.trading_platform.service.NbpRates;
 
@@ -37,13 +38,17 @@ public class SchedulerConfig {
     @Autowired
     private QuotationSenderRabbitMQ quotationSenderRabbitMQ;
 
+    @Autowired
+    private JsonConverter jsonConverter;
+
     @Scheduled(fixedDelay = 3000)
     public void sendAdhocMessages() {
         System.out.println(loadQuotations.loadLastQuotations());
         simpMessagingTemplate.convertAndSend("/topic/user", loadQuotations.loadLastQuotations());
         try {
+            String jsonQoutes = jsonConverter.Quotation2JsonConverter(loadQuotations.loadLastQuotations());
             quotationSenderRabbitMQ.SendMessageToBroker();
-            RPCQuotationClient.run(loadQuotations.loadLastQuotations());
+            RCPQuotationClient.run(loadQuotations.loadLastQuotations().size(), jsonQoutes);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

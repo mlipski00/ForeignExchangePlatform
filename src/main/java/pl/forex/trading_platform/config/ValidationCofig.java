@@ -7,7 +7,7 @@ import pl.forex.trading_platform.service.UserService;
 import pl.forex.trading_platform.validator.UniqueEmailValidator;
 
 @Configuration
-public class ValidationCofiguration {
+public class ValidationCofig {
 
     @Autowired
     private UserService userService;

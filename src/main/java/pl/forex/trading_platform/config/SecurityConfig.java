@@ -21,7 +21,7 @@ import java.util.Arrays;
 @EnableWebSecurity
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
 @Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     @Autowired
     private CustomUserDetailsService userDetailsService;

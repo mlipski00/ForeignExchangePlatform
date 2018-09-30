@@ -1,4 +1,4 @@
-package pl.forex.trading_platform.messageBroker.RPC_client;
+package pl.forex.trading_platform.messageBroker.RCP_client;
 
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
@@ -7,23 +7,21 @@ import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Envelope;
 import org.springframework.stereotype.Component;
-import pl.forex.trading_platform.domain.Quotation;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeoutException;
 
 @Component
-public class RPCQuotationClient {
+public class RCPQuotationClient {
 
     private Connection connection;
     private Channel channel;
-    private String requestQueueName = "rpc_queue";
+    private String requestQueueName = "rcp_queue";
 
-    public RPCQuotationClient() throws IOException, TimeoutException {
+    public RCPQuotationClient() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
 
@@ -63,14 +61,14 @@ public class RPCQuotationClient {
         connection.close();
     }
 
-    public static void run(List<Quotation> quotation) {
-        RPCQuotationClient qutationRpc = null;
+    public static void run(int quotetionsSize, String quotetionsBody) {
+        RCPQuotationClient qutationRpc = null;
         String response = null;
         try {
-            qutationRpc = new RPCQuotationClient();
+            qutationRpc = new RCPQuotationClient();
 
-                System.out.println(" [x] Requesting sending (" + quotation.size() + ") qoutations RPC message broker.");
-                response = qutationRpc.call(quotation.toString());
+                System.out.println(" [x] Requesting sending (" + quotetionsSize + ") qoutations RPC message broker.");
+                response = qutationRpc.call(quotetionsBody);
                 System.out.println(" [.] Got response: '" + response + "'");
 
         } catch (IOException | TimeoutException | InterruptedException e) {
