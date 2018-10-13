@@ -1,5 +1,9 @@
-
+function getHostUrl() {
+    const HOST_URL = "http://localhost:8080"
+    return HOST_URL;
+}
 function buyTrade() {
+    const HOST_URL = getHostUrl();
     stopInterval();
     console.log('processing buy trade');
     var buyTrade = {};
@@ -10,7 +14,7 @@ function buyTrade() {
     buyTrade.amount = document.getElementById("buyAmount").value;
 
     $.ajax({
-        url: "http://localhost:8080/transaction/buy",
+        url: HOST_URL + "/transaction/buy",
         type: "POST",
         headers: {
             'Accept': 'application/json',
@@ -39,6 +43,7 @@ function buyTrade() {
 };
 
 function sellTrade() {
+    const HOST_URL = getHostUrl();
     stopInterval();
     console.log('processing sell trade');
     var sellTrade = {};
@@ -49,7 +54,7 @@ function sellTrade() {
     sellTrade.amount = document.getElementById("sellAmount").value;
 
     $.ajax({
-        url: "http://localhost:8080/transaction/sell",
+        url: HOST_URL + "/transaction/sell",
         type: "POST",
         headers: {
             'Accept': 'application/json',

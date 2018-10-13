@@ -1,6 +1,6 @@
 var timeToConfirmTransaction;
 var floatTimeToConfirmTransaction;
-var d = new Date();
+var date = new Date();
 var counter = 0;
 
 var buyModalArgument = []
@@ -9,6 +9,8 @@ var sellModalArgument = []
 var decisionTime;
 var minimumTradeAmount;
 var maximumTradeAmount;
+
+const HOST_URL = "http://localhost:8080"
 
 window.onload = function () {
     checkNewMessages();
@@ -104,7 +106,7 @@ function startModalTimer(instrument, price) {
 
 function myTimer() {
     floatTimeToConfirmTransaction = timeToConfirmTransaction - counter;
-    console.log(d.toLocaleTimeString());
+    console.log(date.toLocaleTimeString());
     var modalTimers = document.querySelectorAll(".modalTimer");
     modalTimers.forEach(function(element) {
         if (floatTimeToConfirmTransaction <= 0 ) {
@@ -189,7 +191,7 @@ function sellTradeWithValidation() {
 function fetch() {
 }
 $.ajax({
-    url: "http://localhost:8080/platformsettings/allsettings",
+    url: HOST_URL + "/platformsettings/allsettings",
     type: "GET"
 }).done(function(data) {
     decisionTime = data.decisionTime;
@@ -199,14 +201,14 @@ $.ajax({
 
 function checkNewMessages() {
     $.ajax({
-        url: "http://localhost:8080/checkNewMessages",
+        url: HOST_URL +"/checkNewMessages",
         type: "GET"
     }).done(function(data) {
         if (data.length > 0) {
             var messages = jQuery.parseJSON(JSON.stringify(data))
             $('#newMessageModal').modal('show');
             document.getElementById("messageModalSender").innerText = "From: " + messages[0].sender.username
-            document.getElementById("messageModalLinkToMessage").innerHTML = "<a href=http://localhost:8080/messages/Inbox/" + messages[0].id + " class='btn btn-primary'>Open Message</a>";
+            document.getElementById("messageModalLinkToMessage").innerHTML = "<a href=" + HOST_URL + "/messages/Inbox/" + messages[0].id + " class='btn btn-primary'>Open Message</a>";
         }
     })
 
