@@ -36,3 +36,7 @@ Project is build with following technologies:
 * RabbitMQ
 * Oanda Forex Broker API library
 
+Architecture diagram:
+
+<img src="./Architecture.svg">
+
