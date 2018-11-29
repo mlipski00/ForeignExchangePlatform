@@ -1,5 +1,5 @@
 # ForeignExchangePlatform
-### Forex trading platform - project is online: http://mlipski.site:8080/trading_platform-1.1.0/
+### Forex trading platform
 
 [![Build Status](https://travis-ci.com/mlipski00/ForeignExchangePlatform.svg?branch=Branch-without-message-broker)](https://travis-ci.com/mlipski00/ForeignExchangePlatform)
 
@@ -35,8 +35,4 @@ Project is build with following technologies:
 * WebSockets
 * RabbitMQ
 * Oanda Forex Broker API library
-
-Architecture diagram:
-
-<img src="./Architecture.svg">
 
