@@ -3,6 +3,7 @@ package pl.forex.trading_platform.DAO_legacy;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.forex.trading_platform.domain.Quotation;
@@ -10,9 +11,10 @@ import pl.forex.trading_platform.domain.Quotation;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
+@Component
 @Transactional
 @PropertySource("classpath:oandaApi.properties")
 public class QuotationDao {
@@ -34,15 +36,15 @@ public class QuotationDao {
     public void update(Quotation entity) {
         entityManager.merge(entity);
     }
-    public void delete(Quotation entity) { ;
-        entityManager.remove(entityManager.contains(entity) ?
-                entity : entityManager.merge(entity));
+
+    public void delete(Quotation entity) {
+        entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
     }
 
     public List<Quotation> loadLast() {
-        Query query = entityManager.createQuery("SELECT q FROM Quotation q ORDER BY q.id DESC");
+        TypedQuery<Quotation> query = entityManager.createQuery("SELECT q FROM Quotation q ORDER BY q.id DESC", Quotation.class);
         query.setMaxResults(instrumentsList.length);
-        return (List<Quotation>) query.getResultList();
+        return query.getResultList();
 
     }
 }

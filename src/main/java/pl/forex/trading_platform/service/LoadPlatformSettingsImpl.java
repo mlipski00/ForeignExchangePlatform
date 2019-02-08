@@ -24,6 +24,7 @@ public class LoadPlatformSettingsImpl implements LoadPlatformSettings {
 
     @Override
     public Long loadMinimumAmount()  {
+
         return platformSettingsRepository.getOne(1L).getMinimumTradeAmount();
     }
 

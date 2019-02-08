@@ -1,15 +1,15 @@
 package pl.forex.trading_platform.DAO_legacy;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.forex.trading_platform.domain.Instrument;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
+@Component
 @Transactional
 public class InstrumentDao {
 
@@ -25,14 +25,14 @@ public class InstrumentDao {
     }
 
     public Instrument findByDescription(String instrumentName) {
-        Query query = entityManager.createQuery("Select i From Instrument i");
-        List<Instrument> instrumentList = (List<Instrument>) query.getResultList();
+        TypedQuery<Instrument> query = entityManager.createQuery("Select i From Instrument i", Instrument.class);
+        List<Instrument> instrumentList = query.getResultList();
         for (Instrument instrument : instrumentList) {
             if (instrument.getDescription().equals(instrumentName)) {
                 return instrument;
             }
         }
-         return null;
+        return null;
     }
 
     public void update(Instrument entity) {
@@ -40,9 +40,7 @@ public class InstrumentDao {
     }
 
     public void delete(Instrument entity) {
-        ;
-        entityManager.remove(entityManager.contains(entity) ?
-                entity : entityManager.merge(entity));
+        entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
 
     }
 }

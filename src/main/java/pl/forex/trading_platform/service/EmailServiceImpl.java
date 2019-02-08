@@ -60,8 +60,6 @@ public class EmailServiceImpl implements EmailService {
             emailSender.send(message);
         } catch (MessagingException exception) {
             exception.printStackTrace();
-        } catch (MailException exception) {
-            exception.printStackTrace();
         }
     }
 }

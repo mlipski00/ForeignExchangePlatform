@@ -19,7 +19,6 @@ import java.util.Arrays;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
-@EnableJpaRepositories(basePackageClasses = UserRepository.class)
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 

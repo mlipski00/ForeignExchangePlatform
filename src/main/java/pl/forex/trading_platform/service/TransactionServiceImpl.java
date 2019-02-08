@@ -70,11 +70,11 @@ public class TransactionServiceImpl implements TransactionService {
     }
     @Override
     public long countOpenTrades() {
-        return transactionRepository.findAllNonClosed(userService.getLoggedUser().getId()).stream().count();
+        return (long) transactionRepository.findAllNonClosed(userService.getLoggedUser().getId()).size();
     }
     @Override
     public long countClosedTrades() {
-        return transactionRepository.findAllClosed(userService.getLoggedUser().getId()).stream().count();
+        return (long) transactionRepository.findAllClosed(userService.getLoggedUser().getId()).size();
     }
     @Override
     public long countProfitableTrades() {

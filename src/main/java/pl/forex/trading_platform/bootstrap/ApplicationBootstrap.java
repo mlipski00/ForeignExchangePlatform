@@ -10,15 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import pl.forex.trading_platform.service.GetQoutes;
-import pl.forex.trading_platform.service.GetQuotesOandaImpl;
 import pl.forex.trading_platform.service.LoggerService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -70,7 +69,7 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
 
             for (int i = 0; i < clientPrices.size(); i++) {
                 GetQoutes getQoutesInstance = getQoutes.getObject();
-                getQoutesInstance.setSettingsForQuotes(context, clientPrices, accountID, Arrays.asList(instruments.get(i)));
+                getQoutesInstance.setSettingsForQuotes(context, clientPrices, accountID, Collections.singletonList(instruments.get(i)));
                 scheduledExecutorService.scheduleWithFixedDelay(getQoutesInstance, 0, qoutesInterval, TimeUnit.MILLISECONDS);
             }
 
