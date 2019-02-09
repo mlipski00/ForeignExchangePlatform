@@ -26,9 +26,6 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     public JavaMailSender emailSender;
 
-    @Autowired
-    private LoggerService loggerService;
-
     @Override
     public void sendEmail(String to, String subject, String text) {
         try {
@@ -48,15 +45,11 @@ public class EmailServiceImpl implements EmailService {
         MimeMessage message = emailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
             helper.setTo("forexplatformproject@gmail.com");
             helper.setSubject(logFileName);
             helper.setText("");
-
-            FileSystemResource file
-                    = new FileSystemResource(logFileName);
+            FileSystemResource file = new FileSystemResource(logFileName);
             helper.addAttachment(logFileName, file);
-
             emailSender.send(message);
         } catch (MessagingException exception) {
             exception.printStackTrace();

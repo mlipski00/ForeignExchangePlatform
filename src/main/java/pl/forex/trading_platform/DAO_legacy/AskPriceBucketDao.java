@@ -1,6 +1,5 @@
 package pl.forex.trading_platform.DAO_legacy;
 
-
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.forex.trading_platform.domain.AskPriceBucket;

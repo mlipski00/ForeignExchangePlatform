@@ -4,14 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.forex.trading_platform.domain.settings.PlatformSettings;
 import pl.forex.trading_platform.repository.PlatformSettingsRepository;
 
 @Service
 @Getter
 @Setter
-@Transactional
 public class LoadPlatformSettingsImpl implements LoadPlatformSettings {
 
     @Autowired
@@ -24,7 +22,6 @@ public class LoadPlatformSettingsImpl implements LoadPlatformSettings {
 
     @Override
     public Long loadMinimumAmount()  {
-
         return platformSettingsRepository.getOne(1L).getMinimumTradeAmount();
     }
 

@@ -3,7 +3,6 @@ package pl.forex.trading_platform.domain.settings;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -48,12 +47,12 @@ public class PlatformSettings {
             return this;
         }
 
-        public PlatformSettingsBuilder setMinimumTradeAumount(final Long minimumTradeAmount) {
+        public PlatformSettingsBuilder setMinimumTradeAmount(final Long minimumTradeAmount) {
             this.minimumTradeAmount = minimumTradeAmount;
             return this;
         }
 
-        public PlatformSettingsBuilder setMaximumTradeAumount(final Long maximumTradeAmount) {
+        public PlatformSettingsBuilder setMaximumTradeAmount(final Long maximumTradeAmount) {
             this.maximumTradeAmount = maximumTradeAmount;
             return this;
         }

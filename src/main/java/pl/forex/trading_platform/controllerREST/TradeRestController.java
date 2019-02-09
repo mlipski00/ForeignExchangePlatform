@@ -33,21 +33,20 @@ public class TradeRestController {
     @RequestMapping(value = "/buy", method = RequestMethod.POST, produces="application/json", consumes="application/json")
     @ResponseBody
     public Transaction buyTrade(@RequestBody Transaction transaction){
-        User loggedUser = userService.getLoggedUser();
-        logger.debug("User: " + loggedUser);
-        logger.debug(transaction.toString());
-        transaction.setBuySell(BuySell.BUY);
-        emailService.sendEmail(loggedUser.getEmail(), emailConfirmationSubject, transaction.toString());
-        return transactionService.processTtransaction(transaction, loggedUser);
+        return processTransactionRequest(transaction, BuySell.BUY);
     }
 
     @RequestMapping(value = "/sell", method = RequestMethod.POST, produces="application/json", consumes="application/json")
     @ResponseBody
     public Transaction sellTrade(@RequestBody Transaction transaction){
+        return processTransactionRequest(transaction, BuySell.SELL);
+    }
+
+    private Transaction processTransactionRequest(@RequestBody Transaction transaction, BuySell buySell) {
         User loggedUser = userService.getLoggedUser();
         logger.debug("User: " + loggedUser);
         logger.debug(transaction.toString());
-        transaction.setBuySell(BuySell.SELL);
+        transaction.setBuySell(buySell);
         emailService.sendEmail(loggedUser.getEmail(), emailConfirmationSubject, transaction.toString());
         return transactionService.processTtransaction(transaction, loggedUser);
     }

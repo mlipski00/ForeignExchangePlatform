@@ -20,21 +20,17 @@ public class LoggerServiceImpl implements LoggerService {
 
     private final Logger logger = Logger.getLogger(LoggerServiceImpl.class
             .getName());
-    private FileHandler fh = null;
 
     @Override
     public void initNewLogFile() {
         try {
             SimpleDateFormat format = new SimpleDateFormat("M-d_HHmmss");
-            currentLogFileName = "MyLogFile_"
-                    + format.format(Calendar.getInstance().getTime()) + ".log";
-            fh = new FileHandler(currentLogFileName);
+            currentLogFileName = "MyLogFile_" + format.format(Calendar.getInstance().getTime()) + ".log";
+            FileHandler fh = new FileHandler(currentLogFileName);
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (SecurityException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -47,5 +43,5 @@ public class LoggerServiceImpl implements LoggerService {
     @Override
     public void logToFile(String message) {
         logger.info(message);
-}
+    }
 }

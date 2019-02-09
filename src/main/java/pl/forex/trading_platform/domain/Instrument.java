@@ -2,9 +2,10 @@ package pl.forex.trading_platform.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Data
 @EqualsAndHashCode(exclude = {"quotation"})

@@ -6,8 +6,7 @@ import lombok.Getter;
 public enum ExecutionFailReason {
 
     NOT_ENOUGH_BALANCE("Balance not enough"),
-    STATUS_OK("0")
-    ;
+    STATUS_OK("0");
 
     private final String reason;
 

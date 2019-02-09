@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
-
     @Autowired
     private AuthenticationFacade authenticationFacade;
 
@@ -30,12 +29,7 @@ public class UserServiceImpl implements UserService {
         Authentication authentication = authenticationFacade.getAuthentication();
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         Optional<User> userOptional = userRepository.findById(customUserDetails.getId());
-        if(userOptional.isPresent()) {
-            return userOptional.get();
-        } else {
-            logger.error("getLoggedUser() method failed");
-           return new User();
-        }
+        return userOptional.orElseGet(User::new);
     }
 
     @Override
@@ -56,6 +50,7 @@ public class UserServiceImpl implements UserService {
         }
         return true;
     }
+
     @Override
     public List<User> userRankingList() {
         return userRepository.findAll().stream().sorted(Comparator.comparing(User::getBalance).reversed()).collect(Collectors.toList());
@@ -63,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll().stream().collect(Collectors.toList());
+        return userRepository.findAll();
     }
 
     @Override

@@ -81,8 +81,8 @@ public class InitialDataBootstrap implements ApplicationListener<ContextRefreshe
         platformSettingsRepository.save(
                 PlatformSettings.builder()
                 .setDecisionTime(decisionTime)
-                .setMinimumTradeAumount(minimumAmount)
-                .setMaximumTradeAumount(maximumAmount)
+                .setMinimumTradeAmount(minimumAmount)
+                .setMaximumTradeAmount(maximumAmount)
                 .setInitialBalance(initialBalance)
                 .build()
         );
