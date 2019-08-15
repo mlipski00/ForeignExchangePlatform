@@ -3,7 +3,6 @@ package pl.forex.trading_platform.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.OneToOne;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
