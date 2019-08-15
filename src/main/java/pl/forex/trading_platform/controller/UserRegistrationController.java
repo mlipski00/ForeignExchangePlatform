@@ -25,11 +25,14 @@ import java.util.Set;
 @Log4j2
 public class UserRegistrationController {
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private LoadPlatformSettings loadPlatformSettings;
+
+    public UserRegistrationController(UserRepository userRepository, LoadPlatformSettings loadPlatformSettings) {
+        this.userRepository = userRepository;
+        this.loadPlatformSettings = loadPlatformSettings;
+    }
 
     @GetMapping("/registration")
     public String getRegistrationPage(Model model) {
@@ -41,7 +44,7 @@ public class UserRegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registrationProcess(@Validated({ValidationGroupUniqueEmail.class, Default.class}) User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            System.out.println("registration errors: " + result.getAllErrors().toString());
+            log.error("registration errors: " + result.getAllErrors().toString());
             log.error("error result: " + result.getAllErrors().toString() + " called by unlogged user");
             return "registration";
         }
