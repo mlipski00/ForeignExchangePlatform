@@ -31,7 +31,7 @@
 
     </properties>
 
-    <dependencies>
+      <dependencies>
         <!-- marked the embedded servlet container as provided -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -91,18 +91,6 @@
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-envers</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        
         <!-- Oanda -->
         <dependency>
             <groupId>com.oanda.v20</groupId>
@@ -208,16 +196,16 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/log4j/apache-log4j-extras -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.12.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.12.1</version>
-        </dependency>
+          <dependency>
+              <groupId>org.apache.logging.log4j</groupId>
+              <artifactId>log4j-api</artifactId>
+              <version>2.12.1</version>
+          </dependency>
+          <dependency>
+              <groupId>org.apache.logging.log4j</groupId>
+              <artifactId>log4j-core</artifactId>
+              <version>2.12.1</version>
+          </dependency>
         <!-- email library for error logs sending -->
         <dependency>
             <groupId>javax.mail</groupId>
@@ -235,8 +223,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
-
     </dependencies>
 
     <build>
@@ -286,23 +272,23 @@
                     </images>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.gmavenplus</groupId>
-                <artifactId>gmavenplus-plugin</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <scripts>
-                        <script>file:///${project.basedir}/src/main/scripts/BuildDockerfile.groovy</script>
-                    </scripts>
-                </configuration>
+                <plugin>
+                    <groupId>org.codehaus.gmavenplus</groupId>
+                    <artifactId>gmavenplus-plugin</artifactId>
+                    <version>1.5</version>
+                    <executions>
+                        <execution>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>execute</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <scripts>
+                            <script>file:///${project.basedir}/src/main/scripts/BuildDockerfile.groovy</script>
+                        </scripts>
+                    </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>org.codehaus.groovy</groupId>
