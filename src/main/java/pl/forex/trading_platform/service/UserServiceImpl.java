@@ -1,5 +1,6 @@
 package pl.forex.trading_platform.service;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Log4j2
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -45,7 +47,7 @@ public class UserServiceImpl implements UserService {
                 }
             }
         } catch (Exception e) {
-            System.out.println("validUserEmailException: " + e.getMessage());
+            log.info("validUserEmailException: " + e.getMessage());
 
         }
         return true;

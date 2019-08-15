@@ -3,6 +3,7 @@ package pl.forex.trading_platform.service;
 import com.oanda.v20.pricing.ClientPrice;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ import java.util.Optional;
 @Getter
 @Setter
 @Transactional
+@Log4j2
 public class SaveQuotationImpl implements SaveQuotation {
 
     @Autowired
@@ -59,7 +61,7 @@ public class SaveQuotationImpl implements SaveQuotation {
             askPriceBucketDao.save(askPriceBucket);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 }

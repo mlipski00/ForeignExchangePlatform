@@ -1,5 +1,6 @@
 package pl.forex.trading_platform.config;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -20,6 +21,7 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 @Configuration
+@Log4j2
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     @Autowired
@@ -62,7 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
                 try {
                     result = BCrypt.checkpw(charSequence .toString(), s);
                 } catch (Exception e) {
-                    System.out.println("getPasswordEncoder: " + e.getMessage() + "/n" + Arrays.deepToString(e.getStackTrace()));
+                    log.info("getPasswordEncoder: " + e.getMessage() + "/n" + Arrays.deepToString(e.getStackTrace()));
                     return false;
                 }
                 return result;

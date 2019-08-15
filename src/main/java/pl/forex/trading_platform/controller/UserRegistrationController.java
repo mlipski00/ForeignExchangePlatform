@@ -1,5 +1,6 @@
 package pl.forex.trading_platform.controller;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -21,6 +22,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Controller
+@Log4j2
 public class UserRegistrationController {
 
     @Autowired
@@ -29,12 +31,10 @@ public class UserRegistrationController {
     @Autowired
     private LoadPlatformSettings loadPlatformSettings;
 
-    final static Logger logger = Logger.getLogger(UserRegistrationController.class);
-
     @GetMapping("/registration")
     public String getRegistrationPage(Model model) {
         model.addAttribute("user", new User());
-        logger.debug("User: unlogged user");
+        log.info("User: unlogged user");
         return "registration";
     }
 
@@ -42,7 +42,7 @@ public class UserRegistrationController {
     public String registrationProcess(@Validated({ValidationGroupUniqueEmail.class, Default.class}) User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             System.out.println("registration errors: " + result.getAllErrors().toString());
-            logger.error("error result: " + result.getAllErrors().toString() + " called by unlogged user");
+            log.error("error result: " + result.getAllErrors().toString() + " called by unlogged user");
             return "registration";
         }
         Set<Role> roles = new HashSet<>();
@@ -55,7 +55,7 @@ public class UserRegistrationController {
         user.setActive(true);
         userRepository.save(user);
         model.addAttribute("registrationResult", 1);
-        logger.debug("User: unlogged user");
+        log.info("User: unlogged user");
         return "/login";
     }
 }

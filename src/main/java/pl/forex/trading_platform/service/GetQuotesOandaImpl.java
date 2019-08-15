@@ -6,6 +6,7 @@ import com.oanda.v20.pricing.ClientPrice;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -21,6 +22,7 @@ import java.util.List;
 @Setter
 @Getter
 @Scope("prototype")
+@Log4j2
 public class GetQuotesOandaImpl implements GetQoutes {
 
     @Autowired
@@ -54,18 +56,18 @@ public class GetQuotesOandaImpl implements GetQoutes {
     public void run() {
         try {
             clientPrices = context.pricing.get(accountID, instruments).getPrices();
-            System.out.println(clientPrices);
-            System.out.println(clientPrices.get(0).getInstrument());
-            System.out.println("Real fetch time: " + sdf.format(Calendar.getInstance().getTime()));
-            System.out.println(clientPrices.size() + "|current iteration " + instruments.get(0));
-            System.out.println("Active threads: " + Thread.activeCount());
+            log.info(clientPrices);
+            log.info(clientPrices.get(0).getInstrument());
+            log.info("Real fetch time: " + sdf.format(Calendar.getInstance().getTime()));
+            log.info(clientPrices.size() + "|current iteration " + instruments.get(0));
+            log.info("Active threads: " + Thread.activeCount());
 //            following logging is disabled because of memory limits on my VPS
 //            logger.debug("Active threads: " + Thread.activeCount());
 //            logger.debug("Real fetch time: " + sdf.format(Calendar.getInstance().getTime()));
 //            logger.debug(clientPrices);
             saveQuotation.saveQuotation(clientPrices.get(0));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 

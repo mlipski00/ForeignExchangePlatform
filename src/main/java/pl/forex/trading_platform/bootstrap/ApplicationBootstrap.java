@@ -4,6 +4,7 @@ import com.oanda.v20.Context;
 import com.oanda.v20.account.AccountID;
 import com.oanda.v20.pricing.ClientPrice;
 import com.oanda.v20.primitives.AcceptDatetimeFormat;
+import lombok.extern.log4j.Log4j2;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 @PropertySource("classpath:oandaApi.properties")
+@Log4j2
 public class ApplicationBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     @Value("${oanda.accountIDValue}")
@@ -74,7 +76,7 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
             }
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 }
